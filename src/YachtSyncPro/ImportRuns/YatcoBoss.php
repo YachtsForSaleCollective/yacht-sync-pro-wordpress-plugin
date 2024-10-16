@@ -251,6 +251,12 @@
 	                    $theBoat['BoatHullID'] = $data['HullDeck']['HullID'];
 
 					}
+
+					if (isset($theBoat['YSP_LOAFeet'])) {
+						$theBoat['YSP_Length'] = floatval($theBoat['YSP_LOAFeet']);
+						$theBoat['YSP_Length_Feet_Measurement'] = intval($theBoat['YSP_LOAFeet']);
+						$theBoat['YSP_Length_Inch_Measurement'] = round(($theBoat['YSP_Length'] - $theBoat['YSP_Length_Feet_Measurement']) * 12);
+					}
 					
 					if (
 						( 

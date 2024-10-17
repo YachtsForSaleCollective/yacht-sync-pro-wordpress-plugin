@@ -514,7 +514,6 @@
 	   				return ['error' => 'post does not exists.'];
 	   			}
 
-	   			
 	   			header('Content-Type: text/html; charset=UTF-8');
 
 	   			$file_to_include=YSP_TEMPLATES_DIR.'/pdf-loader.php';
@@ -533,6 +532,7 @@
 			if ($request->get_param('yacht_post_id') != '') {
 	
 				$yacht_post_id = $request->get_param('yacht_post_id');
+				$template_name = $request->get_param('template');
 
 				$post_exists = get_post($request->get_param('yacht_post_id'));
 
@@ -547,8 +547,12 @@
 
 				$file_to_include=YSP_TEMPLATES_DIR.'/pdf.php';
 
-		    	include apply_filters('ysp_ys_yacht_pdf_template', $file_to_include);
-		    	
+		    	$file_to_include=apply_filters('ysp_ys_yacht_pdf_template', $file_to_include);
+
+		    	$file_to_include=apply_filters('ysp_ys_yacht_pdf_template_name', $file_to_include, $template_name);
+
+		    	include $file_to_include;
+
 			}
 			else {
 				return ['success' => 'No YACHT ID'];
@@ -720,7 +724,14 @@
 
 					exit();*/
 
-					$render_url = urlencode(get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id') ."&GalleryLimit=". $_GET['GalleryLimit']);
+					$render_url_parameters=[
+						'yacht_post_id' =>  $request->get_param('yacht_post_id'),
+						'template' =>  $request->get_param('template'),
+						'GalleryLimit' =>  $request->get_param('GalleryLimit'),
+
+					];
+
+					$render_url = urlencode(get_rest_url() ."ysp/yacht-pdf?".http_build_query($render_url_parameters));
 
 					$pdfbox = "https://api.urlbox.io/v1/$urlbox_public_key/pdf?url=".$render_url;
 
@@ -743,7 +754,12 @@
 
 					exit();*/
 
-					$render_url = urlencode( get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id') );
+					$render_url_parameters=[
+						'yacht_post_id' =>  $request->get_param('yacht_post_id'),
+						'template' =>  $request->get_param('template')
+					];
+
+					$render_url = urlencode(get_rest_url() ."ysp/yacht-pdf?".http_build_query($render_url_parameters));
 
 					$apiCall = wp_remote_get(
 						"https://api.urlbox.io/v1/$urlbox_public_key/pdf?url=". $render_url, 

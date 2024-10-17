@@ -3,6 +3,15 @@
 		$YSP_logo = $YSP_Options->get('company_logo');
 		$YSP_Comapny_logo = $YSP_Options->get('company_logo');
 		$company_logo_url = wp_get_attachment_image_url($YSP_Comapny_logo, 'small');
+
+	$pdf_url_parameters=[
+		'yacht_post_id' =>  $request->get_param('yacht_post_id'),
+		'template' =>  $request->get_param('template'),
+		//'GalleryLimit' =>  $request->get_param('GalleryLimit')
+	];
+
+	$pdf_check_url=get_rest_url().'ysp/checker-yacht-pdf?'.http_build_query($pdf_url_parameters);
+	$pdf_download_url=get_rest_url().'ysp/yacht-pdf-download?'.http_build_query($pdf_url_parameters);
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -37,7 +46,7 @@
 		        };					            
 
 		        //xhttp.open("GET", "https://api.urlbox.io/v1/0FbOuhgmL1s2bINM/pdf?url=<?= get_rest_url() ?>ysp/yacht-pdf?yacht_post_id=<?php echo $request->get_param('yacht_post_id'); ?>", true);
-		        xhttp.open("GET", "<?= get_rest_url() ?>ysp/checker-yacht-pdf?yacht_post_id=<?php echo $request->get_param('yacht_post_id'); ?>", true);
+		        xhttp.open("GET", "<?= $pdf_check_url ?>", true);
 
 		        xhttp.setRequestHeader('Content-Type', 'application/pdf');
 
@@ -46,9 +55,9 @@
 		    }).then(function( rData) {
 
 		    	setTimeout(function() {
-		    		window.location.href="<?= get_rest_url() ?>ysp/yacht-pdf-download?yacht_post_id=<?php echo $request->get_param('yacht_post_id'); ?>";
+		    		window.location.href="<?= $pdf_download_url ?>";
 
-		    	}, 1500);
+		    	}, 1000);
 
 
 		  	});

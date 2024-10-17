@@ -132,6 +132,14 @@ get_header();
                         </button>
                     </a>
 
+                    <a rel="nofollow" href="<?php echo get_rest_url(); ?>ysp/yacht-pdf-loader?template=salesproposal24&yacht_post_id=<?php echo get_the_ID(); ?>" target="_blank">
+                        <button class="yacht-download-button">
+                            <img src="<?php echo YSP_ASSETS; ?>images/download.png" alt="download-icon" />
+                            Download Sells Proposal Brochure
+                        </button>
+                    </a>
+
+
                     <?php 
                         if(isset($vessel->Videos)) {
                             $videoUrls = $vessel->Videos->url;

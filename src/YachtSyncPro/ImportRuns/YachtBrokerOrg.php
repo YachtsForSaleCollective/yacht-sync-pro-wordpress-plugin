@@ -40,7 +40,7 @@
 	            'timeout' => 120
 	        ];
 
-	        $apiUrlOne  = 'https://api.yachtbroker.org/listings?key='.$this->yachtBrokerAPIKey.'&id='. $this->yachtClientId .'&gallery=true&engines=true&generators=true&textblocks=true&media=true&limit='.$this->yachtBrokerLimit;
+	        $apiUrlOne  = 'https://api.yachtbroker.org/vessel?key='.$this->yachtBrokerAPIKey.'&id='. $this->yachtClientId .'&gallery=true&engines=true&generators=true&textblocks=true&media=true&limit='.$this->yachtBrokerLimit;
 
 	        $apiCall = wp_remote_get($apiUrlOne, $headers);
 
@@ -69,7 +69,7 @@
 
 	        	var_dump( sprintf("%.2f%%", intval((($yachtSynced / $total)*100)))." Completed" );
 
-	        	$apiUrl  = 'https://api.yachtbroker.org/listings?key='.$this->yachtBrokerAPIKey.'&id='. $this->yachtClientId .'&gallery=true&engines=true&generators=true&textblocks=true&media=true&limit='.$this->yachtBrokerLimit;
+	        	$apiUrl  = 'https://api.yachtbroker.org/vessel?key='.$this->yachtBrokerAPIKey.'&id='. $this->yachtClientId .'&gallery=true&engines=true&generators=true&textblocks=true&media=true&limit='.$this->yachtBrokerLimit;
 
 	        	$apiUrl .='&page='.$page;
 

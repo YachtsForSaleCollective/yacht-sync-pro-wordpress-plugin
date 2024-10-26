@@ -8,10 +8,10 @@
 }
 
 .open-mobile-search{
-	display: block;
+	display: block important;
 
 	@media (min-width: $breakpoint-med) {
-		display: none;
+		display: none !important;
 	}
 }
 

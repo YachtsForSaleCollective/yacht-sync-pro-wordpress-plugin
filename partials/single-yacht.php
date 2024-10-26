@@ -200,7 +200,7 @@ get_header();
 
                     $brokerQuery = new WP_Query($brokerQueryArgs);
 
-                    if ($brokerQuery->have_posts()) {
+                    if ($brokerQuery->have_posts() && ! empty($vessel->SalesRep->Name)) {
 
                     }
                     else {
@@ -209,7 +209,8 @@ get_header();
                             'meta_query' => array(
                                 array(
                                     'key' => 'ysp_main_broker',
-                                    'value' => '1',
+                                    'type' => 'NUMERIC',
+                                    'value' => 1
                                 ),
                             ),
                             'posts_per_page' => 1,
@@ -218,7 +219,6 @@ get_header();
                         $brokerQuery = new WP_Query($mainBrokerQueryArgs);
                     }
                     
-
                     if ($brokerQuery->have_posts()) {
                         while ($brokerQuery->have_posts()) {
                             $brokerQuery->the_post();

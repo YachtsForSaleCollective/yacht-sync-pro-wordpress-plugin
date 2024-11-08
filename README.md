@@ -74,6 +74,7 @@ We merge the data via hull IDs
 ## Credits
 
 - **Developers**: [Joshua Hoffman](https://joshuahoffman.me), [Brandon Creed](https://github.com/brcre001), and Hauk Atkinson.
+- **Design**: [Polina Shishkina](https://www.linkedin.com/in/polinagraphic/)
 - **Thanks** to [Olivier Solon](https://www.linkedin.com/in/olivier-solon/) for project wrangling.
 - **Special thanks** to Neil for sponsoring the initial build.
 

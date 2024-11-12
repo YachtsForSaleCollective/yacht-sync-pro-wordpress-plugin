@@ -64,11 +64,11 @@
 <div id="yacht-metabox-basics">
 	<div class="metafield">
 		<label>Beam Measure (ft)</label>
-		<input type="number" name="YSP_BeamFeet" step="0.1" value="<?= $yacht_ysp_beam_feet ?>" >
+		<input type="number" name="YSP_BeamFeet" step="0.01" value="<?= $yacht_ysp_beam_feet ?>" >
 	</div>
 	<div class="metafield">
 		<label>Beam Measure (m)</label>
-		<input type="number" name="YSP_BeamMeter" step="0.1" value="<?= $yacht_ysp_beam_meter ?>">
+		<input type="number" name="YSP_BeamMeter" step="0.01" value="<?= $yacht_ysp_beam_meter ?>">
 	</div>
 	<div class="metafield">
 		<label>Beam Feet Measurement</label>
@@ -96,7 +96,7 @@
 	</div>
 	<div class="metafield">
 		<label>Country Weight</label>
-		<input type="number" name="COUNTRY_WEIGHT" value="<?= $yacht_ysp_country_weight ?>">
+		<input type="number" step="1" name="COUNTRY_WEIGHT" value="<?= $yacht_ysp_country_weight ?>">
 	</div>
 	<div class="metafield">
 		<label>Engine Count</label>
@@ -108,7 +108,7 @@
 	</div>
 	<div class="metafield">
 		<label>Engine Hours</label>
-		<input type="number" name="YSP_EngineHours" value="<?= $yacht_ysp_engine_hours ?>">
+		<input type="number" step="1" name="YSP_EngineHours" value="<?= $yacht_ysp_engine_hours ?>">
 	</div>
 	<div class="metafield">
 		<label>Engine Model</label>
@@ -124,19 +124,19 @@
 	</div>
 	<div class="metafield">
 		<label>YSP USD Value</label>
-		<input type="number" name="YSP_USDVal" value="<?= $yacht_ysp_usd_val ?>">
+		<input type="number" step="0.01" name="YSP_USDVal" value="<?= $yacht_ysp_usd_val ?>">
 	</div>
 	<div class="metafield">
 		<label>Price (USD)</label>
-		<input type="number" name="NormPrice" value="<?= $yacht_norm_price ?>">
+		<input type="number" step="0.01" name="NormPrice" value="<?= $yacht_norm_price ?>">
 	</div>
 	<div class="metafield">
 		<label>Price (EUR)</label>
-		<input type="number" name="YSP_EuroVal" value="<?= $yacht_ysp_euro_val ?>">
+		<input type="number" step="0.01" name="YSP_EuroVal" value="<?= $yacht_ysp_euro_val ?>">
 	</div>
 	<div class="metafield">
 		<label>Price (AUD)</label>
-		<input type="number" name="YSP_AUDVal" value="<?= $yacht_ysp_aud_val ?>">
+		<input type="number" step="0.01" name="YSP_AUDVal" value="<?= $yacht_ysp_aud_val ?>">
 	</div>
 	<div class="metafield">
 		<label>Length</label>
@@ -148,11 +148,11 @@
 	</div>
 	<div class="metafield">
 		<label>Overall Length (ft)</label>
-		<input type="number" name="YSP_LOAFeet" step="0.1" value="<?= $yacht_ysp_loa_feet ?>">
+		<input type="number" name="YSP_LOAFeet" step="0.01" value="<?= $yacht_ysp_loa_feet ?>">
 	</div>
 	<div class="metafield">
 		<label>Overall Length (m)</label>
-		<input type="number" name="YSP_LOAMeter" step="0.1" value="<?= $yacht_ysp_loa_meter ?>">
+		<input type="number" name="YSP_LOAMeter" step="0.01" value="<?= $yacht_ysp_loa_meter ?>">
 	</div>
 	<div class="metafield">
 		<label>Length Feet Measurement</label>
@@ -184,16 +184,16 @@
 	</div>
 	<div class="metafield">
 		<label>Year</label>
-		<input type="number" name="ModelYear" min="1900" max="<?= (string) date("Y") + 1 ?>" value="<?= $yacht_model_year ?>">
+		<input type="number" name="ModelYear" step="1" min="1900" max="<?= (string) date("Y") + 1 ?>" value="<?= $yacht_model_year ?>">
 	</div>
 	<div class="metafield">
 		<label>Make Weight</label>
-		<input type="number" name="MakeWeight" value="<?= $yacht_ysp_make_weight ?>">
+		<input type="number" name="MakeWeight" step="1" value="<?= $yacht_ysp_make_weight ?>">
 	</div>
 
 	<div class="metafield">
 		<label>Company Weight</label>
-		<input type="number" name="CompanyWeight" value="<?= $yacht_ysp_company_weight ?>">
+		<input type="number" name="CompanyWeight" step="1" value="<?= $yacht_ysp_company_weight ?>">
 	</div>
 	<div class="metafield">
 		<label>Sales Status</label>
@@ -212,7 +212,7 @@
 	</div>
 	<div class="metafield">
 		<label>Sales Code Weight</label>
-		<input type="number" name="SalesStatusWeight" value="<?= $yacht_ysp_sales_status_weight ?>">
+		<input type="number" name="SalesStatusWeight" step="1" value="<?= $yacht_ysp_sales_status_weight ?>">
 	</div>
 	<div class="metafield">
 		<label>Yacht Category</label>
@@ -255,7 +255,7 @@
 	</div>
 	<div class="metafield">
 		<label>Heads Count</label>
-		<input type="number" name="HeadsCountNumeric" value="<?= $yacht_heads_count_numeric ?>">
+		<input type="number" name="HeadsCountNumeric" step="1" value="<?= $yacht_heads_count_numeric ?>">
 	</div>
 	<div class="metafield">
 		<label>Fuel Tank Capacity</label>
@@ -295,7 +295,7 @@
 	</div>
 	<div class="metafield">
 		<label>Total Engine Hours</label>
-		<input type="number" name="TotalEngineHoursNumberic" value="<?= $yacht_total_engine_hours_numeric ?>">
+		<input type="number" name="TotalEngineHoursNumberic" step="1" value="<?= $yacht_total_engine_hours_numeric ?>">
 	</div>
 	<div class="metafield">
 		<label>Total Engine Power Quantity</label>

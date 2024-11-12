@@ -81,7 +81,13 @@
 				    'TotalEnginePowerQuantity',
 				    'CompanyWeight',
 				    'MakeWeight',
-					'SalesStatusWeight'
+					'SalesStatusWeight',
+					'YSP_Length_Feet_Measurement',
+					'YSP_Length_Inch_Measurement',
+					'YSP_Beam_Feet_Measurement',
+					'YSP_Beam_Inch_Measurement',
+					'YSP_Max_Draft_Feet_Measurement',
+					'YSP_Max_Draft_Inch_Measurement',
 				];
 
 				foreach ($fields as $field) {

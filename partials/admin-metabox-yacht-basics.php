@@ -1,6 +1,8 @@
 <?php 
 	$yacht_ysp_beam_feet = get_post_meta( $post->ID, 'YSP_BeamFeet', true );
 	$yacht_ysp_beam_meter = get_post_meta( $post->ID, 'YSP_BeamMeter', true );
+	$yacht_ysp_beam_feet_measurement = get_post_meta( $post->ID, 'YSP_Beam_Feet_Measurement', true );
+	$yacht_ysp_beam_inch_measurement = get_post_meta( $post->ID, 'YSP_Beam_Inch_Measurement', true );
 	$yacht_ysp_broker_name = get_post_meta( $post->ID, 'YSP_BrokerName', true );
 	$yacht_ysp_city = get_post_meta( $post->ID, 'YSP_City', true );
 	$yacht_ysp_country_id = get_post_meta( $post->ID, 'YSP_CountryID', true );
@@ -18,6 +20,10 @@
 	$yacht_ysp_loa_feet = get_post_meta( $post->ID, 'YSP_LOAFeet', true );
 	$yacht_ysp_loa_meter = get_post_meta( $post->ID, 'YSP_LOAMeter', true );
 	$yacht_ysp_length = get_post_meta( $post->ID, 'YSP_Length', true );
+	$yacht_ysp_length_feet_measurement = get_post_meta( $post->ID, 'YSP_Length_Feet_Measurement', true );
+	$yacht_ysp_length_inch_measurement = get_post_meta( $post->ID, 'YSP_Length_Inch_Measurement', true );
+	$yacht_ysp_max_draft_feet_measurement = get_post_meta( $post->ID, 'YSP_Max_Draft_Feet_Measurement', true );
+	$yacht_ysp_max_draft_inch_measurement = get_post_meta( $post->ID, 'YSP_Max_Draft_Inch_Measurement', true );
 	$yacht_ysp_NominalLength = get_post_meta( $post->ID, 'NominalLength', true );
 	$yacht_ysp_listing_date = get_post_meta( $post->ID, 'YSP_ListingDate', true );
 	$yacht_make_string = get_post_meta( $post->ID, 'MakeString', true );
@@ -58,11 +64,19 @@
 <div id="yacht-metabox-basics">
 	<div class="metafield">
 		<label>Beam Measure (ft)</label>
-		<input type="number" name="YSP_BeamFeet" step="0.1" value="<?= $yacht_ysp_beam_feet ?>">
+		<input type="number" name="YSP_BeamFeet" step="0.1" value="<?= $yacht_ysp_beam_feet ?>" >
 	</div>
 	<div class="metafield">
 		<label>Beam Measure (m)</label>
 		<input type="number" name="YSP_BeamMeter" step="0.1" value="<?= $yacht_ysp_beam_meter ?>">
+	</div>
+	<div class="metafield">
+		<label>Beam Feet Measurement</label>
+		<input type="number" name="YSP_Beam_Feet_Measurement" step="1" min="0" value="<?= $yacht_ysp_beam_feet_measurement ?>">
+	</div>
+	<div class="metafield">
+		<label>Beam Inch Measurement</label>
+		<input type="number" name="YSP_Beam_Inch_Measurement" step="1" min="0" max="12" value="<?= $yacht_ysp_beam_inch_measurement ?>">
 	</div>
 	<div class="metafield">
 		<label>Broker Name</label>
@@ -139,6 +153,22 @@
 	<div class="metafield">
 		<label>Overall Length (m)</label>
 		<input type="number" name="YSP_LOAMeter" step="0.1" value="<?= $yacht_ysp_loa_meter ?>">
+	</div>
+	<div class="metafield">
+		<label>Length Feet Measurement</label>
+		<input type="number" name="YSP_Length_Feet_Measurement" step="1" min="0" value="<?= $yacht_ysp_length_feet_measurement ?>">
+	</div>
+	<div class="metafield">
+		<label>Length Inch Measurement</label>
+		<input type="number" name="YSP_Length_Inch_Measurement" step="1" min="0" max="12"value="<?= $yacht_ysp_length_inch_measurement ?>">
+	</div>
+	<div class="metafield">
+		<label>Max Draft Feet Measurement</label>
+		<input type="number" name="YSP_Max_Draft_Feet_Measurement" step="1" min="0" value="<?= $yacht_ysp_max_draft_feet_measurement ?>">
+	</div>
+	<div class="metafield">
+		<label>Max Draft Inch Measurement</label>
+		<input type="number" name="YSP_Max_Draft_Inch_Measurement" step="1" min="0" max="12" value="<?= $yacht_ysp_max_draft_inch_measurement ?>">
 	</div>
 	<div class="metafield">
 		<label>Listing Date</label>

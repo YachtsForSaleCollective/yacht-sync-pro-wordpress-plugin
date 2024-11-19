@@ -92,7 +92,6 @@ function ysp_yacht_search_and_reader(data) {
         } 
         else {
             jQuery('#ysp-the-yacht-results').append(ysp_templates.noResults());
-
         }
 
         jQuery([document.documentElement, document.body]).animate({

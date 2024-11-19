@@ -64,3 +64,29 @@
 		}
 	}
 }
+
+.ysp-yacht-search-form{
+
+	.ysp-s-field{
+
+		label{
+			font-size: 16px;
+			color: #1A202C; 
+		}
+
+		input, select{
+			border-radius: 8px;
+			border: 1px solid var(--Grey-300, #E2E8F0);
+			background: var(--White, #FFF);
+
+			font-size: 14px;
+
+			padding: 15px;
+
+
+		}
+
+	}
+
+
+}

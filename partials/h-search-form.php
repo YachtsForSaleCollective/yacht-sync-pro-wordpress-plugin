@@ -1,116 +1,118 @@
-<div id="h-search-container">
-    <form id="ysp-yacht-search-form" class="ys-h-row ysp-yacht-search-form ysp-form ysp-search-desktop">
+<div id="ysp-h-yacht-search">
+    <form id="ysp-yacht-search-form" class="ysp-yacht-search-form ysp-form ysp-search-desktop">
         <input type="hidden" name="page_index" />
 
-        <div class="ys-h-row-item">
-            <label for="ys_keyword">Keyword</label>
+        <div class="ys-h-row">
+            <div class="ysp-s-field">
+                <label for="ys_keyword">Keyword</label>
 
-            <input type="text" name="ys_keyword" placeholder="Boat Name, Location, Features" list="ysp_keywords_list" />
-            <!-- <img src="" alt="magnifying-glass" /> -->
-            <!-- <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g id="icon/search">
-                    <path id="Vector" d="M7.33333 12.6667C10.2789 12.6667 12.6667 10.2789 12.6667 7.33333C12.6667 4.38781 10.2789 2 7.33333 2C4.38781 2 2 4.38781 2 7.33333C2 10.2789 4.38781 12.6667 7.33333 12.6667Z" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path id="Vector_2" d="M14.0001 14.0001L11.1001 11.1001" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </g>
-            </svg> -->
-        </div>
-        
-        <div class="ys-h-row-item">
-            <label for="make">Builder</label>
-
-            <select name="make" data-fill-options="Builders">
-                <option value="">Any</option>
-            </select>
-        </div>
-
-        <div class="ys-h-row-item">
-            <label>Year</label>
-
-            <div class="min-max-container">
-                <input type="number" label="Year Above" name="yearlo" placeholder="Min" min="1900" />
-                <span>-</span>
-                <input type="number" label="Year Below" name="yearhi" placeholder="Max" max="<?= (date("Y")+3) ?>" />
+                <input type="text" name="ys_keyword" placeholder="Boat Name, Location, Features" list="ysp_keywords_list" />
+                <!-- <img src="" alt="magnifying-glass" /> -->
+                <!-- <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="icon/search">
+                        <path id="Vector" d="M7.33333 12.6667C10.2789 12.6667 12.6667 10.2789 12.6667 7.33333C12.6667 4.38781 10.2789 2 7.33333 2C4.38781 2 2 4.38781 2 7.33333C2 10.2789 4.38781 12.6667 7.33333 12.6667Z" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path id="Vector_2" d="M14.0001 14.0001L11.1001 11.1001" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </g>
+                </svg> -->
             </div>
-        </div>
-
-        <div class="ys-h-row-item">
-            <label>Length</label>
             
-            <div class="min-max-container">
-                <input type="number" label="Length Above" name="lengthlo" placeholder="Min" min=5 />
-                <span>-</span>
-                <input type="number" label="Length Below" name="lengthhi" placeholder="Max" max=500 />
+            <div class="ysp-s-field">
+                <label for="make">Builder</label>
+
+                <select name="make" data-fill-options="Builders">
+                    <option value="">Any</option>
+                </select>
             </div>
-        </div>
 
-        <div class="ys-h-row-item">
-            <label>Price</label>
+            <div class="ysp-s-field">
+                <label>Year</label>
 
-            <div class="min-max-container">
-                <input type="number" label="Price Above" name="pricelo" placeholder="Min" min=0 />
-                <span>-</span>
-                <input type="number" label="Price Below" name="pricehi" placeholder="Max">
+                <div class="min-max-container">
+                    <input type="number" label="Year Above" name="yearlo" placeholder="Min" min="1900" />
+                    <span>-</span>
+                    <input type="number" label="Year Below" name="yearhi" placeholder="Max" max="<?= (date("Y")+3) ?>" />
+                </div>
             </div>
-        </div>
-        
-        <div class="ys-h-row-item">
-            <label for="staterooms">Staterooms</label>
 
-            <select name="staterooms">
-                <option value="">Any</option>
-                <option value="1">1 Stateroom</option>
-                <option value="2">2 Staterooms</option>
-                <option value="3">3 Staterooms</option>
-                <option value="4">4 Staterooms</option>
-                <option value="5">5 Staterooms</option>
-                <option value="6">6 Staterooms</option>
-                <option value="7">7 Staterooms</option>
-                <option value="8">8 Staterooms</option>
-                <option value="9">9 Staterooms</option>
-                <option value="10">10 Staterooms</option>
-            </select>
+            <div class="ysp-s-field">
+                <label>Length</label>
+                
+                <div class="min-max-container">
+                    <input type="number" label="Length Above" name="lengthlo" placeholder="Min" min=5 />
+                    <span>-</span>
+                    <input type="number" label="Length Below" name="lengthhi" placeholder="Max" max=500 />
+                </div>
+            </div>
+
+            <div class="ysp-s-field">
+                <label>Price</label>
+
+                <div class="min-max-container">
+                    <input type="number" label="Price Above" name="pricelo" placeholder="Min" min=0 />
+                    <span>-</span>
+                    <input type="number" label="Price Below" name="pricehi" placeholder="Max">
+                </div>
+            </div>
             
-            <!-- <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M4 6L8 10L12 6" stroke="#94A3B8" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg> -->
-        </div>
+            <div class="ysp-s-field">
+                <label for="staterooms">Staterooms</label>
 
-        <div class="ys-h-row-item">
-            <label for="hull">Hull</label>
+                <select name="staterooms">
+                    <option value="">Any</option>
+                    <option value="1">1 Stateroom</option>
+                    <option value="2">2 Staterooms</option>
+                    <option value="3">3 Staterooms</option>
+                    <option value="4">4 Staterooms</option>
+                    <option value="5">5 Staterooms</option>
+                    <option value="6">6 Staterooms</option>
+                    <option value="7">7 Staterooms</option>
+                    <option value="8">8 Staterooms</option>
+                    <option value="9">9 Staterooms</option>
+                    <option value="10">10 Staterooms</option>
+                </select>
+                
+                <!-- <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 6L8 10L12 6" stroke="#94A3B8" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg> -->
+            </div>
 
-            <select name="hull" data-fill-options="HullMaterials">
-                <option value="">Any</option>
-            </select>
+            <div class="ysp-s-field">
+                <label for="hull">Hull</label>
 
-            <!-- <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M4 6L8 10L12 6" stroke="#94A3B8" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg> -->
-        </div>
+                <select name="hull" data-fill-options="HullMaterials">
+                    <option value="">Any</option>
+                </select>
 
-        <div class="ys-h-row-item">
-            <label for="condition">Condition</label>
+                <!-- <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M4 6L8 10L12 6" stroke="#94A3B8" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg> -->
+            </div>
 
-            <select name="condition">
-                <option value="">Any</option>
-                <option value="New">New</option>
-                <option value="Used">Used</option>
-            </select>
-        </div>
+            <div class="ysp-s-field">
+                <label for="condition">Condition</label>
 
-        <div class="ys-h-row-item">
-            <label for="status">Status</label>
+                <select name="condition">
+                    <option value="">Any</option>
+                    <option value="New">New</option>
+                    <option value="Used">Used</option>
+                </select>
+            </div>
 
-            <select name="status">
-                <option value="">Any</option>
-                <option value="Active">Active</option>
-                <option value="Onorder">On-Order</option>
-            </select>
-        </div>
+            <div class="ysp-s-field">
+                <label for="status">Status</label>
 
-        <div class="ys-h-row-item submit-container">
-            <label>Submit</label>
-            
-            <button class="ysp-general-button" type="submit">Search</button>
+                <select name="status">
+                    <option value="">Any</option>
+                    <option value="Active">Active</option>
+                    <option value="Onorder">On-Order</option>
+                </select>
+            </div>
+
+            <div class="ysp-s-field submit-container">
+                <label>Submit</label>
+                
+                <button class="ysp-general-button" type="submit">Search</button>
+            </div>
         </div>
     </form>
 
@@ -181,7 +183,7 @@
         <form id="ysp-mobile-yacht-search-form" class="ys-h-row ysp-yacht-search-form ysp-form ysp-search-mobile">
             <input type="hidden" name="page_index" />
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <?php 
                     $YSP_Options = new YachtSyncPro_Options();
                     $YSP_Comapny_name = $YSP_Options->get('company_name');
@@ -193,7 +195,7 @@
                 </label>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label for="ys_keyword">Keyword</label>
 
                 <input type="text" name="ys_keyword" placeholder="Search by keywords" list="ysp_keywords_list" />
@@ -207,7 +209,7 @@
                 </svg> -->
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label for="condition">Condition</label>
 
                 <select name="condition">
@@ -217,7 +219,7 @@
                 </select>
             </div>
         
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label for="make">Builder</label>
 
                 <select name="make" data-fill-options="Builders">
@@ -225,7 +227,7 @@
                 </select>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label>Year</label>
 
                 <div class="min-max-container">
@@ -235,7 +237,7 @@
                 </div>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label>Length</label>
                 
                 <div class="min-max-container">
@@ -245,7 +247,7 @@
                 </div>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label>Price</label>
 
                 <div class="min-max-container">
@@ -255,7 +257,7 @@
                 </div>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label for="staterooms">Staterooms</label>
 
                 <select name="staterooms">
@@ -277,7 +279,7 @@
                 </svg> -->
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label for="hull">Hull</label>
 
                 <select name="hull" data-fill-options="HullMaterials">

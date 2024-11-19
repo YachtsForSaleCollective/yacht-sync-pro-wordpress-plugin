@@ -20,7 +20,7 @@
             $meta2['_link'] = get_permalink($yachtQuery->post->ID);
 
             $yacht = $meta2;
-            include('result-card.php');
+            include('yacht-results-card.php');
         }
 
         wp_reset_postdata();

@@ -7,13 +7,13 @@
 	<div class="scroll-to-here-on-yacht-search"></div>
 
     
-    <div class="yacht-search-options">
+    <div class="yacht-search-top">
         <div class="">
             <span class="total-results"><span id="ysp-total-yacht-results"></span> YACHTS FOUND</span>
         </div>
 
-        <div>
-            <div>
+        <div  style="display: flex; gap: 10px;">
+            <div class="top-field">
                 <label>Sort by: </label>
 
                 <select name="sortby" label="Sorted By" form="ysp-yacht-search-form">
@@ -33,7 +33,7 @@
                 </select>
             </div>
 
-            <div>
+            <div class="top-field">
                 <label>View: </label>
 
                 <select name="view" label="View" form="ysp-yacht-search-form">

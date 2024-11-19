@@ -1,16 +1,13 @@
 @use 'vars';
 
 .ysp-yacht-search-form{
-    //max-width: vars.$max-width;
-    margin-right: auto;
-    margin-left: auto;
     @media  screen and (max-width: vars.$breakpoint-x-large) {
         margin-top: 30px;
     }
 
     .ys-h-row {
         display: flex;
-        justify-content: flex-start;
+        justify-content: space-between;
         flex-wrap: wrap;
         gap: 30px;
 
@@ -40,31 +37,15 @@
             input[type="submit"] {
                 background-color: vars.$button-bg-color;
                 color: vars.$button-text-color;
+                
                 width: 100%;
-                align-self: end !important;
-                padding: 12px;
-                height: 50px;
-
+                
                 &:hover{
                     background-color: vars.$button-bg-color;
                     color: vars.$button-text-color;
                 }
             }
 
-            .min-max-container {
-                display: flex;
-                justify-content: space-between;
-
-                input {
-                    max-width: 50%;
-                    flex-grow: 1;
-                }
-
-                span {
-                    color: vars.$border-color;
-                    margin: 5px;
-                }
-            }
         }
 
         .submit-container {

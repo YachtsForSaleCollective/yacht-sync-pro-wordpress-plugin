@@ -70,8 +70,11 @@
 	.ysp-s-field{
 
 		label{
+			display: block;
+	        margin-bottom: 10px;
+	
 			font-size: 16px;
-			color: #1A202C; 
+			color: #1A202C;  	
 		}
 
 		input, select{
@@ -82,7 +85,59 @@
 			font-size: 14px;
 
 			padding: 15px;
+			height: 50px;
+		}
 
+		select{
+
+			&:after{
+				 justify-self: end;
+				 border-left: 2px solid red;
+			}	
+
+			&::after {
+			  content: " ";
+			  width: 0.8em;
+			  height: 0.5em;
+			  background-color: var(--select-arrow);
+			  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+			}
+		}
+
+	    .min-max-container {
+	        display: flex;
+	        justify-content: space-between;
+	        align-items: center;
+
+	        input {
+	            max-width: 50%;
+	            flex-grow: 1;
+	        }
+
+	        span {
+	            color: vars.$border-color;
+	            margin: 5px;
+	        }
+	    }
+
+		.selection-overflow{
+			padding: 15px;
+			height: 200px; 
+			overflow-y: scroll;
+
+			border-radius: 8px;
+			border: 1px solid var(--Grey-300, #E2E8F0);
+			background: #FFF;
+
+			label{
+				font-size: 14px;
+				line-height: 20px;
+				font-weight: normal;
+			}
+	
+			input{
+				height: auto;
+			}
 
 		}
 

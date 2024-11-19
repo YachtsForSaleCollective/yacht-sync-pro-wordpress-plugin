@@ -249,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function() {
             })            
         }
 
-        document.querySelectorAll('input[name=view][form=ysp-yacht-search-form], select[name=sortby][form=ysp-yacht-search-form]').forEach((eleViewOption) => {
+        document.querySelectorAll('input[name=view][form=ysp-yacht-search-form], select[name=view][form=ysp-yacht-search-form],  select[name=sortby][form=ysp-yacht-search-form]').forEach((eleViewOption) => {
             eleViewOption.addEventListener('change', function(e) {
                 e.target.form.requestSubmit();
             });

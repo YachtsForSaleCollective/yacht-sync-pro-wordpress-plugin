@@ -34,6 +34,41 @@
     #ysp-the-yacht-results {
 
     }
+
+    .yacht-search-top{
+
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        align-items: center;
+
+        margin-top: 30px;
+        margin-bottom: 30px;
+
+        .top-field{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+
+
+            font-size: 14px;
+
+            label{
+                color: #717171;
+                white-space: nowrap;
+            }
+
+            select{
+                color: #1A202C;
+                border: 0px;
+                outline: 0px;
+                box-shadow: none;
+            }
+
+
+        }
+
+    }
 }
 
 #ysp-the-yacht-results {
@@ -71,6 +106,7 @@
 #ysp-yacht-results-pagination {
     display: flex;
     justify-content: center;
+    margin-top: 30px;
 
     ul {
         display: flex;
@@ -80,6 +116,10 @@
         gap: 20px;
         list-style: none;
         padding-left: 0px;
+    
+        font-size: 18px;
+
+
     }
 }
 

@@ -1,0 +1,108 @@
+@use "vars";
+
+.yacht-mobile-form-container {
+    display: none;
+
+    @media screen and (max-width: vars.$breakpoint-large) {
+        display: block;
+    }
+
+    @media screen and (max-width: vars.$breakpoint-small) {
+        margin: 0px 20px;
+    }
+
+    .yacht-form-title {
+        color: #000;
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 28px;
+        letter-spacing: -0.1px;
+        margin-bottom: 30px;
+    }
+
+    form {
+        width: 100%;
+        div {
+            display: block;
+
+            label {
+                display: block;
+                color: #000;
+                font-size: 12px;
+                font-weight: 400;
+                line-height: 11px;
+                margin-bottom: 10px;
+            }
+            input {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 24px;
+                border-radius: 0px;
+                margin-bottom: 14px;
+                padding: 8px 12px;
+                border: 1px solid #CBD5E1;
+                width: 100%;
+                &:focus {
+                    border-radius: 0px;
+                }
+            }
+            select {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 24px;
+                border-radius: 0px;
+                margin-bottom: 14px;
+                padding: 8px 12px;
+                width: 100%;
+                border: 1px solid #CBD5E1;
+            }
+            textarea {
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 24px;
+                border-radius: 0px;
+                margin-bottom: 14px;
+                padding: 8px 12px;
+                height: 135px;
+                width: 100%;
+                border: 1px solid #CBD5E1;
+                resize: none;
+                
+                &:focus {
+                    border-radius: 0px;
+                }
+            }
+            p {
+                font-size: 10px;
+                font-weight: 400;
+                line-height: 15px;
+                color: #94A3B8;
+                margin: 0;
+                margin-bottom: 14px;
+                a {
+                    font-size: 10px;
+                    font-weight: 400;
+                    color: #94A3B8
+                }
+            }
+
+        }
+
+        .yacht-form-submit {
+            background-color: vars.$button-bg-color;
+            color: vars.$button-text-color;
+
+            box-shadow: none;
+            border: 0;
+            width: 100%;
+            padding: 8px 12px;
+            margin: auto;
+
+            &:hover {
+                background-color: vars.$button-bg-color;
+                color: vars.$button-text-color;
+            }
+        }
+    }
+
+}

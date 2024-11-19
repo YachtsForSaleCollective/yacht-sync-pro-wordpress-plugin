@@ -23,16 +23,11 @@ var ysp_templates={};
 
 		}
 
-		let vesselLocation = (vessel.BoatLocation.BoatCountryID == "US" || vessel.BoatLocation.BoatCountryID == "United States" ? `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatStateCode}` : `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatCountryID}`);
-        
-            vesselLocation = vesselLocation;
-
 		return `
-			<div class="ysp-yacht-item ysp-view-grid" data-post-id="${ vessel._postID }" data-yacht-id="${ vessel.DocumentID }">
-				<div class="ri-image">
-					<a href="${ vessel._link }">
-						<img class="yacht-image" src="${vessel.Images ? vessel.Images[0].Uri : ysp_yacht_sync.assets_url + 'images/default-yacht-image.jpeg'}" alt="yacht-image" loading="lazy" />
-						
+			<div class="yacht-result-grid-item grid-view" data-post-id="${ vessel._postID }" data-yacht-id="${ vessel.DocumentID }">
+				<div class="yacht-main-image-container">
+					<a class="yacht-details" href="${ vessel._link }">
+						<img class="yacht-main-image" src="${vessel.Images ? vessel.Images[0].Uri : ysp_yacht_sync.assets_url + 'images/default-yacht-image.jpeg'}" alt="yacht-image" loading="lazy" />
 						<svg class="like-me love" xmlns="http://www.w3.org/2000/svg" width="57" height="54" viewBox="0 0 57 54" fill="none"  data-yacht-id="${ vessel.DocumentID }">
 						  <g filter="url(#filter0_d_2888_4333)">
 						    <path d="M34.7028 11.5755C36.2094 11.5755 37.6251 12.1699 38.6898 13.2488L38.8223 13.383C41.0206 15.6116 41.0206 19.2375 38.8223 21.466L38.0992 22.199L27.4995 32.9442L18.4883 23.808L16.9011 22.199L16.178 21.466C13.9797 19.2375 13.9797 15.6116 16.178 13.383L16.3083 13.2509C17.3739 12.1708 18.79 11.5759 20.2962 11.5764C21.8023 11.5764 23.2176 12.1708 24.2819 13.2492L25.005 13.9822L27.4991 16.5101L29.9928 13.9818L30.7158 13.2488C31.7801 12.1699 33.1962 11.5755 34.7028 11.5755ZM34.7028 8C32.357 8 30.0112 8.9068 28.2222 10.7204L27.4991 11.4534L26.776 10.7204C24.9878 8.90723 22.642 8.00043 20.297 8C17.9508 8 15.605 8.90723 13.8147 10.7221L13.6844 10.8542C10.1046 14.4832 10.1046 20.3645 13.6844 23.9935L14.4074 24.7265L15.9946 26.3354L27.4995 38L40.5933 24.7265L41.3164 23.9935C44.8945 20.3663 44.8945 14.4814 41.3164 10.8542L41.1839 10.72C39.3945 8.9068 37.0486 8 34.7028 8Z" fill="white"></path>
@@ -50,44 +45,45 @@ var ysp_templates={};
 						    </filter>
 						  </defs>
 						</svg>
-
 						${vessel.CompanyName === ysp_yacht_sync.company_name ? `<div class="company-banner"><img src="${ysp_yacht_sync.company_logo}"></div>` : ''}
-				
-						<span class="ri-price">${ price }</span>
 					</a>	
 				</div>
-
-				<div class="result-item-info">
-					<div class="ri-top">
-						<a href="${ vessel._link }">
-							<span class="ri-name">${vessel.ModelYear ? vessel.ModelYear : ''} ${vessel.MakeString ? vessel.MakeString : ''} ${vessel.Model ? vessel.Model : ''}</span><br>
-
-							<span class="ri-sub-name">${ vessel.BoatName ? vessel.BoatName : '' }</span>
+				<div class="yacht-general-info-container">
+					<div class="yacht-title-container">
+						<a class="yacht-details" href="${ vessel._link }">
+							<h6 class="yacht-title">${vessel.ModelYear ? vessel.ModelYear : ''} ${vessel.MakeString ? vessel.MakeString : ''} ${vessel.Model ? vessel.Model : ''} ${vessel.BoatName ? vessel.BoatName : ''}</h6>
 						</a>
 					</div>
-
-					<div class="ri-bottom">
-						<span class="ri-location">							
-							<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M15.75 7.5C15.75 12.75 9 17.25 9 17.25C9 17.25 2.25 12.75 2.25 7.5C2.25 5.70979 2.96116 3.9929 4.22703 2.72703C5.4929 1.46116 7.20979 0.75 9 0.75C10.7902 0.75 12.5071 1.46116 13.773 2.72703C15.0388 3.9929 15.75 5.70979 15.75 7.5Z" stroke="#067AED" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M9 9.75C10.2426 9.75 11.25 8.74264 11.25 7.5C11.25 6.25736 10.2426 5.25 9 5.25C7.75736 5.25 6.75 6.25736 6.75 7.5C6.75 8.74264 7.75736 9.75 9 9.75Z" stroke="#067AED" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-							</svg>
-							${ vesselLocation }
-						</span>
-
-						<a href="#ysp-yacht-results-lead-modal" class="ri-contact" data-modal="#ysp-yacht-results-lead-modal">
-							Contact
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-							<g clip-path="url(#clip0_8101_10277)">
-							<path d="M15.5556 0H5.7778C5.53214 0 5.33334 0.198792 5.33334 0.444458C5.33334 0.690125 5.53214 0.888917 5.7778 0.888917H14.4827L0.130219 15.2413C-0.0434062 15.415 -0.0434062 15.6962 0.130219 15.8698C0.21701 15.9566 0.33076 16 0.444469 16C0.558177 16 0.671885 15.9566 0.758719 15.8698L15.1111 1.51737V10.2222C15.1111 10.4679 15.3099 10.6667 15.5556 10.6667C15.8013 10.6667 16.0001 10.4679 16.0001 10.2222V0.444458C16 0.198792 15.8012 0 15.5556 0Z" fill="#067AED"/>
-							</g>
-							<defs>
-							<clipPath id="clip0_8101_10277">
-							<rect width="16" height="16" fill="white"/>
-							</clipPath>
-							</defs>
-							</svg>
-						</a>
+					<div class="yacht-info-container">
+						<div class="yacht-info">
+							<div class="yacht-individual-container">
+								<p class="yacht-individual-title">Year</p>
+								<p class="yacht-individual-value">${vessel.ModelYear ? vessel.ModelYear : 'N/A'}</p>
+							</div>
+							<div class="yacht-individual-container">
+								<p class="yacht-individual-title">Cabins</p>
+								<p class="yacht-individual-value">${vessel.CabinsCountNumeric ? vessel.CabinsCountNumeric : 'N/A'}</p>
+							</div>
+							<div class="yacht-individual-container">
+								<p class="yacht-individual-title">Builder</p>
+								<p class="yacht-individual-value">${vessel.MakeString ? vessel.MakeString : 'N/A'}</p>
+							</div>
+							<div class="yacht-individual-container">
+								<p class="yacht-individual-title">Length</p>
+								<p class="yacht-individual-value">${length}</p>
+							</div>
+							<div class="yacht-individual-container">
+								<p class="yacht-individual-title">Compare</p>
+								<p class="yacht-individual-value"><input type="checkbox" class="compare_toggle" name="compare" value="${ vessel._postID }" /></p>
+							</div>
+						</div>
+					</div>
+					<div class="yacht-price-details-container">
+						<div class="yacht-price-container">
+							<p class="yacht-price">${price}</p>
+						</div>
+						
+						<button class="yacht-download-button" type="button" data-modal="#single-share">Contact</button>
 					</div>
 				</div>
 			</div>
@@ -112,16 +108,11 @@ var ysp_templates={};
 			price = vessel.Price ? `$ ${new Intl.NumberFormat('en-us', { minimumFractionDigits: 2}).format(parseInt(vessel.Price.slice(0, -3)))}` : 'Contact Us For Price'
 		}
 
-		let vesselLocation = (vessel.BoatLocation.BoatCountryID == "US" || vessel.BoatLocation.BoatCountryID == "United States" ? `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatStateCode}` : `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatCountryID}`);
-        
-            vesselLocation = vesselLocation;
-
 		return `
-			<div class="ysp-yacht-item ysp-view-list" data-post-id="${ vessel._postID }" data-yacht-id="${ vessel.DocumentID }">
-				<div class="ri-image">
-					<a href="${ vessel._link }">
-						<img class="yacht-image" src="${vessel.Images ? vessel.Images[0].Uri : ysp_yacht_sync.assets_url + 'images/default-yacht-image.jpeg'}" alt="yacht-image" loading="lazy" />
-						
+			<div class="yacht-result-grid-item list-view" data-post-id="${ vessel._postID }" data-yacht-id="${ vessel.DocumentID }">
+				<div class="yacht-main-image-container">
+					<a class="yacht-details" href="${ vessel._link }">
+						<img class="yacht-main-image" src="${vessel.Images ? vessel.Images[0].Uri : vessel.Images ? vessel.Images[0].Uri : ysp_yacht_sync.assets_url + 'images/default-yacht-image.jpeg'}" alt="yacht-image" loading="lazy" />
 						<svg class="like-me love" xmlns="http://www.w3.org/2000/svg" width="57" height="54" viewBox="0 0 57 54" fill="none"  data-yacht-id="${ vessel.DocumentID }">
 						  <g filter="url(#filter0_d_2888_4333)">
 						    <path d="M34.7028 11.5755C36.2094 11.5755 37.6251 12.1699 38.6898 13.2488L38.8223 13.383C41.0206 15.6116 41.0206 19.2375 38.8223 21.466L38.0992 22.199L27.4995 32.9442L18.4883 23.808L16.9011 22.199L16.178 21.466C13.9797 19.2375 13.9797 15.6116 16.178 13.383L16.3083 13.2509C17.3739 12.1708 18.79 11.5759 20.2962 11.5764C21.8023 11.5764 23.2176 12.1708 24.2819 13.2492L25.005 13.9822L27.4991 16.5101L29.9928 13.9818L30.7158 13.2488C31.7801 12.1699 33.1962 11.5755 34.7028 11.5755ZM34.7028 8C32.357 8 30.0112 8.9068 28.2222 10.7204L27.4991 11.4534L26.776 10.7204C24.9878 8.90723 22.642 8.00043 20.297 8C17.9508 8 15.605 8.90723 13.8147 10.7221L13.6844 10.8542C10.1046 14.4832 10.1046 20.3645 13.6844 23.9935L14.4074 24.7265L15.9946 26.3354L27.4995 38L40.5933 24.7265L41.3164 23.9935C44.8945 20.3663 44.8945 14.4814 41.3164 10.8542L41.1839 10.72C39.3945 8.9068 37.0486 8 34.7028 8Z" fill="white"></path>
@@ -139,44 +130,44 @@ var ysp_templates={};
 						    </filter>
 						  </defs>
 						</svg>
-
-						${vessel.CompanyName === ysp_yacht_sync.company_name ? `<div class="company-banner"><img src="${ysp_yacht_sync.company_logo}"></div>` : ''}
-				
-						<span class="ri-price">${ price }</span>
-					</a>	
+					</a>
 				</div>
-
-				<div class="result-item-info">
-					<div class="ri-top">
-						<a href="${ vessel._link }">
-							<span class="ri-name">${vessel.ModelYear ? vessel.ModelYear : ''} ${vessel.MakeString ? vessel.MakeString : ''} ${vessel.Model ? vessel.Model : ''}</span><br>
-
-							<span class="ri-sub-name">${ vessel.BoatName ? vessel.BoatName : '' }</span>
+				<div class="yacht-general-info-container">
+					<div class="yacht-title-container">
+						<a class="yacht-details" href="${ vessel._link }">
+							<h6 class="yacht-title">${vessel.ModelYear ? vessel.ModelYear : ''} ${vessel.MakeString ? vessel.MakeString : ''} ${vessel.Model ? vessel.Model : ''} ${vessel.BoatName ? vessel.BoatName : ''}</h6>
 						</a>
 					</div>
-
-					<div class="ri-bottom">
-						<span class="ri-location">							
-							<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M15.75 7.5C15.75 12.75 9 17.25 9 17.25C9 17.25 2.25 12.75 2.25 7.5C2.25 5.70979 2.96116 3.9929 4.22703 2.72703C5.4929 1.46116 7.20979 0.75 9 0.75C10.7902 0.75 12.5071 1.46116 13.773 2.72703C15.0388 3.9929 15.75 5.70979 15.75 7.5Z" stroke="#067AED" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-							<path d="M9 9.75C10.2426 9.75 11.25 8.74264 11.25 7.5C11.25 6.25736 10.2426 5.25 9 5.25C7.75736 5.25 6.75 6.25736 6.75 7.5C6.75 8.74264 7.75736 9.75 9 9.75Z" stroke="#067AED" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-							</svg>
-							${ vesselLocation }
-						</span>
-
-						<a href="#ysp-yacht-results-lead-modal" class="ri-contact" data-modal="#ysp-yacht-results-lead-modal">
-							Contact
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-							<g clip-path="url(#clip0_8101_10277)">
-							<path d="M15.5556 0H5.7778C5.53214 0 5.33334 0.198792 5.33334 0.444458C5.33334 0.690125 5.53214 0.888917 5.7778 0.888917H14.4827L0.130219 15.2413C-0.0434062 15.415 -0.0434062 15.6962 0.130219 15.8698C0.21701 15.9566 0.33076 16 0.444469 16C0.558177 16 0.671885 15.9566 0.758719 15.8698L15.1111 1.51737V10.2222C15.1111 10.4679 15.3099 10.6667 15.5556 10.6667C15.8013 10.6667 16.0001 10.4679 16.0001 10.2222V0.444458C16 0.198792 15.8012 0 15.5556 0Z" fill="#067AED"/>
-							</g>
-							<defs>
-							<clipPath id="clip0_8101_10277">
-							<rect width="16" height="16" fill="white"/>
-							</clipPath>
-							</defs>
-							</svg>
-						</a>
+					<div class="yacht-info-container">
+						<div class="yacht-info">
+							<div class="yacht-individual-container">
+								<p class="yacht-individual-title">Year</p>
+								<p class="yacht-individual-value">${vessel.ModelYear ? vessel.ModelYear : 'N/A'}</p>
+							</div>
+							<div class="yacht-individual-container">
+								<p class="yacht-individual-title">Cabins</p>
+								<p class="yacht-individual-value">${vessel.CabinsCountNumeric ? vessel.CabinsCountNumeric : 'N/A'}</p>
+							</div>
+							<div class="yacht-individual-container">
+								<p class="yacht-individual-title">Builder</p>
+								<p class="yacht-individual-value">${vessel.MakeString ? vessel.MakeString : 'N/A'}</p>
+							</div>
+							<div class="yacht-individual-container">
+								<p class="yacht-individual-title">Length</p>
+								<p class="yacht-individual-value">${length}</p>
+							</div>
+							<div class="yacht-individual-container">
+								<p class="yacht-individual-title">Compare</p>
+								<p class="yacht-individual-value"><input type="checkbox" class="compare_toggle" name="compare" value="${ vessel._postID }" /></p>
+							</div>
+						</div>
+					</div>
+					<div class="yacht-price-details-container">
+						<div class="yacht-price-container">
+							<p class="yacht-price">${price}</p>
+						</div>
+						
+						<button class="yacht-download-button" type="button" data-modal="#single-share">Contact</button>
 					</div>
 				</div>
 			</div>
@@ -198,7 +189,6 @@ var ysp_templates={};
 
 
 				<img class="yacht-main-image" src="${vessel.Images ? vessel.Images[0].Uri : ysp_yacht_sync.assets_url + 'images/default-yacht-image.jpeg'}" alt="yacht-image" loading="lazy" />
-				
 				<a class="preview-link" href="${ vessel._link }">
 					<h6 class="yacht-title">${vessel.ModelYear ? vessel.ModelYear : ''} ${vessel.MakeString ? vessel.MakeString : ''} ${vessel.Model ? vessel.Model : ''} ${vessel.BoatName ? vessel.BoatName : ''}</h6>
 				</a>

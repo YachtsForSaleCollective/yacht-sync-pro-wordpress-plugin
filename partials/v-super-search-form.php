@@ -120,6 +120,7 @@
         </div>
         
         <div class="ysp-s-field submit-container">
+            <label><br /></label>
             <input type="submit" value="Search" class="ysp-general-button" />
         </div>
     </form>

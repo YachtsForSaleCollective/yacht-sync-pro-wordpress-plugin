@@ -59,8 +59,8 @@
 			wp_register_style('yacht-sync-styles', YSP_ASSETS.'build/css/app-style.noMaps.css', false, YSP_VERSION, false);
 			wp_register_script('yacht-sync-script', YSP_ASSETS.'build/js/globalPlugin.noMaps.js', ['jquery'], YSP_VERSION, true);
 			
-			wp_register_style('ysp-single-yacht-styles', YSP_ASSETS.'build/css/app-single-yacht.noMaps.css', false, YSP_VERSION, false);
-			wp_register_script('ysp-single-yacht-script', YSP_ASSETS.'build/js/appSingleYacht.noMaps.js', ['jquery'], YSP_VERSION, true);
+			wp_register_style('ysp-single-yacht-styles', YSP_ASSETS.'build/css/app-single-yacht.noMaps.css', false, null, false);
+			wp_register_script('ysp-single-yacht-script', YSP_ASSETS.'build/js/appSingleYacht.noMaps.js', ['jquery'], null, true);
 
 			$js_vars = [
 				'wp_rest_url' => get_rest_url(),

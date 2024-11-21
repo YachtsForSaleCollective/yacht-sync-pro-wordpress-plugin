@@ -1,5 +1,5 @@
 <div id="ysp-h-yacht-search">
-    <form id="ysp-yacht-search-form" class="ysp-yacht-search-form ysp-form ysp-search-desktop">
+    <form id="ysp-yacht-search-form" class="ysp-yacht-search-form ysp-h-yacht-search-form ysp-form ysp-search-desktop">
         <input type="hidden" name="page_index" />
 
         <div class="ys-h-row">

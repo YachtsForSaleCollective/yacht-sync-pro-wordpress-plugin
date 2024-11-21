@@ -1,6 +1,6 @@
 @use "vars";
 
-.ysp-general-button {
+.ysp-general-button, .ysp-btn {
     display: inline-block;
 
     background-color: vars.$button-bg-color !important;

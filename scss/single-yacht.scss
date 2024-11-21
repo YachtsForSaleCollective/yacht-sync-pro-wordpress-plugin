@@ -16,7 +16,8 @@
         display: flex;
         gap: 15px;
 
-        height: 600px;
+        height: 35vw;
+        max-height: 600px;
         border-radius: 12px;
 
         img{
@@ -26,26 +27,36 @@
         #ysp-single-y-main-iamge{
             width: 50%;
             height: 100%;
-            flex-grow: 1;
         }
 
         .TwoStack{
-            flex-strink: 1;
-            width: 50%;
+            flex-grow: 1;
 
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            gap: 15px;
 
-            img{
+            > img{
                 display: block;
                 width: 100%;
-                height: calc(50% - 15px);
+                height: calc(50% - 7.5px);
+            
+                &:nth-child(1){
+                   border-radius: 0px 12px 0px 0px;
+                }
+
+                &:nth-child(2){
+                    border-radius: 0px 0px 12px 0px;
+
+                }
+
             }
 
         }
 
+        > img:nth-child(1){
+            border-radius: 12px 0px 0px 12px;
+        }
     }
 
     #ysp-single-y-breadcrumbs{
@@ -93,7 +104,7 @@
         margin-bottom: 30px;
 
         .ysp-single-y-main{
-            
+            flex-grow: 1;
         }
 
         .ysp-single-y-sidebar{
@@ -176,10 +187,27 @@
     .ysp-single-y-accord{
         margin-bottom: 30px;
 
-        h3{
-            font-size: 24px;
-            font-weight: normal;
+        .ysp-accord-heading{
+            cursor: pointer;
+            
+            padding-top: 15px;
+            margin-bottom: 30px;
+
+            border-top: 2px solid #E4ECF7;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            h3{
+                font-size: 24px;
+                font-weight: normal;
+            }
+
+
         }
+
+
     }
 
     .ysp-single-y-details-list{
@@ -202,6 +230,21 @@
             margin-right: 20px;
         }
 
+    }
+
+    .ysp-single-y-video{
+        position: relative;
+        cursor: pointer;
+
+        img{
+            border-radius: 24px;
+        }
+
+        svg#play-button{
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+        }
     }
 
     .ysp-single-y-sidebar-broker{
@@ -234,17 +277,28 @@
     #ysp-single-y-gallery{
         display: flex;
         gap: 15px;
-        height: 680px;
+        height: 50vh;
+        max-height: 680px;
 
         margin-top: 60px;
         margin-bottom: 60px;
 
         img{
             object-fit: cover;
-            margin: 5px;
+            width: 50%;
         }
 
+        .col1{
+            width: 50%;
+        }
+
+        > div{
+            display: flex; 
+            flex-wrap: wrap;
+            
+        }
     }
+
 
     #ysp-single-y-similar-listings{
         h3{

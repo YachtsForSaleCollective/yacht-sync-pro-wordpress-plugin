@@ -57,7 +57,7 @@
             <div class="ysp-s-field submit-container">
                 <label><br /></label>
                 
-                <button type="submit" class="ysp-general-button">Search</button>
+                <button type="submit" class="ysp-btn ysp-btn-block">Search</button>
             </div>
         </div>
     </form>

@@ -407,13 +407,13 @@ get_header();
 
                             //var_dump($vessel->Videos);
 
-                            $video_url = $vessel->Videos->url[0];
+                           /* $video_url = $vessel->Videos->url[0];
                             
                             if (isset($video_url) && str_contains($video_url, 'youtu.be')) {
                                 $video_thumbnail = $vessel->Videos->thumbnailUrl[0];
                                 
                                 //var_dump($video_thumbnail);
-                            }
+                            }*/
 
                         ?>
 
@@ -597,7 +597,7 @@ get_header();
 
                         <textarea name="message" rows="8" placeholder="Message"></textarea>
 
-                        <button type="submit">Send Message</button>
+                        <button type="submit" class="ysp-btn ysp-btn-block">Send Message</button>
                     </form>
                 </div>
             </div>

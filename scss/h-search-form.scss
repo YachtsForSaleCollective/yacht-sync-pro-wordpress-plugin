@@ -6,37 +6,21 @@
     }
 
     .ys-h-row {
-        display: flex;
+        display: grid;
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 30px;
+          grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 
         .ysp-s-field {
             position: relative;
-            flex: 0 0 calc(20% - 30px);
             box-sizing: border-box;
-            width: 100%;
-
-            @media screen and (max-width: vars.$breakpoint-x-large) {
-                flex: 0 0 calc(25% - 30px);
-            }
-
-            @media screen and (max-width: vars.$breakpoint-large) {
-                flex: 0 0 calc(33% - 30px);
-            }
-
-            @media screen and (max-width: vars.$breakpoint-med) {
-                flex: 0 0 calc(50% - 30px);
-            }
-
-            @media screen and (max-width: vars.$breakpoint-small) {
-                flex: 0 0 100%;
-            }
-
 
             input[type="submit"] {
                 background-color: vars.$button-bg-color;
                 color: vars.$button-text-color;
+
+                grid-columns-start: 3;
                 
                 width: 100%;
                 

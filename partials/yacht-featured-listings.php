@@ -1,6 +1,5 @@
-<div class="featured-listings-container">
+<div class="ysp-featured-listings">
     <div class="yacht-featured-listing-row">
-
         <?php
 
        

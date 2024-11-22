@@ -360,59 +360,64 @@ get_header();
 
                     </div> -->
                         
-                    <?php 
-                        if(isset($vessel->Videos)) {
-                            $videoUrls = $vessel->Videos->url;
-                            
-                            foreach($videoUrls as $aindex => $video) { ?>
-                                <!-- <a data-src="<?php echo $video;?>">
-                                    <button class="yacht-download-button" type="button">
-                                        Open Video <?= ($aindex+1) ?>
-                                    </button>
-                                </a> -->
-                            
-                            <?php   
-                            
-                            }
-                        }
 
-                        //var_dump($vessel->Videos);
-
-                        $video_url = $vessel->Videos->url[0];
-                        
-                        if (isset($video_url) && str_contains($video_url, 'youtu.be')) {
-                            $video_thumbnail = $vessel->Videos->thumbnailUrl[0];
-                            
-                            //var_dump($video_thumbnail);
-                        }
-
-                    ?>
 
 
                     <div class="ysp-single-y-video">
-                        <a href="<?= $vessel->Videos->url[0] ?>" target="_blank">
+                        <?php 
+                            if(isset($vessel->Videos)) {
+                                $videoUrls = $vessel->Videos->url;
+                                
+                                foreach($videoUrls as $aindex => $video) { ?>
+                                    <!-- <a data-src="<?php echo $video;?>">
+                                        <button class="yacht-download-button" type="button">
+                                            Open Video <?= ($aindex+1) ?>
+                                        </button>
+                                    </a> -->
 
-                            <img src="<?php echo ($vessel->Images[9]->Uri); ?>" alt="" />
+                                    <a href="<?= $vessel->Videos->url[$aindex] ?>" target="_blank">
 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="81" height="83" viewBox="0 0 81 83" fill="none" id="play-button">
-                              <g filter="url(#filter0_d_5020_60896)">
-                                <ellipse cx="40.4346" cy="37" rx="28.9111" ry="30" fill="white"/>
-                                <path d="M68.9707 37C68.9707 53.3746 56.1817 66.625 40.4346 66.625C24.6874 66.625 11.8984 53.3746 11.8984 37C11.8984 20.6254 24.6874 7.375 40.4346 7.375C56.1817 7.375 68.9707 20.6254 68.9707 37Z" stroke="#D0DBFF" stroke-width="0.75"/>
-                              </g>
-                              <path d="M49.1256 35.7132C50.0978 36.2957 50.0978 37.7043 49.1256 38.2868L37.2818 45.3823C36.282 45.9813 35.0109 45.2611 35.0109 44.0956L35.0109 29.9044C35.0109 28.7389 36.282 28.0187 37.2818 28.6177L49.1256 35.7132Z" fill="#067AED"/>
-                              <defs>
-                                <filter id="filter0_d_5020_60896" x="0.273438" y="0.25" width="80.3203" height="82.5" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                                  <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-                                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-                                  <feOffset dy="4.5"/>
-                                  <feGaussianBlur stdDeviation="5.625"/>
-                                  <feColorMatrix type="matrix" values="0 0 0 0 0.25098 0 0 0 0 0.309804 0 0 0 0 0.407843 0 0 0 0.05 0"/>
-                                  <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5020_60896"/>
-                                  <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_5020_60896" result="shape"/>
-                                </filter>
-                              </defs>
-                            </svg>
-                        </a>
+                                        <img src="<?php echo ($vessel->Images[(10+$aindex)]->Uri); ?>" alt="" />
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="81" height="83" viewBox="0 0 81 83" fill="none" id="play-button">
+                                          <g filter="url(#filter0_d_5020_60896)">
+                                            <ellipse cx="40.4346" cy="37" rx="28.9111" ry="30" fill="white"/>
+                                            <path d="M68.9707 37C68.9707 53.3746 56.1817 66.625 40.4346 66.625C24.6874 66.625 11.8984 53.3746 11.8984 37C11.8984 20.6254 24.6874 7.375 40.4346 7.375C56.1817 7.375 68.9707 20.6254 68.9707 37Z" stroke="#D0DBFF" stroke-width="0.75"/>
+                                          </g>
+                                          <path d="M49.1256 35.7132C50.0978 36.2957 50.0978 37.7043 49.1256 38.2868L37.2818 45.3823C36.282 45.9813 35.0109 45.2611 35.0109 44.0956L35.0109 29.9044C35.0109 28.7389 36.282 28.0187 37.2818 28.6177L49.1256 35.7132Z" fill="#067AED"/>
+                                          <defs>
+                                            <filter id="filter0_d_5020_60896" x="0.273438" y="0.25" width="80.3203" height="82.5" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                                              <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                                              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                                              <feOffset dy="4.5"/>
+                                              <feGaussianBlur stdDeviation="5.625"/>
+                                              <feColorMatrix type="matrix" values="0 0 0 0 0.25098 0 0 0 0 0.309804 0 0 0 0 0.407843 0 0 0 0.05 0"/>
+                                              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5020_60896"/>
+                                              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_5020_60896" result="shape"/>
+                                            </filter>
+                                          </defs>
+                                        </svg>
+                                    </a>
+                                    
+                                
+                                <?php   
+                                
+                                }
+                            }
+
+                            //var_dump($vessel->Videos);
+
+                            $video_url = $vessel->Videos->url[0];
+                            
+                            if (isset($video_url) && str_contains($video_url, 'youtu.be')) {
+                                $video_thumbnail = $vessel->Videos->thumbnailUrl[0];
+                                
+                                //var_dump($video_thumbnail);
+                            }
+
+                        ?>
+
+
                     </div>
 
 
@@ -493,12 +498,12 @@ get_header();
 
                             <textarea name="message" rows="8" placeholder="Message"></textarea>
 
-                            <button type="submit" class="ysp-btn">Send Message</button>
+                            <button type="submit" class="ysp-btn ysp-btn-block">Send Message</button>
                         </form>
 
-                        <div style="margin-top: 15px; display: flex;">
-                            <button type="button" class="ysp-btn" style="width: 50%;">Call</button>
-                            <button type="button" class="ysp-btn" style="width: 50%;">Email</button>
+                        <div style="margin-top: 15px; display: grid; gap: 15px; grid-template-columns: 1fr 1fr;">
+                            <button type="button" class="ysp-btn">Call</button>
+                            <button type="button" class="ysp-btn">Email</button>
                         </div>
                     </div>
 
@@ -506,23 +511,29 @@ get_header();
 
             </div>
 
-            <div id="ysp-single-y-gallery" class=" ysp-single-y-section">
-                
-                <div class="col1"> 
-                    <img src="<?php echo ($vessel->Images[3]->Uri); ?>" alt="" />
-                    <img src="<?php echo ($vessel->Images[4]->Uri); ?>" alt="" />     
-                    <img src="<?php echo ($vessel->Images[5]->Uri); ?>" alt="" />
-                </div>
-                
-                <div class="col2">
-                    <img src="<?php echo ($vessel->Images[6]->Uri); ?>" alt="" />    
-                </div>
+            <div id="lightgallery">
 
-                <div class="col3">
-                    <img src="<?php echo ($vessel->Images[7]->Uri); ?>" alt="" />    
-                    <img src="<?php echo ($vessel->Images[8]->Uri); ?>" alt="" />    
-                </div>
-             </div>
+                <div id="ysp-single-y-gallery" class=" ysp-single-y-section">
+                    
+                    <div class="set1"> 
+                        <img src="<?php echo ($vessel->Images[3]->Uri); ?>" alt="" class="c1" style="width: 100%; height: 50%; flex-grow: 1; " />
+
+                        <div class="thesplit">
+                            <img src="<?php echo ($vessel->Images[4]->Uri); ?>" alt="" class="c2"/>     
+                            <img src="<?php echo ($vessel->Images[5]->Uri); ?>" alt="" />
+                        </div>
+                    </div>
+                    
+                    <div class="set2">
+                        <img src="<?php echo ($vessel->Images[6]->Uri); ?>" alt="" style="height: 100%; " />    
+                        
+                        <div class="thesplit">
+                            <img src="<?php echo ($vessel->Images[7]->Uri); ?>" alt="" class="c3" />    
+                            <img src="<?php echo ($vessel->Images[8]->Uri); ?>" alt="" class="c4" />    
+                        </div>
+                    </div>
+                 </div>
+            </div>
 
             <div id="ysp-single-y-similar-listings" class=" ysp-single-y-section">
                 <h3>
@@ -567,8 +578,8 @@ get_header();
             <div id="ysp-single-y-bottom-form" class="ysp-single-y-section">
                 
                 <div class="headings">
-                    <h3>Learn More<br /> About this Vessel<br /> Contact <?= $broker_first_name ?></h3>
-                    <h4>Or, Take a download with you</h4>
+                    <h3>Keep Learning<br /> About this Vessel<br /></h3>
+                    <h4>Take a brochure with you</h4>
 
                     <a href="">
                         <img src="<?= YSP_ASSETS ?>/images/download.png" width="64px" height="64px" />
@@ -577,6 +588,8 @@ get_header();
                 </div>
 
                 <div style="width: 560px;">
+                    <h3>Contact Us Today</h3>
+
                     <form class="ysp-single-y-contact-form">
                         <input type="text" name="fullname" placeholder="Full Name" />
                         <input type="text" name="email" placeholder="Email" />

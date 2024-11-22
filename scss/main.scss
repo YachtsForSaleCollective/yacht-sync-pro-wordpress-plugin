@@ -7,8 +7,6 @@
     color: vars.$button-text-color !important;
     border: none !important;
 
-    width: 100%;
-
     padding: 15px;
     height: 50px;
 
@@ -26,4 +24,9 @@
             color: vars.$button-text-color !important;
         }
     }
+}
+
+.ysp-btn-block{
+    display: block;
+    width: 100%;
 }

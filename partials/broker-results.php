@@ -24,13 +24,16 @@
                 </a>
 
                 <div class="broker-info">
-                    <div class="broker-name-container">
-                        <p class="broker-name"><?php echo ($broker_first_name . " " . $broker_last_name); ?></p>
-                
-                        <img class="arrow-right" src="<?php echo YSP_ASSETS; ?>images/arrow-right.png" alt="bed-icon" />
-                    </div>
-                
-                    <p class="broker-title">Broker</p>
+                    <a class="broker-anchor" href="<?php the_permalink(); ?>">
+                        <div class="broker-name-container">
+                            <p class="broker-name"><?php echo ($broker_first_name . " " . $broker_last_name); ?></p>
+                    
+                            <img class="arrow-right" src="<?php echo YSP_ASSETS; ?>images/arrow-right.png" alt="bed-icon" />
+                        </div>
+                    
+                        <p class="broker-title">Broker</p>
+                    </a>
+                    
                     <p class="broker-email"><a href="mailto:broker@gmail.com"><?php echo $broker_email; ?></a></p>
                     <p class="broker-phone"><a href="tel:6466465555"><?php echo $broker_phone; ?></a></p>
                 </div>

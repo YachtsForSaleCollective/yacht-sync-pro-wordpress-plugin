@@ -12,31 +12,39 @@
     }
 
     .broker-cards {
-        display: flex;
+        display: grid;
         justify-content: space-between;
+        grid-template-columns: 1fr 1fr;
+
         flex-wrap: wrap;
         column-gap: vars.$broker-column-gap;
         row-gap: vars.$broker-row-gap;
 
         .broker-card {
-            flex: 0 0 calc((100% - 3 * vars.$broker-column-gap) / 4);
+                
+            display: flex;
 
-            @media screen and (max-width: vars.$breakpoint-x-large) {
-                flex: 0 0 calc((100% - 3 * vars.$broker-column-gap) / 3);
-            }
-            @media screen and (max-width: vars.$breakpoint-large) {
-                flex: 0 0 calc((100% - 3 * vars.$broker-column-gap) / 2);
-            }
-            @media screen and (max-width: vars.$breakpoint-med) {
-                flex: 0 0 100%;
-            }
+            border-radius: 0px 12px 12px 0px;
+            border: 2px solid var(--Secondary-Default, #E4ECF7);
+            border-left: 4px solid #3184F7;
+            background: #FFF;
+
+            padding: 30px;
+
+            /* Sho */
+            box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
 
             .broker-image {
-                height: 325px;
-                width: 100%;
+                width: 150px;
+                height: 150px;
                 object-fit: cover;
+                object-position: top center;
                 background: vars.$border-color;
+                border-radius: 100%;
+
+                margin-right: 30px;
             }
+
             .broker-info {
 
                 p {
@@ -44,6 +52,7 @@
                 }
                 a{
                     text-decoration: none;
+                    color: vars.$main-text-color;
                 }
 
                .broker-name-container {

@@ -33,6 +33,7 @@
 
     #ysp-the-yacht-results {
 
+
     }
 
     .yacht-search-top{
@@ -73,12 +74,19 @@
 
 #ysp-the-yacht-results, .ysp-the-yacht-results  {
 
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     flex-wrap: wrap;
     gap: 30px;
 
-    
+    @media screen and (max-width: vars.$breakpoint-x-large){
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @media screen and (max-width: vars.$breakpoint-med){
+        grid-template-columns: 1fr;
+    }
+
 }
 
 .ysp-search-tags{

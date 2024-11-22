@@ -97,25 +97,15 @@
 
     &.ysp-view-grid{
 
-        flex: 0 0 calc((100% - 60px) / 3);
-        flex-grow: 1;
-
         display: flex;
         flex-direction: column;
 
-        @media screen and (max-width: vars.$breakpoint-x-large){
-            flex: 0 0 calc((100% - 30px) / 2);
-            box-sizing: border-box;
-        }
-
-        @media screen and (max-width: vars.$breakpoint-med){
-            flex: 0 0 100%;
-            box-sizing: border-box;
-        }
     }
 
     &.ysp-view-list{
         display: flex;
+        flex-direction: row;
+
         width: 100%;
 
         .ri-image{

@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 */
-    let yachtSearchAndResults=document.querySelector('.ysp-yacht-search-form:not(#ysp-mobile-yacht-search-form)');
+    let yachtSearchAndResults=document.querySelector('#ysp-yacht-search-form');
 
     if (yachtSearchAndResults) {
         document.querySelectorAll('.open-mobile-search').forEach((omse) => {

@@ -2,7 +2,7 @@
 get_header();
 ?>
 
-<main id="primary" class="site-main">
+<main id="primary" class="site-main ysp-single-b-container">
     <?php
     while (have_posts()) :
         the_post();
@@ -17,85 +17,63 @@ get_header();
         // var_dump($meta);
     ?>
 
-        <div class="ysp-single-broker">
-            <div class="broker-main-container">
-                <h2 class="our-team">Our Team</h2>
-                
-                <div class="broker-info-container">
-                    <div class="broker-image-general-container">
-                        <div class="broker-image">
-                            <img src="<?php echo esc_url(get_the_post_thumbnail_url())?>" alt="profile-picture" />
-                        </div>
-                        <div class="broker-general-info">
-                            <p class="broker-name"><?php echo($meta["ysp_team_fname"] . " " . $meta["ysp_team_lname"]); ?></p>
-                            <p class="broker-title">Broker</p>
-                            <p class="broker-email"><?php echo($meta["ysp_team_email"]); ?></p>
-                            <p class="broker-phone"><?php echo($meta["ysp_team_phone"]); ?></p>
-                        </div>
+
+        <div class="ysp-single-b-split">
+
+            <div class="ysp-single-b-main">
+
+                <div class="ysp-single-b-card ysp-single-b-section">
+                    <img src="<?php echo esc_url(get_the_post_thumbnail_url())?>" alt="profile-picture" class="broker-image" />
+
+                    <div>
+                        <h1 class="broker-name"><?php echo($meta["ysp_team_fname"] . " " . $meta["ysp_team_lname"]); ?></h1>
+                        <p class="broker-title">Broker</p>
+                        <p class="broker-email">
+                            <a href="mailto: <?php echo($meta["ysp_team_email"]); ?>; ">
+                                <?php echo($meta["ysp_team_email"]); ?>        
+                            </a>
+                        </p>
+                        <p class="broker-phone">
+                            <a href="tel: <?php echo($meta["ysp_team_phone"]); ?>;">
+                                <?php echo($meta["ysp_team_phone"]); ?>
+                            </a>
+                        </p>
                     </div>
-                    <div class="broker-general-description-container">
-                        <?php the_content(); ?>
-                    </div>
+
                 </div>
 
-                <h2 class="our-team">
-                    <?php echo($meta["ysp_team_fname"] . " " . $meta["ysp_team_lname"]); ?>'s Listings
-                </h2>
+                <div class=" ysp-single-b-section">
+                    <h2 class="our-team">
+                        Broker's Featured Listings
+                    </h2>
 
-                <?php echo do_shortcode('[ys-featured-listings ys_broker_name="'. $meta['ysp_team_fname'] .' '. $meta['ysp_team_lname'] .'"][/ys-featured-listings]'); ?>
-
+                    <?php echo do_shortcode('[ys-featured-listings posts_per_page="12" ys_broker_name="'. $meta['ysp_team_fname'] .' '. $meta['ysp_team_lname'] .'"][/ys-featured-listings]'); ?>
+                </div>
             </div>
-            <div class="second-main-container">
-                <div class="broker-form-container">
-                    <p class="broker-form-title">Inquire Now</p>
-                    <form class="single-broker-detils-lead" action="/submit" method="post">
-                        <input type="hidden" name="brokerID" value="<?php echo $post->ID; ?>" />
 
-                        <div>
-                            <label for="fname">First name</label>
-                            <input type="text" id="fname" name="fname" placeholder="First name" required />
-                        </div>
-                        <div>
-                            <label for="lname">Last name</label>
-                            <input type="text" id="lname" name="lname" placeholder="Last name" required />
-                        </div>
-                        <div>
-                            <label for="email">E-mail</label>
-                            <input type="email" id="email" name="email" placeholder="name@email.com" required />
-                        </div>
-                        <div>
-                            <label for="phone">Phone number</label>
-                            <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="+1 (777) 777-7777" required />
-                        </div>
-                        <div style="display: none;">
-                            <input type="text"  name="fax">
-                        </div>
-                        <div>
-                            <label for="inquirytype">Inquiry type</label>
-                            <select>
-                                <option value="Buying a yacht" selected>Buying a yacht</option>
-                                <option value="Selling a yacht">Selling a yacht</option>
-                                <option value="Trading a yacht">Trading a yacht</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" placeholder="Type your message"></textarea>
-                        </div>
-                        <div>
-                            <p class="form-disclaimer">Your privacy is important to us; to learn about how we protect it, read our <a href="#">privacy policy.</a></p>
-                        </div>
-                        <input class="broker-form-submit" type="submit" value="Send" />
+            <div class="ysp-single-b-sidebar">
+
+                <div class="">
+
+                    <h2>Hit Me Up!</h2>
+
+                    <form class="ysp-single-b-contact-form">
+                        <input type="text" name="fullname" placeholder="Full Name" />
+                        <input type="text" name="email" placeholder="Email" />
+                        <input type="text" name="phone" placeholder="Phone Number" />
+
+                        <textarea name="message" rows="8" placeholder="Message"></textarea>
+
+                        <button type="submit" class="ysp-btn ysp-btn-block">Send Message</button>
                     </form>
-                    <div class="success-message" style="display: none; background-color: #4CAF50; color: #fff; padding: 10px; text-align: center;">
-                        <p class="success-messages">Thank you for getting in touch. We will be in touch shortly.</p>
-                    </div>
                 </div>
+
             </div>
+
         </div>
 
     <?php
-    endwhile; // End of the loop.
+        endwhile; // End of the loop.
     ?>
 
 </main><!-- #main -->

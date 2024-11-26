@@ -588,7 +588,7 @@ get_header();
                 </div>
 
                 <div style="width: 560px;">
-                    <h3>Contact Us Today</h3>
+                    <h3 style="text-align: center;">Contact Us Today</h3>
 
                     <form class="ysp-single-y-contact-form">
                         <input type="text" name="fullname" placeholder="Full Name" />

@@ -27,25 +27,29 @@ get_header();
 
                     <div>
                         <h1 class="broker-name"><?php echo($meta["ysp_team_fname"] . " " . $meta["ysp_team_lname"]); ?></h1>
-                        <p class="broker-title">Broker</p>
-                        <p class="broker-email">
+                        <span class="broker-title">Broker</span><br />
+                        <span class="broker-email">
                             <a href="mailto: <?php echo($meta["ysp_team_email"]); ?>; ">
                                 <?php echo($meta["ysp_team_email"]); ?>        
                             </a>
-                        </p>
-                        <p class="broker-phone">
+                        </span><br />
+                        <span class="broker-phone">
                             <a href="tel: <?php echo($meta["ysp_team_phone"]); ?>;">
                                 <?php echo($meta["ysp_team_phone"]); ?>
                             </a>
-                        </p>
+                        </span>
+                        <br />
+                        <br />
+
+                        <?php the_content(); ?>
                     </div>
 
                 </div>
 
                 <div class=" ysp-single-b-section">
-                    <h2 class="our-team">
+                    <!-- <h2 class="our-team">
                         Broker's Featured Listings
-                    </h2>
+                    </h2> -->
 
                     <?php echo do_shortcode('[ys-featured-listings posts_per_page="12" ys_broker_name="'. $meta['ysp_team_fname'] .' '. $meta['ysp_team_lname'] .'"][/ys-featured-listings]'); ?>
                 </div>

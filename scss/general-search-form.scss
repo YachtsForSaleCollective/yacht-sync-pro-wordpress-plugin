@@ -88,8 +88,8 @@
 			height: 50px;
 			
 			&:hover, &:focus {
-			    border-color: #007BFF; /* Change border color on hover/focus */
-			    outline: none; /* Remove default outline */
+			    border-color: vars.$featured-color; 
+			    outline: none;
 			}
 		}
 

@@ -17,16 +17,12 @@
         gap: 15px;
 
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
 
         border-radius: 12px;
 
-        @media screen and (max-width: vars.$breakpoint-x-large){
+        @media screen and (min-width: vars.$breakpoint-large){
             grid-template-columns: 1fr 1fr;
-        }
-
-        @media screen and (max-width: vars.$breakpoint-med){
-            grid-template-columns: 1fr;
         }
 
         img{
@@ -35,7 +31,14 @@
 
         #ysp-single-y-main-iamge{
             width: 100%;
-            height: 25vw;
+            height: 45vw;
+
+            border-radius: 12px;
+
+            @media (min-width: vars.$breakpoint-large) {
+                height: 25vw;
+                border-radius: 12px 0px 0px 12px;
+            }
         }
 
         .TwoStack{
@@ -52,21 +55,25 @@
                 width: 100%;
                 height: calc((25vw / 2) - 7.5px);
             
-                &:nth-child(1){
+                &:nth-child(1) {
                    border-radius: 0px 12px 0px 0px;
                 }
 
-                &:nth-child(2){
+                &:nth-child(2) {
                     border-radius: 0px 0px 12px 0px;
 
                 }
 
             }
 
+            @media (max-width: vars.$breakpoint-large) {
+                display: none;
+            }
+
         }
 
         > img:nth-child(1){
-            border-radius: 12px 0px 0px 12px;
+          
         }
     }
 
@@ -120,14 +127,20 @@
 
         .ysp-single-y-sidebar{
             max-width: 400px;
-            min-width: 320px;
+            min-width: 400px;
 
             border-radius: 12px;
             background: #FFF;
             box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
 
             padding: 30px;
+
+            @media (max-width: vars.$breakpoint-large) {
+                display: none;
+            }
         }
+
+
     }
 
     .ysp-single-y-headings{
@@ -198,9 +211,7 @@
     .ysp-single-y-accord{
         margin-bottom: 30px;
 
-        .ysp-accord-heading{
-            cursor: pointer;
-            
+        .ysp-accord-heading{ 
             padding-top: 15px;
             margin-bottom: 30px;
 
@@ -293,10 +304,15 @@
         display: grid;
         gap: 15px;
         justify-content: space-between;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr;
+
 
         margin-top: 60px;
         margin-bottom: 60px;
+
+        @media (min-width: vars.$breakpoint-large) {
+            grid-template-columns: 1fr 1fr;
+        }
 
         img{
             object-fit: cover;
@@ -320,7 +336,7 @@
         } 
 
         .set2{
-            display: grid;
+            display: none;
             gap: 15px;
             justify-content: space-between;
             grid-template-columns: 1fr 1fr;
@@ -332,13 +348,35 @@
                 grid-template-columns: 1fr;
                 grid-template-rows: 1fr 1fr;
             }
+
+
+            @media (min-width: vars.$breakpoint-large) {
+                display: grid;
+            }
         }
 
-        .c1{border-radius: 12px 0px 0px 0px;}
-        .c2{border-radius: 0px 0px 0px 12px;}
-        .c3{border-radius: 0px 12px 0px 0px;}
-        .c4{border-radius: 0px 0px 12px 0px;}
-        
+        @media (min-width: vars.$breakpoint-large) {
+            .c1{border-radius: 12px 0px 0px 0px;}
+            .c2{border-radius: 0px 0px 0px 12px;}
+            .c3{border-radius: 0px 12px 0px 0px;}
+            .c4{border-radius: 0px 0px 12px 0px;}
+        }
+
+        @media (max-width: vars.$breakpoint-large) {
+            .set1{
+                > img{border-radius: 12px 12px 0px 0px;}
+
+                .thesplit{
+                    > img:nth-child(1){
+                        border-radius: 0px 0px 0px 12px;
+                    } 
+
+                    > img:nth-child(2){
+                        border-radius: 0px 0px 12px 0px;
+                    }
+                }
+            }
+        }        
     }
 
     #ysp-single-y-similar-listings{

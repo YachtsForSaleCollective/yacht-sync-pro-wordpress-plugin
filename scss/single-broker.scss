@@ -31,8 +31,8 @@
        display: flex;
 
         border-radius: 0px 12px 12px 0px;
-        border: 2px solid var(--Secondary-Default, #E4ECF7);
-        border-left: 4px solid #3184F7;
+        border: 2px solid #E4ECF7;
+        border-left: 4px solid vars.$featured-color;
         background: #FFF;
 
         padding: 30px;
@@ -42,6 +42,8 @@
 
          .broker-image {
             width: 250px;
+            min-width: 250px;
+            max-width: 250px;
             height: 250px;
             object-fit: cover;
             object-position: top center;

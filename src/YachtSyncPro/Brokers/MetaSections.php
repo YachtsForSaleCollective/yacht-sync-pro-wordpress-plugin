@@ -26,6 +26,7 @@
         public function broker_info_html($post) {
             $broker_fname = get_post_meta( $post->ID, 'ysp_team_fname', true );     
             $broker_lname = get_post_meta( $post->ID, 'ysp_team_lname', true );     
+            $broker_title = get_post_meta( $post->ID, 'ysp_team_title', true );     
             $broker_email = get_post_meta( $post->ID, 'ysp_team_email', true );     
             $broker_phone = get_post_meta( $post->ID, 'ysp_team_phone', true );  
             $main_broker = get_post_meta($post->ID, 'ysp_main_broker', true) ?: '0';
@@ -39,6 +40,10 @@
                 <label>Last Name</label>
                 <br>
                 <input style="margin-bottom: 5px" type="text" name="broker_lname" value="<?= $broker_lname ?>">
+
+                <label>Title</label>
+                <br>
+                <input style="margin-bottom: 5px" type="text" name="broker_title" value="<?= $broker_title ?>">
                 <br>
                 <label>Email</label>
                 <br>
@@ -74,6 +79,14 @@
                     $post_id,
                     'ysp_team_lname',
                     $_POST['broker_lname']
+                );
+            }
+
+            if ( isset($_POST['broker_title'])) {
+                update_post_meta(
+                    $post_id,
+                    'ysp_team_title',
+                    $_POST['broker_title']
                 );
             }
             

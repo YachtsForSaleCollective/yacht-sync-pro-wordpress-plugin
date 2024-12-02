@@ -306,12 +306,15 @@
         justify-content: space-between;
         grid-template-columns: 1fr;
 
-
         margin-top: 60px;
         margin-bottom: 60px;
 
         @media (min-width: vars.$breakpoint-large) {
             grid-template-columns: 1fr 1fr;
+        }
+
+        .c1{
+            max-height: 400px;
         }
 
         img{

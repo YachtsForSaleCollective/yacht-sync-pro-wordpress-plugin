@@ -59,8 +59,6 @@ get_header();
 
                 <div class="">
 
-                    <h2>Hit Me Up!</h2>
-
                     <form class="ysp-single-b-contact-form">
                         <input type="text" name="fullname" placeholder="Full Name" />
                         <input type="text" name="email" placeholder="Email" />

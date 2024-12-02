@@ -45,7 +45,7 @@
                 </a>
             </span>
 
-            <a href="#ysp-yacht-results-lead-modal" class="ri-contact" data-modal="#ysp-yacht-results-lead-modal">
+            <!-- <a href="#ysp-yacht-results-lead-modal" class="ri-contact" data-modal="#ysp-yacht-results-lead-modal">
                 Contact
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                 <g clip-path="url(#clip0_8101_10277)">
@@ -57,7 +57,7 @@
                 </clipPath>
                 </defs>
                 </svg>
-            </a>
+            </a> -->
         </div>
     </div>
 </div>

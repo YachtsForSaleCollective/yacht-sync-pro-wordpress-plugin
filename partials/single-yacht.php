@@ -693,8 +693,11 @@ get_header();
             <h3>Copy Link</h3>
 
             <div class="copy-link-section">
-                <input type="text" value="<?php echo esc_url(get_permalink()); ?>" id="copyLinkInput" readonly>
-                <button onclick="copyLink()">Copy Link</button>
+                <form class="ysp-form">
+
+                    <input type="text" value="<?php echo esc_url(get_permalink()); ?>" id="copyLinkInput" readonly>
+                    <button class="ysp-btn" onclick="copyLink()">Copy Link</button>
+                </form>
             </div>
         </div>
     </div>

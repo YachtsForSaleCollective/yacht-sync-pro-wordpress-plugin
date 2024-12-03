@@ -102,11 +102,30 @@ get_header();
 
             <div id="ysp-single-y-image-topper">
 
-                <img src="<?php echo ($vessel->Images[0]->Uri); ?>" alt="" id="ysp-single-y-main-iamge" />
+                <img src="<?php echo ($vessel->Images[0]->Uri); ?>" alt="" class="img1" id="ysp-single-y-main-iamge" />
 
                 <div class="TwoStack">
-                    <img src="<?php echo ($vessel->Images[1]->Uri); ?>" alt="" />
-                    <img src="<?php echo ($vessel->Images[2]->Uri); ?>" alt="" />
+                    <img src="<?php echo ($vessel->Images[1]->Uri); ?>" class="img2" alt="" />
+                    <img src="<?php echo ($vessel->Images[2]->Uri); ?>" class="img3" alt="" />
+
+                    <svg width="82" height="83" viewBox="0 0 82 83" fill="none" xmlns="http://www.w3.org/2000/svg" style="pointer-events: none; position: absolute; bottom: 0px; right: 0px;">
+                    <g filter="url(#filter0_d_8129_11006)">
+                    <path d="M69.8223 37C69.8223 53.5685 56.8783 67 40.9111 67C24.944 67 12 53.5685 12 37C12 20.4315 24.944 7 40.9111 7C56.8783 7 69.8223 20.4315 69.8223 37Z" fill="white"/>
+                    <path d="M69.4473 37C69.4473 53.3746 56.6583 66.625 40.9111 66.625C25.164 66.625 12.375 53.3746 12.375 37C12.375 20.6254 25.164 7.375 40.9111 7.375C56.6583 7.375 69.4473 20.6254 69.4473 37Z" stroke="#D0DBFF" stroke-width="0.75"/>
+                    </g>
+                    <path d="M42.875 27H51.875C52.4963 27 53 27.4871 53 28.0879V35.3407C53 35.9415 52.4963 36.4286 51.875 36.4286H42.875C42.2537 36.4286 41.75 35.9415 41.75 35.3407V28.0879C41.75 27.4871 42.2537 27 42.875 27ZM39.125 27H30.125C29.5037 27 29 27.4871 29 28.0879V35.3407C29 35.9415 29.5037 36.4286 30.125 36.4286H39.125C39.7463 36.4286 40.25 35.9415 40.25 35.3407V28.0879C40.25 27.4871 39.7463 27 39.125 27ZM29 38.967V46.2198C29 46.8206 29.5037 47.3077 30.125 47.3077H39.125C39.7463 47.3077 40.25 46.8206 40.25 46.2198V38.967C40.25 38.3662 39.7463 37.8791 39.125 37.8791H30.125C29.5037 37.8791 29 38.3662 29 38.967ZM42.875 47.3077H51.875C52.4963 47.3077 53 46.8206 53 46.2198V38.967C53 38.3662 52.4963 37.8791 51.875 37.8791H42.875C42.2537 37.8791 41.75 38.3662 41.75 38.967V46.2198C41.75 46.8206 42.2537 47.3077 42.875 47.3077Z" fill="#067AED"/>
+                    <defs>
+                    <filter id="filter0_d_8129_11006" x="0.75" y="0.25" width="80.3203" height="82.5" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                    <feOffset dy="4.5"/>
+                    <feGaussianBlur stdDeviation="5.625"/>
+                    <feColorMatrix type="matrix" values="0 0 0 0 0.25098 0 0 0 0 0.309804 0 0 0 0 0.407843 0 0 0 0.05 0"/>
+                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_8129_11006"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_8129_11006" result="shape"/>
+                    </filter>
+                    </defs>
+                    </svg>
                 </div>
             </div>
 
@@ -138,6 +157,8 @@ get_header();
                                 <?php
                             }
                         }
+
+                        wp_reset_postdata();
                     ?>
 
                     <a rel="nofollow" href="<?php echo get_rest_url(); ?>ysp/yacht-pdf-loader?yacht_post_id=<?php echo get_the_ID(); ?>" target="_blank">
@@ -162,12 +183,14 @@ get_header();
                         <h2>
                             <?= empty($vessel->BoatName)?"":$vessel->BoatName.' | ' ?> 
                             
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                            <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="#067AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="#067AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
+                            <a href="/yacht-search/ys_keyword-<?= str_replace([' '], ['-'], $yacht->BoatLocation->BoatCityName) ?>/">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="#067AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="#067AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
 
-                            <?=  $vesselLocation ?> 
+                                <?=  $vesselLocation ?> 
+                            </a>
                         </h2>
                     </div>
 
@@ -196,164 +219,92 @@ get_header();
 
                     <table class="ysp-single-y-basic-info-table">
                         <tr>
-                            <th>Length</th>
-                            <td><?php echo empty($vessel->YSP_LOAFeet) ? "N/A" : $vessel->YSP_LOAFeet . "ft / " . $vessel->YSP_LOAMeter . ' m'; ?></td>
 
-                            <th>Guest</th>
-                            <td><?= $vessel->ModelYear ?></td>                            
+                            <th>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M7 17V15H13C12.7667 14.7167 12.579 14.4083 12.437 14.075C12.295 13.7417 12.1827 13.3833 12.1 13H9V11H12.1C12.1833 10.6167 12.296 10.2583 12.438 9.925C12.58 9.59167 12.7673 9.28333 13 9H3V7H17C18.3833 7 19.5627 7.48767 20.538 8.463C21.5133 9.43833 22.0007 10.6173 22 12C22 13.3833 21.5123 14.5627 20.537 15.538C19.5617 16.5133 18.3827 17.0007 17 17H7ZM2 13V11H8V13H2ZM3 17V15H6V17H3Z" fill="#2D3748"></path>
+                                </svg> 
+                                Length
+                            </th>
+                            <td><?php echo empty($vessel->YSP_LOAFeet) ? "N/A" : $vessel->YSP_LOAFeet . "ft / " . $vessel->YSP_LOAMeter . ' m'; ?></td>
+                         
+                            <th>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M7 17V15H13C12.7667 14.7167 12.579 14.4083 12.437 14.075C12.295 13.7417 12.1827 13.3833 12.1 13H9V11H12.1C12.1833 10.6167 12.296 10.2583 12.438 9.925C12.58 9.59167 12.7673 9.28333 13 9H3V7H17C18.3833 7 19.5627 7.48767 20.538 8.463C21.5133 9.43833 22.0007 10.6173 22 12C22 13.3833 21.5123 14.5627 20.537 15.538C19.5617 16.5133 18.3827 17.0007 17 17H7ZM2 13V11H8V13H2ZM3 17V15H6V17H3Z" fill="#2D3748"></path>
+                                </svg> 
+                                Draft 
+                            </th>
+                            <td> <?php echo empty($vessel->MaxDraft)?"N/A":$vessel->MaxDraft; ?></td>
+                         
                         </tr>
 
                         <tr>
-                            <th>Builder</th>
-                            <td><?= $vessel->MakeString ?></td>
+                            <th>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                  <path d="M12 11.5C11.337 11.5 10.7011 11.2366 10.2322 10.7678C9.76339 10.2989 9.5 9.66304 9.5 9C9.5 8.33696 9.76339 7.70107 10.2322 7.23223C10.7011 6.76339 11.337 6.5 12 6.5C12.663 6.5 13.2989 6.76339 13.7678 7.23223C14.2366 7.70107 14.5 8.33696 14.5 9C14.5 9.3283 14.4353 9.65339 14.3097 9.95671C14.1841 10.26 13.9999 10.5356 13.7678 10.7678C13.5356 10.9999 13.26 11.1841 12.9567 11.3097C12.6534 11.4353 12.3283 11.5 12 11.5ZM12 2C10.1435 2 8.36301 2.7375 7.05025 4.05025C5.7375 5.36301 5 7.14348 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 7.14348 18.2625 5.36301 16.9497 4.05025C15.637 2.7375 13.8565 2 12 2Z" fill="#2D3748"></path>
+                                </svg>
+                                Location
+                            </th>
+                            <td><?=  $vesselLocation ?> </td>
 
-                            <th>Cabins</th>
+                            <th>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                  <path d="M3 21V19H5V3H15V4H19V19H21V21H17V6H15V21H3ZM11 13C11.2833 13 11.521 12.904 11.713 12.712C11.905 12.52 12.0007 12.2827 12 12C12 11.7167 11.904 11.479 11.712 11.287C11.52 11.095 11.2827 10.9993 11 11C10.7167 11 10.479 11.096 10.287 11.288C10.095 11.48 9.99933 11.7173 10 12C10 12.2833 10.096 12.521 10.288 12.713C10.48 12.905 10.7173 13.0007 11 13Z" fill="#2D3748"></path>
+                                </svg>
+                                Cabins
+                            </th>
                             <td><?php echo (empty($vessel->CabinsCountNumeric) ? 'N/A' : $vessel->CabinsCountNumeric); ?></td>
                         </tr>
 
-                        <tr>                            
-                            <th>Year</th>
+                        <tr>         
+                          <th>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                      <path d="M6.5 11L12 2L17.5 11H6.5ZM17.5 22C16.25 22 15.1873 21.5623 14.312 20.687C13.4367 19.8117 12.9993 18.7493 13 17.5C13 16.25 13.4377 15.1873 14.313 14.312C15.1883 13.4367 16.2507 12.9993 17.5 13C18.75 13 19.8127 13.4377 20.688 14.313C21.5633 15.1883 22.0007 16.2507 22 17.5C22 18.75 21.5623 19.8127 20.687 20.688C19.8117 21.5633 18.7493 22.0007 17.5 22ZM3 21.5V13.5H11V21.5H3Z" fill="#2D3748"></path>
+                                    </svg>
+                                Yacht type
+                            </th>
+                            <td><?php echo empty($vessel->BoatCategoryCode)?"N/A":$vessel->BoatCategoryCode; ?></td>
+
+                            <th>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                  <path d="M19 19H5V8H19M16 1V3H8V1H6V3H5C3.89 3 3 3.89 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3H18V1M17 12H12V17H17V12Z" fill="#2D3748"></path>
+                                </svg> 
+                                Year
+                            </th>
                             <td><?= $vessel->ModelYear ?></td>
 
-                            <th>Crew</th>
-                            <td>N/A</td>
+                            
+                        </tr>
+
+                        <tr>                            
+                          
+
+                            <th>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                  <path d="M10.45 15.5C10.8667 15.9167 11.3917 16.1127 12.025 16.088C12.6583 16.0633 13.1167 15.834 13.4 15.4L19 7L10.6 12.6C10.1667 12.9 9.92933 13.354 9.888 13.962C9.84667 14.57 10.034 15.0827 10.45 15.5ZM5.1 20C4.73333 20 4.396 19.9207 4.088 19.762C3.78 19.6033 3.534 19.366 3.35 19.05C2.91667 18.2667 2.58333 17.454 2.35 16.612C2.11667 15.77 2 14.8993 2 14C2 12.6167 2.26267 11.3167 2.788 10.1C3.31333 8.88333 4.02567 7.825 4.925 6.925C5.825 6.025 6.88333 5.31267 8.1 4.788C9.31667 4.26333 10.6167 4.00067 12 4C13.3667 4 14.65 4.25833 15.85 4.775C17.05 5.29167 18.1 5.996 19 6.888C19.9 7.77933 20.6167 8.821 21.15 10.013C21.6833 11.205 21.9583 12.484 21.975 13.85C21.9917 14.7667 21.8873 15.6627 21.662 16.538C21.4367 17.4133 21.091 18.2507 20.625 19.05C20.4417 19.3667 20.1957 19.6043 19.887 19.763C19.5783 19.9217 19.241 20.0007 18.875 20H5.1Z" fill="#2D3748"></path>
+                                </svg>
+                                Max Speed
+                            </th>
+                            <td><?php echo empty($vessel->MaximumSpeedMeasure)?"N/A":$vessel->MaximumSpeedMeasure; ?></td>
                         </tr>
                     </table>
 
                     <div class="ysp-single-y-description">
                         <?php 
+                            the_content();
+                            
+                            /*
                             if (isset($vessel->GeneralBoatDescription) && is_array($vessel->GeneralBoatDescription)) { 
                                 echo join(" ", $vessel->GeneralBoatDescription); 
                             }
                             elseif (isset($vessel->GeneralBoatDescription) && is_string($vessel->GeneralBoatDescription)) {
                                 echo $vessel->GeneralBoatDescription;
                             } 
+                            */
                         ?>
                     </div>
 
-                    <div class="ysp-single-y-accord">
-                        <div class="ysp-accord-heading">
-                            <h3>Yacht Details</h3>
-                        
-                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                <path d="M18 15L12 9L6 15" stroke="#3184F7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg> -->
-                        </div>
-
-                        <div class="ysp-accord-content">
-                            <ul class="ysp-single-y-details-list">
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M7 17V15H13C12.7667 14.7167 12.579 14.4083 12.437 14.075C12.295 13.7417 12.1827 13.3833 12.1 13H9V11H12.1C12.1833 10.6167 12.296 10.2583 12.438 9.925C12.58 9.59167 12.7673 9.28333 13 9H3V7H17C18.3833 7 19.5627 7.48767 20.538 8.463C21.5133 9.43833 22.0007 10.6173 22 12C22 13.3833 21.5123 14.5627 20.537 15.538C19.5617 16.5133 18.3827 17.0007 17 17H7ZM2 13V11H8V13H2ZM3 17V15H6V17H3Z" fill="#2D3748"/>
-                                    </svg>
-
-                                    <span>Length</span>
-
-                                    <?php echo empty($vessel->NominalLength) ? "N/A" : $vessel->NominalLength . " / " . round((float)$vessel->NominalLength * 0.3048, 2) . ' m'; ?>
-                                </li>
-
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                      <path d="M17.15 20.7L11.1 14.6C10.7667 14.7333 10.4293 14.8333 10.088 14.9C9.74667 14.9667 9.384 15 9 15C7.33333 15 5.91667 14.4167 4.75 13.25C3.58333 12.0833 3 10.6667 3 9C3 8.4 3.08333 7.82933 3.25 7.288C3.41667 6.74667 3.65 6.234 3.95 5.75L7.6 9.4L9.4 7.6L5.75 3.95C6.23333 3.65 6.746 3.41667 7.288 3.25C7.83 3.08333 8.40067 3 9 3C10.6667 3 12.0833 3.58333 13.25 4.75C14.4167 5.91667 15 7.33333 15 9C15 9.38333 14.9667 9.746 14.9 10.088C14.8333 10.43 14.7333 10.7673 14.6 11.1L20.7 17.15C20.9 17.35 21 17.5917 21 17.875C21 18.1583 20.9 18.4 20.7 18.6L18.6 20.7C18.4 20.9 18.1583 21 17.875 21C17.5917 21 17.35 20.9 17.15 20.7Z" fill="#2D3748"/>
-                                    </svg>
-
-                                    <span>Builder</span>
-
-                                    <?php echo empty($vessel->MakeString) ? "N/A" : $vessel->MakeString; ?>
-                                </li>
-
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                      <path d="M6.5 11L12 2L17.5 11H6.5ZM17.5 22C16.25 22 15.1873 21.5623 14.312 20.687C13.4367 19.8117 12.9993 18.7493 13 17.5C13 16.25 13.4377 15.1873 14.313 14.312C15.1883 13.4367 16.2507 12.9993 17.5 13C18.75 13 19.8127 13.4377 20.688 14.313C21.5633 15.1883 22.0007 16.2507 22 17.5C22 18.75 21.5623 19.8127 20.687 20.688C19.8117 21.5633 18.7493 22.0007 17.5 22ZM3 21.5V13.5H11V21.5H3Z" fill="#2D3748"/>
-                                    </svg>
-
-                                    <span>Yacht type</span>
-
-                                    <?php echo empty($vessel->BoatCategoryCode)?"N/A":$vessel->BoatCategoryCode; ?>
-                                </li>
-
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                      <path d="M10.45 15.5C10.8667 15.9167 11.3917 16.1127 12.025 16.088C12.6583 16.0633 13.1167 15.834 13.4 15.4L19 7L10.6 12.6C10.1667 12.9 9.92933 13.354 9.888 13.962C9.84667 14.57 10.034 15.0827 10.45 15.5ZM5.1 20C4.73333 20 4.396 19.9207 4.088 19.762C3.78 19.6033 3.534 19.366 3.35 19.05C2.91667 18.2667 2.58333 17.454 2.35 16.612C2.11667 15.77 2 14.8993 2 14C2 12.6167 2.26267 11.3167 2.788 10.1C3.31333 8.88333 4.02567 7.825 4.925 6.925C5.825 6.025 6.88333 5.31267 8.1 4.788C9.31667 4.26333 10.6167 4.00067 12 4C13.3667 4 14.65 4.25833 15.85 4.775C17.05 5.29167 18.1 5.996 19 6.888C19.9 7.77933 20.6167 8.821 21.15 10.013C21.6833 11.205 21.9583 12.484 21.975 13.85C21.9917 14.7667 21.8873 15.6627 21.662 16.538C21.4367 17.4133 21.091 18.2507 20.625 19.05C20.4417 19.3667 20.1957 19.6043 19.887 19.763C19.5783 19.9217 19.241 20.0007 18.875 20H5.1Z" fill="#2D3748"/>
-                                    </svg>
-
-                                    <span>Max speed</span>
-
-                                    <?php echo empty($vessel->MaximumSpeedMeasure)?"N/A":$vessel->MaximumSpeedMeasure; ?>
-                                </li>
-
-                                <li>   
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                      <path d="M10 12H3M3 12L6 9M3 12L6 15M14 12H21M21 12L18 9M21 12L18 15M3 6V3H21V6M3 18V21H21V18" stroke="#2D3748" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-
-                                    <span>Beam</span>
-
-                                    <?php echo empty($vessel->BeamMeasure) ? "N/A" : $vessel->BeamMeasure . " / " . round((float)$vessel->BeamMeasure * 0.3048, 2) . ' m'; ?>
-                                </li>
-
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                      <path d="M12 14L12 21M12 21L9 18M12 21L15 18M12 10L12 3M12 3L9 6M12 3L15 6M6 21L3 21L3 3L6 3M18 21L21 21L21 3L18 3" stroke="#2D3748" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-
-                                    <span>Draft</span>
-
-                                    <?php echo empty($vessel->MaxDraft)?"N/A":$vessel->MaxDraft; ?>
-                                </li>
-
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                      <path d="M19 19H5V8H19M16 1V3H8V1H6V3H5C3.89 3 3 3.89 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3H18V1M17 12H12V17H17V12Z" fill="#2D3748"/>
-                                    </svg>
-
-                                    <span>Year Built</span>
-
-                                    <?php echo empty($vessel->ModelYear) ? "N/A" : $vessel->ModelYear; ?>
-                                </li>
-
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                      <path d="M3 21V19H5V3H15V4H19V19H21V21H17V6H15V21H3ZM11 13C11.2833 13 11.521 12.904 11.713 12.712C11.905 12.52 12.0007 12.2827 12 12C12 11.7167 11.904 11.479 11.712 11.287C11.52 11.095 11.2827 10.9993 11 11C10.7167 11 10.479 11.096 10.287 11.288C10.095 11.48 9.99933 11.7173 10 12C10 12.2833 10.096 12.521 10.288 12.713C10.48 12.905 10.7173 13.0007 11 13Z" fill="#2D3748"/>
-                                    </svg>
-
-                                    <span>Cabins</span>
-
-                                    <?php echo (empty($vessel->CabinsCountNumeric) ? 'N/A' : $vessel->CabinsCountNumeric); ?>
-                                </li>
-
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                      <path d="M11.9972 7C12.2806 7 12.5182 6.904 12.7102 6.712C12.9022 6.52 12.9979 6.28267 12.9972 6C12.9972 5.71667 12.9012 5.479 12.7092 5.287C12.5172 5.095 12.2799 4.99933 11.9972 5C11.7139 5 11.4762 5.096 11.2842 5.288C11.0922 5.48 10.9966 5.71733 10.9972 6C10.9972 6.28333 11.0932 6.521 11.2852 6.713C11.4772 6.905 11.7146 7.00067 11.9972 7ZM14.8222 7H16.5722C17.0722 7 17.5056 7.16667 17.8722 7.5C18.2389 7.83333 18.4639 8.24167 18.5472 8.725L19.9722 18.725C20.0556 19.325 19.9012 19.8543 19.5092 20.313C19.1172 20.7717 18.6132 21.0007 17.9972 21H5.99724C5.38057 21 4.87624 20.7707 4.48424 20.312C4.09224 19.8533 3.93824 19.3243 4.02224 18.725L5.44723 8.725C5.53057 8.24167 5.75557 7.83333 6.12224 7.5C6.4889 7.16667 6.92224 7 7.42224 7H9.17224C9.12224 6.83333 9.08057 6.671 9.04724 6.513C9.0139 6.355 8.99724 6.184 8.99724 6C8.99724 5.16667 9.2889 4.45833 9.87224 3.875C10.4556 3.29167 11.1639 3 11.9972 3C12.8306 3 13.5389 3.29167 14.1222 3.875C14.7056 4.45833 14.9972 5.16667 14.9972 6C14.9972 6.18333 14.9806 6.35433 14.9472 6.513C14.9139 6.67167 14.8722 6.834 14.8222 7Z" fill="#2D3748"/>
-                                    </svg>
-
-                                    <span>Gross Tonnage</span>
-
-                                    N/A
-                                </li>
-
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                      <path d="M11.9972 7C12.2806 7 12.5182 6.904 12.7102 6.712C12.9022 6.52 12.9979 6.28267 12.9972 6C12.9972 5.71667 12.9012 5.479 12.7092 5.287C12.5172 5.095 12.2799 4.99933 11.9972 5C11.7139 5 11.4762 5.096 11.2842 5.288C11.0922 5.48 10.9966 5.71733 10.9972 6C10.9972 6.28333 11.0932 6.521 11.2852 6.713C11.4772 6.905 11.7146 7.00067 11.9972 7ZM14.8222 7H16.5722C17.0722 7 17.5056 7.16667 17.8722 7.5C18.2389 7.83333 18.4639 8.24167 18.5472 8.725L19.9722 18.725C20.0556 19.325 19.9012 19.8543 19.5092 20.313C19.1172 20.7717 18.6132 21.0007 17.9972 21H5.99724C5.38057 21 4.87624 20.7707 4.48424 20.312C4.09224 19.8533 3.93824 19.3243 4.02224 18.725L5.44723 8.725C5.53057 8.24167 5.75557 7.83333 6.12224 7.5C6.4889 7.16667 6.92224 7 7.42224 7H9.17224C9.12224 6.83333 9.08057 6.671 9.04724 6.513C9.0139 6.355 8.99724 6.184 8.99724 6C8.99724 5.16667 9.2889 4.45833 9.87224 3.875C10.4556 3.29167 11.1639 3 11.9972 3C12.8306 3 13.5389 3.29167 14.1222 3.875C14.7056 4.45833 14.9972 5.16667 14.9972 6C14.9972 6.18333 14.9806 6.35433 14.9472 6.513C14.9139 6.67167 14.8722 6.834 14.8222 7Z" fill="#2D3748"/>
-                                    </svg>
-
-                                    <span>Displacements</span>
-
-                                    N/A
-                                </li>
-
-                                <li>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                      <path d="M12 11.5C11.337 11.5 10.7011 11.2366 10.2322 10.7678C9.76339 10.2989 9.5 9.66304 9.5 9C9.5 8.33696 9.76339 7.70107 10.2322 7.23223C10.7011 6.76339 11.337 6.5 12 6.5C12.663 6.5 13.2989 6.76339 13.7678 7.23223C14.2366 7.70107 14.5 8.33696 14.5 9C14.5 9.3283 14.4353 9.65339 14.3097 9.95671C14.1841 10.26 13.9999 10.5356 13.7678 10.7678C13.5356 10.9999 13.26 11.1841 12.9567 11.3097C12.6534 11.4353 12.3283 11.5 12 11.5ZM12 2C10.1435 2 8.36301 2.7375 7.05025 4.05025C5.7375 5.36301 5 7.14348 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 7.14348 18.2625 5.36301 16.9497 4.05025C15.637 2.7375 13.8565 2 12 2Z" fill="#2D3748"/>
-                                    </svg>
-
-                                    <span>Location</span>
-
-                                    <?= $vesselLocation ?>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                   
 
                     <!-- <div class="ysp-single-y-accord">
                         <h3>Features & Amenities</h3>
@@ -424,7 +375,7 @@ get_header();
                 <div class="ysp-single-y-sidebar">
 
                     <div class="ysp-single-y-sidebar-contact-broker">
-                        <h3>Get More Information</h3>
+                        <!-- <h3>Get More Information</h3> -->
 
                         <?php
                             if ($brokerQuery->have_posts()) {
@@ -433,6 +384,7 @@ get_header();
 
                                     $broker_first_name = get_post_meta($post->ID, 'ysp_team_fname', true);
                                     $broker_last_name = get_post_meta($post->ID, 'ysp_team_lname', true);
+                                    $broker_title = get_post_meta($post->ID, 'ysp_team_title', true);
                                     $broker_email = get_post_meta($post->ID, 'ysp_team_email', true);
                                     $broker_phone = get_post_meta($post->ID, 'ysp_team_phone', true);
 
@@ -447,6 +399,8 @@ get_header();
                                             <a href="<?= get_the_permalink(); ?>">
                                                 <h4><?= $broker_first_name.' '.$broker_last_name ?></h4>
                                             </a>
+
+                                            <?= $broker_title ?> <br />
 
                                             <a href="tel: <?= $broker_phone ?>; ">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -475,6 +429,8 @@ get_header();
 
                                 }
                             }
+
+                            wp_reset_postdata();
                         ?>
 
                         <form class="ysp-single-y-contact-form">
@@ -501,22 +457,53 @@ get_header();
 
                 <div id="ysp-single-y-gallery" class=" ysp-single-y-section">
                     
+                    <div style="display: none;">
+                        <?php for ($imgI=0; $imgI <= 2; $imgI++) : ?>
+                            <img data-thumb-src="<?php echo ($vessel->Images[ $imgI ]->Uri); ?>" src="<?php echo ($vessel->Images[ $imgI ]->Uri); ?>" alt="" />    
+                        <?php endfor; ?>
+                    </div>
+
                     <div class="set1"> 
-                        <img src="<?php echo ($vessel->Images[3]->Uri); ?>" alt="" class="c1" style="width: 100%; height: 50%; flex-grow: 1; " />
+                        <img data-thumb-src="<?php echo ($vessel->Images[3]->Uri); ?>" src="<?php echo ($vessel->Images[3]->Uri); ?>" alt="" class="c1" style="width: 100%; height: 50%; flex-grow: 1; " />
 
                         <div class="thesplit">
-                            <img src="<?php echo ($vessel->Images[4]->Uri); ?>" alt="" class="c2"/>     
-                            <img src="<?php echo ($vessel->Images[5]->Uri); ?>" alt="" />
+                            <img data-thumb-src="<?php echo ($vessel->Images[4]->Uri); ?>" src="<?php echo ($vessel->Images[4]->Uri); ?>" alt="" class="c2"/>     
+                            <img data-thumb-src="<?php echo ($vessel->Images[5]->Uri); ?>" src="<?php echo ($vessel->Images[5]->Uri); ?>" alt="" />
                         </div>
                     </div>
                     
                     <div class="set2">
-                        <img src="<?php echo ($vessel->Images[6]->Uri); ?>" alt="" style="height: 100%; " />    
+                        <img data-thumb-src="<?php echo ($vessel->Images[6]->Uri); ?>" src="<?php echo ($vessel->Images[6]->Uri); ?>" alt="" style="height: 100%; " />    
                         
                         <div class="thesplit">
-                            <img src="<?php echo ($vessel->Images[7]->Uri); ?>" alt="" class="c3" />    
-                            <img src="<?php echo ($vessel->Images[8]->Uri); ?>" alt="" class="c4" />    
+                            <img data-thumb-src="<?php echo ($vessel->Images[7]->Uri); ?>"  src="<?php echo ($vessel->Images[7]->Uri); ?>" alt="" class="c3" />    
+                            <img data-thumb-src="<?php echo ($vessel->Images[8]->Uri); ?>" src="<?php echo ($vessel->Images[8]->Uri); ?>" alt="" class="c4" /> 
+
+                            <svg width="82" height="83" viewBox="0 0 82 83" fill="none" xmlns="http://www.w3.org/2000/svg" style="pointer-events: none; position: absolute; bottom: 0px; right: 0px;">
+                            <g filter="url(#filter0_d_8129_11006)">
+                            <path d="M69.8223 37C69.8223 53.5685 56.8783 67 40.9111 67C24.944 67 12 53.5685 12 37C12 20.4315 24.944 7 40.9111 7C56.8783 7 69.8223 20.4315 69.8223 37Z" fill="white"/>
+                            <path d="M69.4473 37C69.4473 53.3746 56.6583 66.625 40.9111 66.625C25.164 66.625 12.375 53.3746 12.375 37C12.375 20.6254 25.164 7.375 40.9111 7.375C56.6583 7.375 69.4473 20.6254 69.4473 37Z" stroke="#D0DBFF" stroke-width="0.75"/>
+                            </g>
+                            <path d="M42.875 27H51.875C52.4963 27 53 27.4871 53 28.0879V35.3407C53 35.9415 52.4963 36.4286 51.875 36.4286H42.875C42.2537 36.4286 41.75 35.9415 41.75 35.3407V28.0879C41.75 27.4871 42.2537 27 42.875 27ZM39.125 27H30.125C29.5037 27 29 27.4871 29 28.0879V35.3407C29 35.9415 29.5037 36.4286 30.125 36.4286H39.125C39.7463 36.4286 40.25 35.9415 40.25 35.3407V28.0879C40.25 27.4871 39.7463 27 39.125 27ZM29 38.967V46.2198C29 46.8206 29.5037 47.3077 30.125 47.3077H39.125C39.7463 47.3077 40.25 46.8206 40.25 46.2198V38.967C40.25 38.3662 39.7463 37.8791 39.125 37.8791H30.125C29.5037 37.8791 29 38.3662 29 38.967ZM42.875 47.3077H51.875C52.4963 47.3077 53 46.8206 53 46.2198V38.967C53 38.3662 52.4963 37.8791 51.875 37.8791H42.875C42.2537 37.8791 41.75 38.3662 41.75 38.967V46.2198C41.75 46.8206 42.2537 47.3077 42.875 47.3077Z" fill="#067AED"/>
+                            <defs>
+                            <filter id="filter0_d_8129_11006" x="0.75" y="0.25" width="80.3203" height="82.5" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                            <feOffset dy="4.5"/>
+                            <feGaussianBlur stdDeviation="5.625"/>
+                            <feColorMatrix type="matrix" values="0 0 0 0 0.25098 0 0 0 0 0.309804 0 0 0 0 0.407843 0 0 0 0.05 0"/>
+                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_8129_11006"/>
+                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_8129_11006" result="shape"/>
+                            </filter>
+                            </defs>
+                            </svg>
                         </div>
+                    </div>
+
+                    <div style="display: none;">
+                        <?php for ($imgI=9; $img <= count($vessel->Images) && $imgI <= 25; $imgI++) : ?>
+                            <img data-thumb-src="<?php echo ($vessel->Images[ $imgI ]->Uri); ?>" src="<?php echo ($vessel->Images[ $imgI ]->Uri); ?>" alt="" />    
+                        <?php endfor; ?>
                     </div>
                  </div>
             </div>
@@ -565,16 +552,17 @@ get_header();
                 
                 <div class="headings">
                     <h3>Keep Learning<br /> About this Vessel<br /></h3>
-                    <h4>Take a brochure with you</h4>
+                    <h4 style="margin-bottom: 10px;">Take a brochure with you</h4>
 
-                    <a href="">
-                        <img src="<?= YSP_ASSETS ?>/images/download.png" width="64px" height="64px" />
-
+                    <a rel="nofollow" href="<?php echo get_rest_url(); ?>ysp/yacht-pdf-loader?yacht_post_id=<?php echo get_the_ID(); ?>" target="_blank">
+                        <svg width="100" height="131" viewBox="0 0 100 131" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M58.3333 34.5484V0H6.25C2.78646 0 0 2.71815 0 6.09677V123.968C0 127.346 2.78646 130.065 6.25 130.065H93.75C97.2135 130.065 100 127.346 100 123.968V40.6452H64.5833C61.1458 40.6452 58.3333 37.9016 58.3333 34.5484ZM78.2422 88.2406L53.1328 112.552C51.401 114.231 48.6042 114.231 46.8724 112.552L21.763 88.2406C19.1198 85.6825 20.974 81.2903 24.6927 81.2903H41.6667V60.9677C41.6667 58.7221 43.5312 56.9032 45.8333 56.9032H54.1667C56.4687 56.9032 58.3333 58.7221 58.3333 60.9677V81.2903H75.3073C79.026 81.2903 80.8802 85.6825 78.2422 88.2406ZM98.1771 26.6734L72.6823 1.77823C71.5104 0.635081 69.9219 0 68.2552 0H66.6667V32.5161H100V30.9665C100 29.3661 99.349 27.8165 98.1771 26.6734Z" fill="#067AED"/>
+                        </svg>
                     </a>
                 </div>
 
-                <div style="width: 560px;">
-                    <h3 style="text-align: center;">Contact Us Today</h3>
+                <div style="max-width: 560px;">
+                    <!-- <h3 style="text-align: center;">Contact Us Today</h3> -->
 
                     <form class="ysp-single-y-contact-form">
                         <input type="text" name="fullname" placeholder="Full Name" />
@@ -662,12 +650,12 @@ get_header();
     <div class="modal-content">
         <div class="modal-left">
             <img src="<?php echo $image->{'Uri'}; ?>" alt="Vessel Image">
-            <p class="modal-title">
-                <?php echo esc_html($vessel->ModelYear . ' ' . $vessel->MakeString . ' ' . $vessel->BoatName); ?>
+            <p class="modal-title" style="text-align: center;">
+                <?php echo esc_html($vessel->ModelYear . ' ' . $vessel->MakeString) .'<br />'. $vessel->BoatName; ?>
             </p>
         </div>
         <div class="modal-right">
-            <h2>Share This</h2>
+            <h2>Share This Page!</h2>
 
             <div class="modal-socials">
                 <div class="modal-social-icon">
@@ -695,7 +683,7 @@ get_header();
             <div class="copy-link-section">
                 <form class="ysp-form">
 
-                    <input type="text" value="<?php echo esc_url(get_permalink()); ?>" id="copyLinkInput" readonly>
+                    <input type="text" value="<?php echo esc_url(get_permalink()); ?>" id="shareLinkInput" readonly />
                     <button class="ysp-btn" onclick="copyLink()">Copy Link</button>
                 </form>
             </div>

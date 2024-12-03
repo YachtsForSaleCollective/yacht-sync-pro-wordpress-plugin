@@ -14,15 +14,3 @@ jQuery(document).ready(function() {
     });
   });
 });
-
-function copyLink() {
-
-  var copyText = document.getElementById("copyLinkInput");
-
-  copyText.select();
-  copyText.setSelectionRange(0, 99999);
-
-  document.execCommand("copy");
-
-  alert("Copied the link: " + copyText.value);
-}

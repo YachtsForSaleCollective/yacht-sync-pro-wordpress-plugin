@@ -1,21 +1,24 @@
+var singleYachtGalley=null;
+
 document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById('lightgallery')) {
         console.log("Fired")
-        lightGallery(document.getElementById('lightgallery'), {
+        singleYachtGalley=lightGallery(document.getElementById('lightgallery'), {
           plugins: [
             lgZoom,
-            //lgThumbnail,
+            lgThumbnail,
             lgVideo,
             lgRotate,
             //lgShare
           ],
-          speed: 500,
+          speed: 200,
           //licenseKey: 'your_license_key',
           thumbnail:true,
           animateThumb: false,
-          showThumbByDefault: false,
+          showThumbByDefault: true,
           download: false,
-          selector: 'img'
+          selector: 'img',
+          exThumbImage: 'data-thumb-src'
       });
     }
 
@@ -24,4 +27,29 @@ document.addEventListener("DOMContentLoaded", () => {
         plugins: [lgVideo],
       })
     }
+
+    document.querySelector('#ysp-single-y-image-topper .img1').addEventListener('click', function() {
+      singleYachtGalley.openGallery(0);
+    });
+
+    document.querySelector('#ysp-single-y-image-topper .img2').addEventListener('click', function() {
+      singleYachtGalley.openGallery(1);
+    });
+
+    document.querySelector('#ysp-single-y-image-topper .img3').addEventListener('click', function() {
+      singleYachtGalley.openGallery(2);
+    });
 });
+
+
+function copyLink() {
+
+  var copyText = document.getElementById("shareLinkInput");
+
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+
+  document.execCommand("copy");
+
+  alert("Copied the link: " + copyText.value);
+}

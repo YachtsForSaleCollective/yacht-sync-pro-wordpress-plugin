@@ -17,7 +17,7 @@
                 <label>Sort by: </label>
 
                 <select name="sortby" label="Sorted By" form="ysp-yacht-search-form">
-                    <option value="">pick a sort</option>
+                    <option value="">Pick a sort</option>
                     
                     <option value="Length:desc">Length: high to low</option>
                     <option value="Length:asc">Length: low to high</option>

@@ -27,7 +27,7 @@ get_header();
 
                     <div>
                         <h1 class="broker-name"><?php echo($meta["ysp_team_fname"] . " " . $meta["ysp_team_lname"]); ?></h1>
-                        <span class="broker-title">Broker</span><br />
+                        <span class="broker-title"><?php echo empty($meta['ysp_team_title'])?'Broker':$meta['ysp_team_title']; ?></span><br />
                         <span class="broker-email">
                             <a href="mailto: <?php echo($meta["ysp_team_email"]); ?>; ">
                                 <?php echo($meta["ysp_team_email"]); ?>        

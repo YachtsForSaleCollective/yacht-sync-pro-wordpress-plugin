@@ -40,7 +40,7 @@
                 <label>Last Name</label>
                 <br>
                 <input style="margin-bottom: 5px" type="text" name="broker_lname" value="<?= $broker_lname ?>">
-
+                <br>
                 <label>Title</label>
                 <br>
                 <input style="margin-bottom: 5px" type="text" name="broker_title" value="<?= $broker_title ?>">

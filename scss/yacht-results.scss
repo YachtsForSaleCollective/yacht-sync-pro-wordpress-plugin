@@ -89,6 +89,17 @@
 
 }
 
+#ysp-the-yacht-results, .ysp-the-yacht-results, .yacht-featured-listing-row  {
+
+    &.view-list{
+        display: grid;
+        grid-template-columns: 1fr;
+        flex-wrap: nowrap;
+        gap: 30px;
+    }
+
+}
+
 .ysp-search-tags{
     
     .ysp-tag{
@@ -131,7 +142,7 @@
     }
 }
 
-#yachts-compare-bar {
+#ysp-yachts-compare-bar {
     position: sticky;
     right: 0px;
     bottom: 0px;
@@ -140,7 +151,7 @@
     backdrop-filter: blur(8px);
     width: 100%;
     padding: 25px;
-    border-left: 1px solid #000000;
+    border-radius: 12px 12px 0px 0px;
     display: none;
 
     @media screen and (min-width: vars.$breakpoint-med) {
@@ -149,7 +160,7 @@
 
     #ysp_compare_linkout {
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         margin-bottom: 5px;
         text-decoration: none;
     }
@@ -160,19 +171,21 @@
         
         .ysp-yacht-compare-preview {
             max-width: 200px !important;
-            max-height: 400px !important;
 
             .remove-from-compare {
                 float: right;
+                cursor: pointer;
             }
 
             .yacht-main-image {
                 border-radius: 6px;
                 max-height: 120px;
+                width: 100%;
                 height: 100%;
                 object-fit: cover;
                 margin-bottom: 10px;
             }
+
             .preview-link {
                 text-decoration: none;
 
@@ -184,6 +197,7 @@
                 .yacht-title {
                     margin-bottom: 0px;
                     color: #FFFFFF;
+                    text-align: center;
                 }
             }
         }

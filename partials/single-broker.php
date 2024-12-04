@@ -59,14 +59,26 @@ get_header();
 
                 <div class="">
 
-                    <form class="ysp-single-b-contact-form">
-                        <input type="text" name="fullname" placeholder="Full Name" />
-                        <input type="text" name="email" placeholder="Email" />
-                        <input type="text" name="phone" placeholder="Phone Number" />
+                    <form class="ysp-single-b-contact-form ysp-form ysp-lead-form ysp-lead-form-v2" action="/wp-json/ysp/lead-v2" method="post">
 
-                        <textarea name="message" rows="8" placeholder="Message"></textarea>
+                        <div class="hide-after-submit">
+                            <input type="hidden" name="WhichBroker" value="<?= $post->ID ?>" />
 
-                        <button type="submit" class="ysp-btn ysp-btn-block">Send Message</button>
+                            <div class="ysp-lead-form-row">
+                                <input type="text" name="fname" placeholder="First Name" />
+                                <input type="text" name="lname" placeholder="Last Name" />
+                            </div>
+                            <input type="text" name="email" placeholder="Email" />
+                            <input type="text" name="phone" placeholder="Phone Number" />
+
+                            <textarea name="message" rows="8" placeholder="Message"></textarea>
+
+                            <button type="submit" class="ysp-btn ysp-btn-block">Send Message</button>
+                        </div>
+
+                        <div class="success-message">
+                            <p>Thank you for getting in touch. We will be in touch shortly.</p>
+                        </div>
                     </form>
                 </div>
 

@@ -380,6 +380,8 @@ get_header();
                         <?php
                             if ($brokerQuery->have_posts()) {
                                 while ($brokerQuery->have_posts()) {
+                                    $BoatPostId=$post->ID;
+
                                     $brokerQuery->the_post();
 
                                     $broker_first_name = get_post_meta($post->ID, 'ysp_team_fname', true);
@@ -419,13 +421,52 @@ get_header();
                                             
                                             <br />
                                             
-                                            <a href="<?= get_the_permalink(); ?>#listings">
-                                                View Listings
-                                            </a>
+                                            <!-- <a href="<?= get_the_permalink(); ?>#listings">
+                                                View My Listings
+                                            </a> -->
                                         </div>
                                     </div>
 
-                                    <?php 
+                                   
+                        <form class="ysp-single-y-contact-form ysp-form ysp-lead-form ysp-lead-form-v2">
+                            <input type="hidden" name="WhichBoatID" value="<?= $BoatPostId ?>">
+
+                            <div class="hide-after-submit">
+                                
+                                <div class="ysp-lead-form-row">
+                                    <input type="text" name="fname" placeholder="First Name" />
+                                    <input type="text" name="lname" placeholder="Last Name" />
+                                </div>
+
+                                <input type="text" name="email" placeholder="Email" />
+                                <input type="text" name="phone" placeholder="Phone Number" />
+
+                                <textarea name="message" rows="8" placeholder="Message"></textarea>
+
+                                <button type="submit" class="ysp-btn ysp-btn-block">
+                                    Send Message 
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M15.5553 0H5.77756C5.53189 0 5.3331 0.198792 5.3331 0.444458C5.3331 0.690125 5.53189 0.888917 5.77756 0.888917H14.4824L0.129975 15.2413C-0.0436504 15.415 -0.0436504 15.6962 0.129975 15.8698C0.216766 15.9566 0.330516 16 0.444225 16C0.557933 16 0.671641 15.9566 0.758475 15.8698L15.1109 1.51737V10.2222C15.1109 10.4679 15.3097 10.6667 15.5553 10.6667C15.801 10.6667 15.9998 10.4679 15.9998 10.2222V0.444458C15.9998 0.198792 15.801 0 15.5553 0Z" fill="white"/>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div class="success-message">
+                                <p>Thank you for getting in touch.<br /> We will be in touch shortly.</p>
+                            </div>
+                        </form>
+
+                        <div style="margin-top: 15px; display: grid; gap: 15px; grid-template-columns: 1fr 1fr;">
+                            <a href="tel: <?= $broker_phone ?>; ">
+                                <button type="button" class="ysp-btn ysp-btn-block">Call</button>
+                            </a>
+
+                            <a href="mailto: <?= $broker_email ?>; ">
+                                <button type="button" class="ysp-btn ysp-btn-block">Email</button>
+                            </a>
+                        </div>
+
+                        <?php 
 
                                 }
                             }
@@ -433,20 +474,6 @@ get_header();
                             wp_reset_postdata();
                         ?>
 
-                        <form class="ysp-single-y-contact-form">
-                            <input type="text" name="fullname" placeholder="Full Name" />
-                            <input type="text" name="email" placeholder="Email" />
-                            <input type="text" name="phone" placeholder="Phone Number" />
-
-                            <textarea name="message" rows="8" placeholder="Message"></textarea>
-
-                            <button type="submit" class="ysp-btn ysp-btn-block">Send Message</button>
-                        </form>
-
-                        <div style="margin-top: 15px; display: grid; gap: 15px; grid-template-columns: 1fr 1fr;">
-                            <button type="button" class="ysp-btn">Call</button>
-                            <button type="button" class="ysp-btn">Email</button>
-                        </div>
                     </div>
 
                 </div>
@@ -501,9 +528,15 @@ get_header();
                     </div>
 
                     <div style="display: none;">
-                        <?php for ($imgI=9; $img <= count($vessel->Images) && $imgI <= 25; $imgI++) : ?>
+                        <?php for ($imgI=9; $img <= count($vessel->Images) && $imgI <= 25; $imgI++) : 
+                            if (isset($vessel->Images[ $imgI ]->Uri)) :
+                            ?>
                             <img data-thumb-src="<?php echo ($vessel->Images[ $imgI ]->Uri); ?>" src="<?php echo ($vessel->Images[ $imgI ]->Uri); ?>" alt="" />    
-                        <?php endfor; ?>
+                        
+                        <?php 
+                            endif;
+                            endfor;
+                        ?>
                     </div>
                  </div>
             </div>
@@ -564,14 +597,26 @@ get_header();
                 <div style="max-width: 560px;">
                     <!-- <h3 style="text-align: center;">Contact Us Today</h3> -->
 
-                    <form class="ysp-single-y-contact-form">
-                        <input type="text" name="fullname" placeholder="Full Name" />
-                        <input type="text" name="email" placeholder="Email" />
-                        <input type="text" name="phone" placeholder="Phone Number" />
+                    <form class="ysp-single-y-contact-form ysp-lead-form ysp-lead-form-v2">
+                        <input type="hidden" name="WhichBoatID" value="<?= $post->ID ?>">
 
-                        <textarea name="message" rows="8" placeholder="Message"></textarea>
+                        <div class="hide-after-submit">
+                            <div class="ysp-lead-form-row">
+                                <input type="text" name="fname" placeholder="First Name" />
+                                <input type="text" name="lname" placeholder="Last Name" />
+                            </div>
 
-                        <button type="submit" class="ysp-btn ysp-btn-block">Send Message</button>
+                            <input type="text" name="email" placeholder="Email" />
+                            <input type="text" name="phone" placeholder="Phone Number" />
+
+                            <textarea name="message" rows="8" placeholder="Message"></textarea>
+
+                            <button type="submit" class="ysp-btn ysp-btn-block">Send Message</button>
+                        </div>
+
+                        <div class="success-message">
+                            <p>Thank you for getting in touch.<br /> We will be in touch shortly.</p>
+                        </div>
                     </form>
                 </div>
             </div>

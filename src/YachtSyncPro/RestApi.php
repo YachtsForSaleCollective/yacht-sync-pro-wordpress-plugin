@@ -156,18 +156,9 @@
 		        )
 		    ) );
 
-    		// Leads 
-			register_rest_route( $this->rest_path, '/yacht-leads', array(
-		        'callback' => [$this, 'yacht_leads'],
-		        'methods'  => [WP_REST_Server::READABLE, WP_REST_Server::CREATABLE],
-		        'permission_callback' => '__return_true',
-		        'args' => array(
-		            
-		        )
-		    ) );
-
-			register_rest_route( $this->rest_path, '/broker-leads', array(
-		        'callback' => [$this, 'broker_leads'],
+    		// Leads v2 
+			register_rest_route( $this->rest_path, '/lead-v2', array(
+		        'callback' => [$this, 'lead_submittion_v2'],
 		        'methods'  => [WP_REST_Server::READABLE, WP_REST_Server::CREATABLE],
 		        'permission_callback' => '__return_true',
 		        'args' => array(
@@ -961,5 +952,93 @@
 			}
 		}
 
+		public function lead_submittion_v2(WP_REST_Request $request) {
+	
+
+			// FIELDS			
+			$fname = $request->get_param('fname');
+			$lname = $request->get_param('lname');
+
+			$message = $request->get_param('message');
+			$email = $request->get_param('email');
+			$phone = $request->get_param('phone');
+
+			$fax = $request->get_param('fax');
+			$ReferrerUrl = $_SERVER['HTTP_REFERER'];
+
+			// TO AND SUBJECT
+			$BrokerIs=$request->get_param('WhichBroker');
+
+			if (isset($BrokerIs) && !empty($BrokerIs)) {
+				$HasBroker = true;
+
+				$BrokerPost = get_post($BrokerIs);
+
+				$to = get_post_meta($BrokerIs, "ysp_team_email", true);
+				$subject = '';
+			}
+
+			$YachtIs=$request->get_param('WhichBoat');
+
+			if (isset($YachtIs) && !empty($YachtIs)) {
+				$HasYacht = true;
+
+				$to = $this->options->get('send_lead_to_this_email');
+				$subject = $fname.' is interested in '.$YachtIs;
+			}
+
+			$YachtID=$request->get_param('WhichBoatID');
+
+			if (isset($YachtID) && !empty($YachtID)) {
+				$HasYacht = true;
+
+				$YachtPost = get_post($YachtID);
+
+				$to = '';
+				//$to = $this->options->get('send_lead_to_this_email');
+				$subject = $fname.' is interested in '.$YachtPost->post_title;
+			}
+
+			$spamChecker = $this->spamChecker([
+				'fname' => $fname,
+				'lname' => $lname,
+				'message' => $message,
+				'email' => $email,
+				'phone' => $phone,
+				'brokerID' => $broker_email,
+				'fax' => $fax,
+				'ReferrerUrl' => $_SERVER['HTTP_REFERER']
+			]);
+
+			if  ( isset( $spamChecker['not_spam_aki']) && $spamChecker['not_spam_aki'] == true ) {
+			
+				$fullMessage = '<!DOCTYPE html><html><body>';
+				$fullMessage .= '<h1>' . $subject . '</h1>';
+				$fullMessage .= '<p><strong>Name:</strong> ' . "$fname $lname" . '</p>';
+				$fullMessage .= '<p><strong>Page:</strong> ' . $ReferrerUrl . '</p>';
+				$fullMessage .= '<p><strong>Email:</strong> ' . $email . '</p>';
+				$fullMessage .= '<p><strong>Phone:</strong> ' . $phone . '</p>';
+				$fullMessage .= '<p><strong>Message:</strong></p>';
+				$fullMessage .= '<p>' . nl2br($message) . '</p>'; 
+			
+				$fullMessage .= '</body></html>';
+			
+				$headers = array(
+					'Content-Type: text/html; charset=UTF-8',
+				);
+			
+				$sent = wp_mail($to, $subject, $fullMessage, $headers);
+
+				if ($sent) {
+					return array('message' => 'Email sent successfully');
+				} else {
+					return array('error' => 'Email failed to send');
+				}
+			}
+			else {
+				return array('error' => 'Email failed to send');
+			}
+
+		}
 		
 	}

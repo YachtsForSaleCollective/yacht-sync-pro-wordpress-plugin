@@ -127,7 +127,6 @@
 			input{
 				height: auto;
 			}
-
 			
 			&:hover, &:focus {
 			    border-color: #007BFF; /* Change border color on hover/focus */
@@ -138,5 +137,31 @@
 
 	}
 
+}
+
+.ysp-lead-form{
+
+	.ysp-lead-form-row{
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 15px;
+	}
+	
+	input, textarea, select{
+        margin-bottom: 15px;
+        
+        border-radius: 8px;
+        border: 1px solid #CBD5E0;
+        background: #FFF;
+    }
+
+    .ysp-success-message{
+    	display: none; 
+    	background-color: #4CAF50; 
+    	border-radius: 12px;
+    	color: #fff; 
+    	padding: 12px; 
+    	text-align: center;
+    }
 
 }

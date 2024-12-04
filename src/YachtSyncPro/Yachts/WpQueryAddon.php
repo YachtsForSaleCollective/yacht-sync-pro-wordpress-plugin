@@ -173,7 +173,8 @@
 							
 							[	
 								'key' => 'ModelYear',
-								'compare' => "LIKE",
+								'type' => 'NUMERIC',
+								//'compare' => "LIKE",
 								'value' => $keyword
 							],
 							
@@ -195,11 +196,11 @@
 								'value' => $keyword
 							],	
 							
-							[									
+							/*[									
 								'key' => 'GeneralBoatDescription',
 								'compare' => "LIKE",
 								'value' => $keyword
-							],
+							],*/
 
 							[									
 								'key' => 'YSP_City',

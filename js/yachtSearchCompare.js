@@ -123,11 +123,13 @@ function ysp_makeCompareLinkout() {
         });
     }
     else {
-        jQuery('#ysp-compare-previews').html('');
+        jQuery('#ysp-compare-previews').html('<span style="color: #fff;">Pick two to compare.</span>');
         jQuery('#ysp_compare_linkout').html('');
         jQuery('#ysp_compare_linkout_mobile').html('');
     }
 
+
+    
 
 
 

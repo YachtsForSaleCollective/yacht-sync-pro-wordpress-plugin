@@ -39,22 +39,35 @@ function ysp_yacht_search_and_reader(data) {
         
         if (data_result.total > 0) {
 
+            jQuery('#ysp-the-yacht-results').removeClass(['view-grid', 'view-list']);
+
+             if (typeof data.view != 'undefined' && data.view.toLowerCase() == 'list') {
+                jQuery('#ysp-the-yacht-results').addClass('view-list');
+            }
+            else {
+                jQuery('#ysp-the-yacht-results').addClass('view-grid');
+            }
+
             data_result.results.forEach(function(item) {
                 if (typeof data.view != 'undefined' && data.view.toLowerCase() == 'list') {
+                    jQuery('#ysp-the-yacht-results').addClass('view-list').removeClass('view-grid');
                     jQuery('#ysp-the-yacht-results').append( ysp_templates.yacht.list(item, data) );
                 }
                 else {
+                    jQuery('#ysp-the-yacht-results').addClass('view-grid');
                     jQuery('#ysp-the-yacht-results').append( ysp_templates.yacht.grid(item, data) );
                 }
 
                 let ele_card = jQuery('#ysp-the-yacht-results [data-post-id='+ item._postID +']');
 
-                jQuery('[data-modal]', ele_card).click(function(e) {
+                jQuery('[data-modal=#ysp-yacht-results-lead-modal]', ele_card).click(function(e) {
                     e.preventDefault();
                 
-                    let vesselInfo = item.ModelYear + ' ' + item.MakeString + ' ' + item.BoatName;
+                    let BoatName = item.ModelYear + ' ' + item.MakeString + ' ' + item.BoatName;
 
-                    jQuery('#yatchHidden').val(vesselInfo);
+                    jQuery('#ysp-yacht-results-lead-modal .boatname').html(BoatName);
+                    jQuery('#ysp-yacht-results-lead-modal input[name=WhichBoat]').val(BoatName);
+                    jQuery('#ysp-yacht-results-lead-modal input[name=WhichBoatID]').val(item._postID);
 
                   var data_modal = jQuery(this).data('modal');
               

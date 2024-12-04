@@ -53,6 +53,22 @@
                 fill: vars.$button-bg-color;
             }
         }
+
+        .top-compare{
+            position: absolute;
+            top: 75px;
+            left: 13px;
+            cursor: pointer;
+
+            input[type=checkbox]{
+                display: none;
+
+                &:checked + svg path{
+                    stroke: vars.$button-bg-color;
+                    fill: vars.$button-bg-color;
+                }
+            }
+        }
     }
 
     .result-item-info{
@@ -110,9 +126,12 @@
 
         .ri-image{
             position: relative; 
+                width: 370px;
     
             .yacht-image{
                 width: 370px;
+                height: 100%;
+                object-fit: cover;
                 border-radius: 12px 0px 0px 12px;
             }
         }

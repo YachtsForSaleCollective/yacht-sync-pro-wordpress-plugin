@@ -69,13 +69,13 @@ function ysp_yacht_search_and_reader(data) {
                     jQuery('#ysp-yacht-results-lead-modal input[name=WhichBoat]').val(BoatName);
                     jQuery('#ysp-yacht-results-lead-modal input[name=WhichBoatID]').val(item._postID);
 
-                  var data_modal = jQuery(this).data('modal');
-              
-                  jQuery( data_modal ).ysp_modal({
-                    closeText: 'X',
-                    modalClass: 'ysp-modal-open',
-                    closeClass: 'ysp-model-close'
-                  });
+                    var data_modal = jQuery(this).data('modal');
+
+                    jQuery( data_modal ).ysp_modal({
+                        closeText: 'X',
+                        modalClass: 'ysp-modal-open',
+                        closeClass: 'ysp-model-close'
+                    });
                 });
 
                 ysp_markLovedVessel( ele_card );     

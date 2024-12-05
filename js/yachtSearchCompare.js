@@ -73,6 +73,7 @@ function ysp_removeVesselToCompareList(yachtId) {
     	delete YSP_VesselCompareList[indexed];        
         YSP_VesselCompareList.splice(indexed, 1);
   		
+        
     }
 
     ysp_makeCompareLinkout();
@@ -102,14 +103,10 @@ function ysp_makeCompareLinkout() {
             data_result.results.forEach(function(item) {
                 jQuery('#ysp-compare-previews').append( ysp_templates.yacht.compare_preview(item, params) );
 
-                let ele_preview = jQuery('#ysp-compare-previews [data-post-id='+ item._postID +']');
+                let ele_preview = jQuery('#ysp-compare-previews *[data-post-id='+ item._postID +']');
                 
                 jQuery('.remove-from-compare', ele_preview).click(function() {
-                    console.log('hello');
-                    
-                    let ele_card = jQuery('#search-result-row [data-post-id='+ item._postID +']');
-
-                    jQuery('.compare_toggle', ele_card).prop('checked', false).removeClass('armed');
+                    jQuery('div[data-post-id='+ item._postID +'] .compare_toggle').prop('checked', false).removeClass('armed');
 
                     ysp_removeVesselToCompareList(item._postID);
                 

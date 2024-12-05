@@ -68,6 +68,7 @@ get_header();
                                 <input type="text" name="fname" placeholder="First Name" />
                                 <input type="text" name="lname" placeholder="Last Name" />
                             </div>
+                            
                             <input type="text" name="email" placeholder="Email" />
                             <input type="text" name="phone" placeholder="Phone Number" />
 

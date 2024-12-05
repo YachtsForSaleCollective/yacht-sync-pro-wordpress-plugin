@@ -155,13 +155,17 @@
         background: #FFF;
     }
 
-    .ysp-success-message{
+    .success-message{
     	display: none; 
     	background-color: #4CAF50; 
     	border-radius: 12px;
     	color: #fff; 
     	padding: 12px; 
     	text-align: center;
+
+    	p{
+    		margin-bottom: 0px;
+    	}
     }
 
 }

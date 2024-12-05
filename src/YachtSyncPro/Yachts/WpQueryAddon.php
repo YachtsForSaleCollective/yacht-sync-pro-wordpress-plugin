@@ -196,12 +196,6 @@
 								'value' => $keyword
 							],	
 							
-							/*[									
-								'key' => 'GeneralBoatDescription',
-								'compare' => "LIKE",
-								'value' => $keyword
-							],*/
-
 							[									
 								'key' => 'YSP_City',
 								'compare' => "LIKE",
@@ -218,7 +212,14 @@
 								'key' => 'YSP_Full_State',
 								'compare' => "LIKE",
 								'value' => $keyword
-							]
+							],
+
+							/*[									
+								'key' => 'GeneralBoatDescription',
+            					'compare' => 'LIKE',
+								'value' => "[[:<:]]{$keyword}[[:>:]]", // matches exaclty "123", not just 123. This prevents a match for "1234"
+							],*/
+
 
 						];
 					}

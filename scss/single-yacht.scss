@@ -195,6 +195,7 @@
             border: 0px;
             border-bottom: 2px solid #E4ECF7;
             text-align: left;
+            width: 25%;
         }
 
         tr{
@@ -217,6 +218,9 @@
             margin-bottom: 15px;
         }
 
+        ul, ol{
+            columns: 2;
+        }
     }
 
     .ysp-single-y-accord{
@@ -336,6 +340,13 @@
             cursor: pointer;
         }
 
+        .icon{
+            pointer-events: none;
+            position: absolute; 
+            bottom: 0px; 
+            right: 0px;
+        }
+
         .set1{
             display: flex;
             flex-direction: column;
@@ -347,6 +358,14 @@
                 justify-content: space-between;
                 grid-template-columns: 1fr 1fr;
                 grid-template-rows: 1fr;
+
+                position: relative;
+            }
+
+            .icon{
+                @media (min-width: vars.$breakpoint-large) {
+                    display: none;
+                }
             }
         } 
 
@@ -364,6 +383,10 @@
                 grid-template-rows: 1fr 1fr;
 
                 position: relative;
+            }
+
+            .c3{
+                max-height: 400px;
             }
 
 

@@ -72,9 +72,7 @@
         <h3 style="text-align: center; margin-bottom: 50px;">Inquire About <br /> <span class="boatname"></span></h3>
      
         <form class="ysp-lead-form ysp-lead-form-v2 ysp-form" action="/wp-json/ysp/lead-v2" method="post">
-            <input type="hidden" name="WhichBoat" value="" />
             <input type="hidden" name="WhichBoatID" value="" />
-            <input type="hidden" name="WhichBroker" value="" />
 
             <div class="hide-after-submit">
                 <div class="ysp-lead-form-row">
@@ -111,7 +109,7 @@
                 <input type="submit" value="Send Message" class="yacht-form-submit ysp-general-button ysp-btn-block"  />
             </div>
             
-            <div class="ysp-success-message">
+            <div class="success-message">
                 <p>Thank you for getting in touch.<br /> We will be in touch shortly.</p>
             </div>
         </form>

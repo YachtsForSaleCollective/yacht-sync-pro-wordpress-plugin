@@ -62,13 +62,13 @@ get_header();
                     <form class="ysp-single-b-contact-form ysp-form ysp-lead-form ysp-lead-form-v2" action="/wp-json/ysp/lead-v2" method="post">
 
                         <div class="hide-after-submit">
-                            <input type="hidden" name="WhichBroker" value="<?= $post->ID ?>" />
+                            <input type="hidden" name="WhichBrokerID" value="<?= $post->ID ?>" />
 
                             <div class="ysp-lead-form-row">
                                 <input type="text" name="fname" placeholder="First Name" />
                                 <input type="text" name="lname" placeholder="Last Name" />
                             </div>
-                            
+
                             <input type="text" name="email" placeholder="Email" />
                             <input type="text" name="phone" placeholder="Phone Number" />
 

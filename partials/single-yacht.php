@@ -100,7 +100,7 @@ get_header();
             }
             ?>
 
-            <div id="ysp-single-y-image-topper">
+            <div id="ysp-single-y-image-topper" title="click to view gallery"> 
 
                 <img src="<?php echo ($vessel->Images[0]->Uri); ?>" alt="" class="img1" id="ysp-single-y-main-iamge" />
 
@@ -150,7 +150,7 @@ get_header();
 
                                 ?>
 
-                                <a href="tel: <?= $broker_phone ?>">
+                                <a href="tel: <?= $broker_phone ?>" title="Call">
                                     <img src="<?= YSP_ASSETS ?>/images/single-yacht/Message.png" alt="Message" />
                                 </a>
 
@@ -161,11 +161,11 @@ get_header();
                         wp_reset_postdata();
                     ?>
 
-                    <a rel="nofollow" href="<?php echo get_rest_url(); ?>ysp/yacht-pdf-loader?yacht_post_id=<?php echo get_the_ID(); ?>" target="_blank">
+                    <a rel="nofollow" href="<?php echo get_rest_url(); ?>ysp/yacht-pdf-loader?yacht_post_id=<?php echo get_the_ID(); ?>" target="_blank" title="Download brochure">
                         <img src="<?= YSP_ASSETS ?>/images/single-yacht/Brochure.png" alt="Brochure" />
                     </a>
             
-                    <a href="#" data-modal="#ysp-single-y-share-modal">
+                    <a href="#" data-modal="#ysp-single-y-share-modal" title="Share This Page">
                         <img src="<?= YSP_ASSETS ?>/images/single-yacht/Share.png" alt="Share" />
                     </a>
                 
@@ -291,16 +291,19 @@ get_header();
 
                     <div class="ysp-single-y-description">
                         <?php 
-                            the_content();
-                            
-                            /*
-                            if (isset($vessel->GeneralBoatDescription) && is_array($vessel->GeneralBoatDescription)) { 
-                                echo join(" ", $vessel->GeneralBoatDescription); 
+                            if ($post->post_content == 0) {
+                                if (isset($vessel->GeneralBoatDescription) && is_array($vessel->GeneralBoatDescription)) { 
+                                    echo join(" ", $vessel->GeneralBoatDescription); 
+                                }
+                                elseif (isset($vessel->GeneralBoatDescription) && is_string($vessel->GeneralBoatDescription)) {
+                                    echo $vessel->GeneralBoatDescription;
+                                } 
+
                             }
-                            elseif (isset($vessel->GeneralBoatDescription) && is_string($vessel->GeneralBoatDescription)) {
-                                echo $vessel->GeneralBoatDescription;
-                            } 
-                            */
+                            else {
+
+                                the_content();
+                            }
                         ?>
                     </div>
 
@@ -326,7 +329,7 @@ get_header();
                                         </button>
                                     </a> -->
 
-                                    <a href="<?= $vessel->Videos->url[$aindex] ?>" target="_blank">
+                                    <a href="<?= $vessel->Videos->url[$aindex] ?>" target="_blank" title="Play video">
 
                                         <img src="<?php echo ($vessel->Images[(10+$aindex)]->Uri); ?>" alt="" />
 
@@ -421,52 +424,54 @@ get_header();
                                             
                                             <br />
                                             
-                                            <!-- <a href="<?= get_the_permalink(); ?>#listings">
+                                            <a href="<?= get_the_permalink(); ?>#listings">
                                                 View My Listings
-                                            </a> -->
+                                            </a>
                                         </div>
                                     </div>
 
-                                   
-                        <form class="ysp-single-y-contact-form ysp-form ysp-lead-form ysp-lead-form-v2">
-                            <input type="hidden" name="WhichBoatID" value="<?= $BoatPostId ?>">
+                                               
+                                    <form class="ysp-single-y-contact-form ysp-lead-form ysp-lead-form-v2">
+                                        <input type="hidden" name="WhichBoatID" value="<?= $BoatPostId ?>">
 
-                            <div class="hide-after-submit">
-                                
-                                <div class="ysp-lead-form-row">
-                                    <input type="text" name="fname" placeholder="First Name" />
-                                    <input type="text" name="lname" placeholder="Last Name" />
-                                </div>
+                                        <div class="hide-after-submit">                                            
+                                            <div class="ysp-lead-form-row">
+                                                <input type="text" name="fname" placeholder="First Name" required />
+                                                <input type="text" name="lname" placeholder="Last Name" required />
+                                            </div>
 
-                                <input type="text" name="email" placeholder="Email" />
-                                <input type="text" name="phone" placeholder="Phone Number" />
+                                            <input type="text" name="email" placeholder="Email" required />
+                                            <input type="text" name="phone" placeholder="Phone Number" required />
 
-                                <textarea name="message" rows="8" placeholder="Message"></textarea>
+                                            <div style="display: none;">
+                                                <input type="text" name="fax">
+                                            </div>
 
-                                <button type="submit" class="ysp-btn ysp-btn-block">
-                                    Send Message 
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                    <path d="M15.5553 0H5.77756C5.53189 0 5.3331 0.198792 5.3331 0.444458C5.3331 0.690125 5.53189 0.888917 5.77756 0.888917H14.4824L0.129975 15.2413C-0.0436504 15.415 -0.0436504 15.6962 0.129975 15.8698C0.216766 15.9566 0.330516 16 0.444225 16C0.557933 16 0.671641 15.9566 0.758475 15.8698L15.1109 1.51737V10.2222C15.1109 10.4679 15.3097 10.6667 15.5553 10.6667C15.801 10.6667 15.9998 10.4679 15.9998 10.2222V0.444458C15.9998 0.198792 15.801 0 15.5553 0Z" fill="white"/>
-                                    </svg>
-                                </button>
-                            </div>
+                                            <textarea name="message" rows="8" placeholder="Message" required></textarea>
 
-                            <div class="success-message">
-                                <p>Thank you for getting in touch.<br /> We will be in touch shortly.</p>
-                            </div>
-                        </form>
+                                            <button type="submit" class="ysp-btn ysp-btn-block">
+                                                Send Message 
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                <path d="M15.5553 0H5.77756C5.53189 0 5.3331 0.198792 5.3331 0.444458C5.3331 0.690125 5.53189 0.888917 5.77756 0.888917H14.4824L0.129975 15.2413C-0.0436504 15.415 -0.0436504 15.6962 0.129975 15.8698C0.216766 15.9566 0.330516 16 0.444225 16C0.557933 16 0.671641 15.9566 0.758475 15.8698L15.1109 1.51737V10.2222C15.1109 10.4679 15.3097 10.6667 15.5553 10.6667C15.801 10.6667 15.9998 10.4679 15.9998 10.2222V0.444458C15.9998 0.198792 15.801 0 15.5553 0Z" fill="white"/>
+                                                </svg>
+                                            </button>
+                                        </div>
 
-                        <div style="margin-top: 15px; display: grid; gap: 15px; grid-template-columns: 1fr 1fr;">
-                            <a href="tel: <?= $broker_phone ?>; ">
-                                <button type="button" class="ysp-btn ysp-btn-block">Call</button>
-                            </a>
+                                        <div class="success-message">
+                                            <p>Thank you for getting in touch.<br /> We will be in touch shortly.</p>
+                                        </div>
+                                    </form>
 
-                            <a href="mailto: <?= $broker_email ?>; ">
-                                <button type="button" class="ysp-btn ysp-btn-block">Email</button>
-                            </a>
-                        </div>
+                                    <div style="margin-top: 15px; display: grid; gap: 15px; grid-template-columns: 1fr 1fr;">
+                                        <a href="tel: <?= $broker_phone ?>; ">
+                                            <button type="button" class="ysp-btn ysp-btn-block">Call</button>
+                                        </a>
 
-                        <?php 
+                                        <a href="mailto: <?= $broker_email ?>; ">
+                                            <button type="button" class="ysp-btn ysp-btn-block">Email</button>
+                                        </a>
+                                    </div>
+                                <?php 
 
                                 }
                             }
@@ -482,7 +487,7 @@ get_header();
 
             <div id="lightgallery">
 
-                <div id="ysp-single-y-gallery" class=" ysp-single-y-section">
+                <div id="ysp-single-y-gallery" class=" ysp-single-y-section" title="click to view gallery">
                     
                     <div style="display: none;">
                         <?php for ($imgI=0; $imgI <= 2; $imgI++) : ?>
@@ -496,6 +501,25 @@ get_header();
                         <div class="thesplit">
                             <img data-thumb-src="<?php echo ($vessel->Images[4]->Uri); ?>" src="<?php echo ($vessel->Images[4]->Uri); ?>" alt="" class="c2"/>     
                             <img data-thumb-src="<?php echo ($vessel->Images[5]->Uri); ?>" src="<?php echo ($vessel->Images[5]->Uri); ?>" alt="" />
+
+                            <svg width="82" height="83" viewBox="0 0 82 83" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
+                            <g filter="url(#filter0_d_8129_11006)">
+                            <path d="M69.8223 37C69.8223 53.5685 56.8783 67 40.9111 67C24.944 67 12 53.5685 12 37C12 20.4315 24.944 7 40.9111 7C56.8783 7 69.8223 20.4315 69.8223 37Z" fill="white"/>
+                            <path d="M69.4473 37C69.4473 53.3746 56.6583 66.625 40.9111 66.625C25.164 66.625 12.375 53.3746 12.375 37C12.375 20.6254 25.164 7.375 40.9111 7.375C56.6583 7.375 69.4473 20.6254 69.4473 37Z" stroke="#D0DBFF" stroke-width="0.75"/>
+                            </g>
+                            <path d="M42.875 27H51.875C52.4963 27 53 27.4871 53 28.0879V35.3407C53 35.9415 52.4963 36.4286 51.875 36.4286H42.875C42.2537 36.4286 41.75 35.9415 41.75 35.3407V28.0879C41.75 27.4871 42.2537 27 42.875 27ZM39.125 27H30.125C29.5037 27 29 27.4871 29 28.0879V35.3407C29 35.9415 29.5037 36.4286 30.125 36.4286H39.125C39.7463 36.4286 40.25 35.9415 40.25 35.3407V28.0879C40.25 27.4871 39.7463 27 39.125 27ZM29 38.967V46.2198C29 46.8206 29.5037 47.3077 30.125 47.3077H39.125C39.7463 47.3077 40.25 46.8206 40.25 46.2198V38.967C40.25 38.3662 39.7463 37.8791 39.125 37.8791H30.125C29.5037 37.8791 29 38.3662 29 38.967ZM42.875 47.3077H51.875C52.4963 47.3077 53 46.8206 53 46.2198V38.967C53 38.3662 52.4963 37.8791 51.875 37.8791H42.875C42.2537 37.8791 41.75 38.3662 41.75 38.967V46.2198C41.75 46.8206 42.2537 47.3077 42.875 47.3077Z" fill="#067AED"/>
+                            <defs>
+                            <filter id="filter0_d_8129_11006" x="0.75" y="0.25" width="80.3203" height="82.5" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                            <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                            <feOffset dy="4.5"/>
+                            <feGaussianBlur stdDeviation="5.625"/>
+                            <feColorMatrix type="matrix" values="0 0 0 0 0.25098 0 0 0 0 0.309804 0 0 0 0 0.407843 0 0 0 0.05 0"/>
+                            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_8129_11006"/>
+                            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_8129_11006" result="shape"/>
+                            </filter>
+                            </defs>
+                            </svg>
                         </div>
                     </div>
                     
@@ -506,7 +530,7 @@ get_header();
                             <img data-thumb-src="<?php echo ($vessel->Images[7]->Uri); ?>"  src="<?php echo ($vessel->Images[7]->Uri); ?>" alt="" class="c3" />    
                             <img data-thumb-src="<?php echo ($vessel->Images[8]->Uri); ?>" src="<?php echo ($vessel->Images[8]->Uri); ?>" alt="" class="c4" /> 
 
-                            <svg width="82" height="83" viewBox="0 0 82 83" fill="none" xmlns="http://www.w3.org/2000/svg" style="pointer-events: none; position: absolute; bottom: 0px; right: 0px;">
+                            <svg width="82" height="83" viewBox="0 0 82 83" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
                             <g filter="url(#filter0_d_8129_11006)">
                             <path d="M69.8223 37C69.8223 53.5685 56.8783 67 40.9111 67C24.944 67 12 53.5685 12 37C12 20.4315 24.944 7 40.9111 7C56.8783 7 69.8223 20.4315 69.8223 37Z" fill="white"/>
                             <path d="M69.4473 37C69.4473 53.3746 56.6583 66.625 40.9111 66.625C25.164 66.625 12.375 53.3746 12.375 37C12.375 20.6254 25.164 7.375 40.9111 7.375C56.6583 7.375 69.4473 20.6254 69.4473 37Z" stroke="#D0DBFF" stroke-width="0.75"/>
@@ -556,7 +580,6 @@ get_header();
                             'orderby' => 'rand'
                         ));
 
-
                         while ( $yachtQuery->have_posts() ) {
                             $yachtQuery->the_post();
 
@@ -587,7 +610,7 @@ get_header();
                     <h3>Keep Learning<br /> About this Vessel<br /></h3>
                     <h4 style="margin-bottom: 10px;">Take a brochure with you</h4>
 
-                    <a rel="nofollow" href="<?php echo get_rest_url(); ?>ysp/yacht-pdf-loader?yacht_post_id=<?php echo get_the_ID(); ?>" target="_blank">
+                    <a rel="nofollow" href="<?php echo get_rest_url(); ?>ysp/yacht-pdf-loader?yacht_post_id=<?php echo get_the_ID(); ?>" target="_blank" title="Download brochure">
                         <svg width="100" height="131" viewBox="0 0 100 131" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M58.3333 34.5484V0H6.25C2.78646 0 0 2.71815 0 6.09677V123.968C0 127.346 2.78646 130.065 6.25 130.065H93.75C97.2135 130.065 100 127.346 100 123.968V40.6452H64.5833C61.1458 40.6452 58.3333 37.9016 58.3333 34.5484ZM78.2422 88.2406L53.1328 112.552C51.401 114.231 48.6042 114.231 46.8724 112.552L21.763 88.2406C19.1198 85.6825 20.974 81.2903 24.6927 81.2903H41.6667V60.9677C41.6667 58.7221 43.5312 56.9032 45.8333 56.9032H54.1667C56.4687 56.9032 58.3333 58.7221 58.3333 60.9677V81.2903H75.3073C79.026 81.2903 80.8802 85.6825 78.2422 88.2406ZM98.1771 26.6734L72.6823 1.77823C71.5104 0.635081 69.9219 0 68.2552 0H66.6667V32.5161H100V30.9665C100 29.3661 99.349 27.8165 98.1771 26.6734Z" fill="#067AED"/>
                         </svg>
@@ -602,14 +625,18 @@ get_header();
 
                         <div class="hide-after-submit">
                             <div class="ysp-lead-form-row">
-                                <input type="text" name="fname" placeholder="First Name" />
-                                <input type="text" name="lname" placeholder="Last Name" />
+                                <input type="text" name="fname" placeholder="First Name" required />
+                                <input type="text" name="lname" placeholder="Last Name"  required />
                             </div>
 
-                            <input type="text" name="email" placeholder="Email" />
-                            <input type="text" name="phone" placeholder="Phone Number" />
+                            <input type="text" name="email" placeholder="Email" required />
+                            <input type="text" name="phone" placeholder="Phone Number" required />
 
-                            <textarea name="message" rows="8" placeholder="Message"></textarea>
+                            <div style="display: none;">
+                                <input type="text" name="fax">
+                            </div>
+
+                            <textarea name="message" rows="8" placeholder="Message" required></textarea>
 
                             <button type="submit" class="ysp-btn ysp-btn-block">Send Message</button>
                         </div>

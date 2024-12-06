@@ -98,6 +98,35 @@ get_header();
 
                 $brokerQuery = new WP_Query($mainBrokerQueryArgs);
             }
+            
+
+            $broker_first_name = "";
+            $broker_last_name = "";
+            $broker_title = "";
+            $broker_email = "";
+            $broker_phone = "";
+            $broker_image = "";
+            $broker_link = "";
+
+            if ($brokerQuery->have_posts()) {
+
+                while ($brokerQuery->have_posts()) {
+                    $BoatPostId=$post->ID;
+
+                    $brokerQuery->the_post();
+
+                    $broker_first_name = get_post_meta($post->ID, 'ysp_team_fname', true);
+                    $broker_last_name = get_post_meta($post->ID, 'ysp_team_lname', true);
+                    $broker_title = get_post_meta($post->ID, 'ysp_team_title', true);
+                    $broker_email = get_post_meta($post->ID, 'ysp_team_email', true);
+                    $broker_phone = get_post_meta($post->ID, 'ysp_team_phone', true);
+                    $broker_image = esc_url(get_the_post_thumbnail_url());
+                    $broker_link = get_the_permalink();
+
+                }
+            }
+
+            wp_reset_postdata();
             ?>
 
             <div id="ysp-single-y-image-topper" title="click to view gallery"> 
@@ -137,29 +166,10 @@ get_header();
                 ?>
 
                 <nav class="ysp-single-y-links">
-                    
-                    <?php
-                        if ($brokerQuery->have_posts()) {
-                            while ($brokerQuery->have_posts()) {
-                                $brokerQuery->the_post();
-
-                                //$broker_first_name = get_post_meta($post->ID, 'ysp_team_fname', true);
-                                //$broker_last_name = get_post_meta($post->ID, 'ysp_team_lname', true);
-                                //$broker_email = get_post_meta($post->ID, 'ysp_team_email', true);
-                                $broker_phone = get_post_meta($post->ID, 'ysp_team_phone', true);
-
-                                ?>
-
-                                <a href="tel: <?= $broker_phone ?>" title="Call">
-                                    <img src="<?= YSP_ASSETS ?>/images/single-yacht/Message.png" alt="Message" />
-                                </a>
-
-                                <?php
-                            }
-                        }
-
-                        wp_reset_postdata();
-                    ?>
+                
+                    <a href="tel: <?= $broker_phone ?>" title="Call">
+                        <img src="<?= YSP_ASSETS ?>/images/single-yacht/Message.png" alt="Message" />
+                    </a>           
 
                     <a rel="nofollow" href="<?php echo get_rest_url(); ?>ysp/yacht-pdf-loader?yacht_post_id=<?php echo get_the_ID(); ?>" target="_blank" title="Download brochure">
                         <img src="<?= YSP_ASSETS ?>/images/single-yacht/Brochure.png" alt="Brochure" />
@@ -380,104 +390,84 @@ get_header();
                     <div class="ysp-single-y-sidebar-contact-broker">
                         <!-- <h3>Get More Information</h3> -->
 
-                        <?php
-                            if ($brokerQuery->have_posts()) {
-                                while ($brokerQuery->have_posts()) {
-                                    $BoatPostId=$post->ID;
+           
 
-                                    $brokerQuery->the_post();
+                        <div class="ysp-single-y-sidebar-broker">
+                            <a href="<?= get_the_permalink(); ?>">
+                                <img src="<?php echo $broker_image; ?>" alt="" id="ysp-single-y-broker-image" />
+                            </a>
 
-                                    $broker_first_name = get_post_meta($post->ID, 'ysp_team_fname', true);
-                                    $broker_last_name = get_post_meta($post->ID, 'ysp_team_lname', true);
-                                    $broker_title = get_post_meta($post->ID, 'ysp_team_title', true);
-                                    $broker_email = get_post_meta($post->ID, 'ysp_team_email', true);
-                                    $broker_phone = get_post_meta($post->ID, 'ysp_team_phone', true);
+                            <div>
+                                <a href="<?= get_the_permalink(); ?>">
+                                    <h4><?= $broker_first_name.' '.$broker_last_name ?></h4>
+                                </a>
 
-                                    ?>
+                                <?= $broker_title ?> <br />
 
-                                    <div class="ysp-single-y-sidebar-broker">
-                                        <a href="<?= get_the_permalink(); ?>">
-                                            <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>" alt="" id="ysp-single-y-broker-image" />
-                                        </a>
+                                <a href="tel: <?= $broker_phone ?>; ">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <g clip-path="url(#clip0_5813_10481)">
+                                    <path d="M15.3483 10.11L13.9283 8.69C13.6232 8.39872 13.2176 8.23619 12.7958 8.23619C12.374 8.23619 11.9684 8.39872 11.6633 8.69L11.1633 9.19C10.8241 9.528 10.3647 9.71778 9.88582 9.71778C9.40693 9.71778 8.94756 9.528 8.60832 9.19C8.22332 8.805 7.97832 8.545 7.73332 8.29C7.48832 8.035 7.23332 7.76 6.83332 7.365C6.49562 7.02661 6.30597 6.56807 6.30597 6.09C6.30597 5.61193 6.49562 5.15339 6.83332 4.815L7.33332 4.315C7.48242 4.16703 7.60072 3.99099 7.68139 3.79703C7.76206 3.60308 7.8035 3.39506 7.80332 3.185C7.8015 2.76115 7.63262 2.35512 7.33332 2.055L5.91332 0.625C5.51217 0.225577 4.9694 0.000919443 4.40332 0C4.12447 0.000410905 3.84845 0.0558271 3.59105 0.163075C3.33366 0.270322 3.09995 0.427294 2.90332 0.625L1.54832 1.97C0.57188 2.94779 0.0234375 4.27315 0.0234375 5.655C0.0234375 7.03685 0.57188 8.36221 1.54832 9.34C2.32832 10.12 3.21832 11 4.10332 11.92C4.98832 12.84 5.85832 13.7 6.63332 14.5C7.6109 15.4749 8.93519 16.0224 10.3158 16.0224C11.6964 16.0224 13.0207 15.4749 13.9983 14.5L15.3483 13.15C15.7453 12.7513 15.9698 12.2126 15.9733 11.65C15.9782 11.3644 15.9254 11.0808 15.818 10.8162C15.7106 10.5516 15.5509 10.3114 15.3483 10.11ZM14.5933 12.375L14.4483 12.5L12.9983 11.045C12.95 10.99 12.891 10.9455 12.8248 10.9142C12.7586 10.8829 12.6868 10.8655 12.6136 10.8632C12.5405 10.8608 12.4676 10.8734 12.3995 10.9003C12.3315 10.9272 12.2696 10.9678 12.2179 11.0196C12.1661 11.0713 12.1256 11.1332 12.0986 11.2012C12.0717 11.2693 12.0591 11.3421 12.0615 11.4153C12.0639 11.4884 12.0812 11.5603 12.1125 11.6265C12.1438 11.6927 12.1883 11.7517 12.2433 11.8L13.7183 13.275L13.2683 13.725C12.4904 14.5005 11.4368 14.936 10.3383 14.936C9.23987 14.936 8.18622 14.5005 7.40832 13.725C6.63832 12.955 5.76332 12.065 4.90832 11.175C4.05332 10.285 3.12832 9.37 2.34832 8.59C1.57278 7.81209 1.1373 6.75845 1.1373 5.66C1.1373 4.56155 1.57278 3.50791 2.34832 2.73L2.79832 2.28L4.22332 3.75C4.32277 3.85277 4.45898 3.91182 4.60198 3.91417C4.74497 3.91651 4.88304 3.86196 4.98582 3.7625C5.08859 3.66304 5.14764 3.52684 5.14998 3.38384C5.15233 3.24084 5.09777 3.10277 4.99832 3L3.49832 1.5L3.64332 1.355C3.74185 1.25487 3.85939 1.17543 3.98904 1.12134C4.11869 1.06725 4.25784 1.03959 4.39832 1.04C4.68177 1.04085 4.95331 1.15414 5.15332 1.355L6.57832 2.8C6.67722 2.8998 6.7329 3.0345 6.73332 3.175C6.73338 3.24462 6.71972 3.31358 6.69312 3.37792C6.66653 3.44226 6.62752 3.50074 6.57832 3.55L6.07832 4.05C5.54094 4.58893 5.23918 5.31894 5.23918 6.08C5.23918 6.84106 5.54094 7.57107 6.07832 8.11C6.49832 8.5 6.72832 8.745 6.99832 9C7.26832 9.255 7.49832 9.53 7.89332 9.92C8.43224 10.4574 9.16225 10.7591 9.92332 10.7591C10.6844 10.7591 11.4144 10.4574 11.9533 9.92L12.4533 9.42C12.5554 9.32366 12.6905 9.26999 12.8308 9.26999C12.9712 9.26999 13.1062 9.32366 13.2083 9.42L14.6283 10.84C14.7282 10.9387 14.8075 11.0563 14.8616 11.1859C14.9157 11.3155 14.9434 11.4546 14.9433 11.595C14.9407 11.7412 14.9084 11.8853 14.8482 12.0186C14.788 12.1518 14.7013 12.2714 14.5933 12.37V12.375Z" fill="#2D3748"/>
+                                    </g>
+                                    <defs>
+                                    <clipPath id="clip0_5813_10481">
+                                    <rect width="16" height="16" fill="white"/>
+                                    </clipPath>
+                                    </defs>
+                                    </svg>
 
-                                        <div>
-                                            <a href="<?= get_the_permalink(); ?>">
-                                                <h4><?= $broker_first_name.' '.$broker_last_name ?></h4>
-                                            </a>
+                                    <?= $broker_phone ?>        
+                                </a>
+                                
+                                <br />
+                                
+                                <a href="<?= get_the_permalink(); ?>#listings">
+                                    View My Listings
+                                </a>
+                            </div>
+                        </div>
 
-                                            <?= $broker_title ?> <br />
+                                   
+                        <form class="ysp-single-y-contact-form ysp-lead-form ysp-lead-form-v2">
+                            <input type="hidden" name="WhichBoatID" value="<?= $BoatPostId ?>">
 
-                                            <a href="tel: <?= $broker_phone ?>; ">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                <g clip-path="url(#clip0_5813_10481)">
-                                                <path d="M15.3483 10.11L13.9283 8.69C13.6232 8.39872 13.2176 8.23619 12.7958 8.23619C12.374 8.23619 11.9684 8.39872 11.6633 8.69L11.1633 9.19C10.8241 9.528 10.3647 9.71778 9.88582 9.71778C9.40693 9.71778 8.94756 9.528 8.60832 9.19C8.22332 8.805 7.97832 8.545 7.73332 8.29C7.48832 8.035 7.23332 7.76 6.83332 7.365C6.49562 7.02661 6.30597 6.56807 6.30597 6.09C6.30597 5.61193 6.49562 5.15339 6.83332 4.815L7.33332 4.315C7.48242 4.16703 7.60072 3.99099 7.68139 3.79703C7.76206 3.60308 7.8035 3.39506 7.80332 3.185C7.8015 2.76115 7.63262 2.35512 7.33332 2.055L5.91332 0.625C5.51217 0.225577 4.9694 0.000919443 4.40332 0C4.12447 0.000410905 3.84845 0.0558271 3.59105 0.163075C3.33366 0.270322 3.09995 0.427294 2.90332 0.625L1.54832 1.97C0.57188 2.94779 0.0234375 4.27315 0.0234375 5.655C0.0234375 7.03685 0.57188 8.36221 1.54832 9.34C2.32832 10.12 3.21832 11 4.10332 11.92C4.98832 12.84 5.85832 13.7 6.63332 14.5C7.6109 15.4749 8.93519 16.0224 10.3158 16.0224C11.6964 16.0224 13.0207 15.4749 13.9983 14.5L15.3483 13.15C15.7453 12.7513 15.9698 12.2126 15.9733 11.65C15.9782 11.3644 15.9254 11.0808 15.818 10.8162C15.7106 10.5516 15.5509 10.3114 15.3483 10.11ZM14.5933 12.375L14.4483 12.5L12.9983 11.045C12.95 10.99 12.891 10.9455 12.8248 10.9142C12.7586 10.8829 12.6868 10.8655 12.6136 10.8632C12.5405 10.8608 12.4676 10.8734 12.3995 10.9003C12.3315 10.9272 12.2696 10.9678 12.2179 11.0196C12.1661 11.0713 12.1256 11.1332 12.0986 11.2012C12.0717 11.2693 12.0591 11.3421 12.0615 11.4153C12.0639 11.4884 12.0812 11.5603 12.1125 11.6265C12.1438 11.6927 12.1883 11.7517 12.2433 11.8L13.7183 13.275L13.2683 13.725C12.4904 14.5005 11.4368 14.936 10.3383 14.936C9.23987 14.936 8.18622 14.5005 7.40832 13.725C6.63832 12.955 5.76332 12.065 4.90832 11.175C4.05332 10.285 3.12832 9.37 2.34832 8.59C1.57278 7.81209 1.1373 6.75845 1.1373 5.66C1.1373 4.56155 1.57278 3.50791 2.34832 2.73L2.79832 2.28L4.22332 3.75C4.32277 3.85277 4.45898 3.91182 4.60198 3.91417C4.74497 3.91651 4.88304 3.86196 4.98582 3.7625C5.08859 3.66304 5.14764 3.52684 5.14998 3.38384C5.15233 3.24084 5.09777 3.10277 4.99832 3L3.49832 1.5L3.64332 1.355C3.74185 1.25487 3.85939 1.17543 3.98904 1.12134C4.11869 1.06725 4.25784 1.03959 4.39832 1.04C4.68177 1.04085 4.95331 1.15414 5.15332 1.355L6.57832 2.8C6.67722 2.8998 6.7329 3.0345 6.73332 3.175C6.73338 3.24462 6.71972 3.31358 6.69312 3.37792C6.66653 3.44226 6.62752 3.50074 6.57832 3.55L6.07832 4.05C5.54094 4.58893 5.23918 5.31894 5.23918 6.08C5.23918 6.84106 5.54094 7.57107 6.07832 8.11C6.49832 8.5 6.72832 8.745 6.99832 9C7.26832 9.255 7.49832 9.53 7.89332 9.92C8.43224 10.4574 9.16225 10.7591 9.92332 10.7591C10.6844 10.7591 11.4144 10.4574 11.9533 9.92L12.4533 9.42C12.5554 9.32366 12.6905 9.26999 12.8308 9.26999C12.9712 9.26999 13.1062 9.32366 13.2083 9.42L14.6283 10.84C14.7282 10.9387 14.8075 11.0563 14.8616 11.1859C14.9157 11.3155 14.9434 11.4546 14.9433 11.595C14.9407 11.7412 14.9084 11.8853 14.8482 12.0186C14.788 12.1518 14.7013 12.2714 14.5933 12.37V12.375Z" fill="#2D3748"/>
-                                                </g>
-                                                <defs>
-                                                <clipPath id="clip0_5813_10481">
-                                                <rect width="16" height="16" fill="white"/>
-                                                </clipPath>
-                                                </defs>
-                                                </svg>
+                            <div class="hide-after-submit">                                            
+                                <div class="ysp-lead-form-row">
+                                    <input type="text" name="fname" placeholder="First Name" required />
+                                    <input type="text" name="lname" placeholder="Last Name" required />
+                                </div>
 
-                                                <?= $broker_phone ?>        
-                                            </a>
-                                            
-                                            <br />
-                                            
-                                            <a href="<?= get_the_permalink(); ?>#listings">
-                                                View My Listings
-                                            </a>
-                                        </div>
-                                    </div>
+                                <input type="text" name="email" placeholder="Email" required />
+                                <input type="text" name="phone" placeholder="Phone Number" required />
 
-                                               
-                                    <form class="ysp-single-y-contact-form ysp-lead-form ysp-lead-form-v2">
-                                        <input type="hidden" name="WhichBoatID" value="<?= $BoatPostId ?>">
+                                <div style="display: none;">
+                                    <input type="text" name="fax">
+                                </div>
 
-                                        <div class="hide-after-submit">                                            
-                                            <div class="ysp-lead-form-row">
-                                                <input type="text" name="fname" placeholder="First Name" required />
-                                                <input type="text" name="lname" placeholder="Last Name" required />
-                                            </div>
+                                <textarea name="message" rows="8" placeholder="Message" required></textarea>
 
-                                            <input type="text" name="email" placeholder="Email" required />
-                                            <input type="text" name="phone" placeholder="Phone Number" required />
+                                <button type="submit" class="ysp-btn ysp-btn-block">
+                                    Send Message 
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M15.5553 0H5.77756C5.53189 0 5.3331 0.198792 5.3331 0.444458C5.3331 0.690125 5.53189 0.888917 5.77756 0.888917H14.4824L0.129975 15.2413C-0.0436504 15.415 -0.0436504 15.6962 0.129975 15.8698C0.216766 15.9566 0.330516 16 0.444225 16C0.557933 16 0.671641 15.9566 0.758475 15.8698L15.1109 1.51737V10.2222C15.1109 10.4679 15.3097 10.6667 15.5553 10.6667C15.801 10.6667 15.9998 10.4679 15.9998 10.2222V0.444458C15.9998 0.198792 15.801 0 15.5553 0Z" fill="white"/>
+                                    </svg>
+                                </button>
+                            </div>
 
-                                            <div style="display: none;">
-                                                <input type="text" name="fax">
-                                            </div>
+                            <div class="success-message">
+                                <p>Thank you for getting in touch.<br /> We will be in touch shortly.</p>
+                            </div>
+                        </form>
 
-                                            <textarea name="message" rows="8" placeholder="Message" required></textarea>
+                        <div style="margin-top: 15px; display: grid; gap: 15px; grid-template-columns: 1fr 1fr;">
+                            <a href="tel: <?= $broker_phone ?>; ">
+                                <button type="button" class="ysp-btn ysp-btn-block">Call</button>
+                            </a>
 
-                                            <button type="submit" class="ysp-btn ysp-btn-block">
-                                                Send Message 
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                                <path d="M15.5553 0H5.77756C5.53189 0 5.3331 0.198792 5.3331 0.444458C5.3331 0.690125 5.53189 0.888917 5.77756 0.888917H14.4824L0.129975 15.2413C-0.0436504 15.415 -0.0436504 15.6962 0.129975 15.8698C0.216766 15.9566 0.330516 16 0.444225 16C0.557933 16 0.671641 15.9566 0.758475 15.8698L15.1109 1.51737V10.2222C15.1109 10.4679 15.3097 10.6667 15.5553 10.6667C15.801 10.6667 15.9998 10.4679 15.9998 10.2222V0.444458C15.9998 0.198792 15.801 0 15.5553 0Z" fill="white"/>
-                                                </svg>
-                                            </button>
-                                        </div>
-
-                                        <div class="success-message">
-                                            <p>Thank you for getting in touch.<br /> We will be in touch shortly.</p>
-                                        </div>
-                                    </form>
-
-                                    <div style="margin-top: 15px; display: grid; gap: 15px; grid-template-columns: 1fr 1fr;">
-                                        <a href="tel: <?= $broker_phone ?>; ">
-                                            <button type="button" class="ysp-btn ysp-btn-block">Call</button>
-                                        </a>
-
-                                        <a href="mailto: <?= $broker_email ?>; ">
-                                            <button type="button" class="ysp-btn ysp-btn-block">Email</button>
-                                        </a>
-                                    </div>
-                                <?php 
-
-                                }
-                            }
-
-                            wp_reset_postdata();
-                        ?>
+                            <a href="mailto: <?= $broker_email ?>; ">
+                                <button type="button" class="ysp-btn ysp-btn-block">Email</button>
+                            </a>
+                        </div>
 
                     </div>
 

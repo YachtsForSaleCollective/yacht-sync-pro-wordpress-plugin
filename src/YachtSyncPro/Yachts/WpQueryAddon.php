@@ -11,14 +11,18 @@
 		public function add_actions_and_filters() {
 
 			add_filter('query_vars', [$this, 'addQueryVars'], 30, 1);
+
+			add_filter( 'posts_join', [$this, 'super_custome_join'], 30, 2 );
+			add_filter( 'posts_where', [$this, 'super_custome_wheres'], 30, 2 );
+			
 			add_action('pre_get_posts', [$this, 'preGet'], 30, 1);
-		
 		}
 
 		public function addQueryVars($vars) {
 
 			$vars[] = 'ys_offset';
 			$vars[] = 'ys_keyword';
+			$vars[] = 'ys_keyword_content';
 			$vars[] = 'boatname';
 
 			$vars[] = 'condition';
@@ -124,6 +128,22 @@
 			}
 
 		}
+
+		public function super_custome_join( $join = '',  $query ) {
+			global $wpdb;
+
+			//$where .= " AND post_date >= '" . date('Y-m-d', strtotime('-60 days')) . "'" . " AND post_date <= '" . date('Y-m-d', strtotime('-30 days')) . "'";
+    		
+    		return $join;
+		}
+
+		public function super_custome_wheres( $where = '',  $query ) {
+			global $wpdb;
+
+			//$where .= " AND post_date >= '" . date('Y-m-d', strtotime('-60 days')) . "'" . " AND post_date <= '" . date('Y-m-d', strtotime('-30 days')) . "'";
+    		
+    		return $where;
+		}
 		
 		public function preGet($query) {
 
@@ -153,6 +173,8 @@
 				}
 
 				if ($this->if_query_var_check($query->get('ys_keyword'))) {
+
+					$query->set('ys_keyword_content', $query->get('ys_keyword'));
 
 					$searchingfor = str_replace(',', '', $query->get('ys_keyword'));
 

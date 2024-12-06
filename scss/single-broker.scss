@@ -23,13 +23,18 @@
             box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
 
             padding: 30px;
+
+
+            @media (max-width: vars.$breakpoint-large) {
+                display: none;
+            }
         }
 
     }
 
     .ysp-single-b-card{
-       display: flex;
-
+        display: block;
+        
         border-radius: 0px 12px 12px 0px;
         border: 2px solid #E4ECF7;
         border-left: 4px solid vars.$featured-color;
@@ -37,20 +42,29 @@
 
         padding: 30px;
 
-        /* Sho */
         box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
 
+        @media (min-width: vars.$breakpoint-large) {
+            display: flex;
+        }
+
          .broker-image {
-            width: 250px;
-            min-width: 250px;
-            max-width: 250px;
-            height: 250px;
+            min-width: 120px;
+            max-width: 120px;
+            height: 120px;
             object-fit: cover;
             object-position: top center;
             background: vars.$border-color;
             border-radius: 100%;
 
             margin-right: 30px;
+            margin-bottom: 15px;
+
+            @media (min-width: vars.$breakpoint-large) {
+                min-width: 250px;
+                max-width: 250px;
+                height: 250px;
+            }
         }
     }
 

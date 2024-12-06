@@ -18,6 +18,7 @@
 
             $broker_first_name = get_post_meta($brokersQuery->post->ID, 'ysp_team_fname', true);
             $broker_last_name = get_post_meta($brokersQuery->post->ID, 'ysp_team_lname', true);
+            $broker_title = get_post_meta($brokersQuery->post->ID, 'ysp_team_title', true);
             $broker_email = get_post_meta($brokersQuery->post->ID, 'ysp_team_email', true);
             $broker_phone = get_post_meta($brokersQuery->post->ID, 'ysp_team_phone', true);
         ?>
@@ -34,7 +35,7 @@
                             <img class="arrow-right" src="<?php echo YSP_ASSETS; ?>images/arrow-right.png" alt="bed-icon" />
                         </div>
                     
-                        <p class="broker-title">Broker</p>
+                        <p class="broker-title"><?= (empty($broker_title))?'Broker':$broker_title; ?></p>
                     </a>
                     
                     <p class="broker-email"><a href="mailto:broker@gmail.com"><?php echo $broker_email; ?></a></p>

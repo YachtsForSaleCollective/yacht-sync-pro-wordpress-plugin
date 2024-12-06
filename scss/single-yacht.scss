@@ -220,6 +220,12 @@
 
         ul, ol{
             columns: 2;
+            padding-left: 0px;
+            margin-left: 0px;
+
+            li{
+                margin-left: 40px;
+            }
         }
     }
 
@@ -269,23 +275,34 @@
 
     }
 
-    .ysp-single-y-video{
-        position: relative;
-        cursor: pointer;
 
-        max-width: 50%;
-
+    .ysp-single-y-video-grid{
+        display: grid;
+        gap: 15px;
+        justify-content: space-between;
+        grid-template-columns: 1fr;
+        
         margin-top: 60px;
 
-        img{
-            border-radius: 24px;
+        @media (min-width: vars.$breakpoint-small) {
+            grid-template-columns: 1fr 1fr;
         }
 
-        svg#play-button{
-            position: absolute;
-            bottom: 12px;
-            left: 12px;
-            pointer-events: none;
+        .ysp-single-y-video{
+            position: relative;
+            cursor: pointer;
+
+
+            img{
+                border-radius: 24px;
+            }
+
+            svg#play-button{
+                position: absolute;
+                bottom: 12px;
+                left: 12px;
+                pointer-events: none;
+            }
         }
     }
 

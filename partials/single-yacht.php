@@ -314,7 +314,7 @@ get_header();
 
                     </div> -->
                     
-                    <div class="ysp-single-y-video">
+                    <div class="ysp-single-y-video-grid">
                         <?php 
                             if(isset($vessel->Videos)) {
                                 $videoUrls = $vessel->Videos->url;
@@ -329,7 +329,7 @@ get_header();
                                         </button>
                                     </a> -->
 
-                                    <a href="<?= $vessel->Videos->url[$aindex] ?>" target="_blank" title="Play video">
+                                    <a href="<?= $vessel->Videos->url[$aindex] ?>" target="_blank" title="Play video" class="ysp-single-y-video">
 
                                         <img src="<?php echo ($vessel->Images[(10+$aindex)]->Uri); ?>" alt="" />
 

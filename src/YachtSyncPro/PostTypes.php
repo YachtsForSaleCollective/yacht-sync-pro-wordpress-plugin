@@ -67,27 +67,36 @@
             ]);
 			
 
-			/*register_post_type('ysp_soldyatch', [
+			register_post_type('ysp_sold_yacht', [
 
            		'labels' => array(
 					'name' => 'Sold Yachts',
 					'singular_name' => 'Sold Yacht',
 				),
+
+				'supports' => array('title', 'editor', 'thumbnail', 'custom-fields'),
 				
 				'has_archive' => false,
-				//'query_var' => 'ysp_yacht_id',
+				//'query_var' => 'ysp_sold_yacht_id',
 
+				'rewrite' => array(
+			        'slug' => 'sold-yacht',
+			        'with_front' => true
+			    ),
+				
 				'public' => true,
 				'publicly_queryable' => true,
 				'can_export' => false,
 
            ]);
-*/
+
            register_post_type('ysp_team', [
            		'labels' => array(
 					'name' => 'Team Members',
 					'singular_name' => 'Team Member',
 				),
+				
+				'supports' => array('title', 'editor', 'thumbnail', 'custom-fields'),
 				
 				'has_archive' => false,
 				//'query_var' => 'ysp_team_id',
@@ -101,7 +110,6 @@
 				'public' => true,
 				'publicly_queryable' => true,
 				'can_export' => false,
-				'supports' => array('title', 'editor', 'thumbnail', 'custom-fields')
            ]);
 
 		}

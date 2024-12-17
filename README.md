@@ -56,7 +56,7 @@ We merge the data via hull IDs
 - Full Template Customization
 - Basic Lead Forms
 - Akismet SPAM Protection For Lead Forms
-- Broker Post-Type With Meta Fields (Name, Email, Phone And Bio)
+- Broker Post-Type With Meta Fields (Name, Title, Email, Phone And Bio)
 - Manual Entry Of Vessels 
 - Similar Listings Section And Query
 - Mobile-friendly search
@@ -68,14 +68,15 @@ We merge the data via hull IDs
 
 - [theitalianyachtgroup.com](https://theitalianyachtgroup.com)
 - [preowned.palmbeachmotoryachts.com](https://preowned.palmbeachmotoryachts.com)
+- [preowned.grandbanks.com](https://preowned.grandbanks.com)
 - [southjerseyyachtsales.com](https://southjerseyyachtsales.com)
 - [hbgyachts.com](https://hbgyachts.com)
+- [deanyachts.com](https://deanyachts.com)
 
 ## Credits
 
 - **Developers**: [Joshua Hoffman](https://joshuahoffman.me), [Brandon Creed](https://github.com/brcre001), and Hauk Atkinson.
-- **Thanks** to [Olivier Solon](https://www.linkedin.com/in/olivier-solon/) for project wrangling.
-- **Special thanks** to Neil for sponsoring the initial build.
+- **Special thanks** to Neil, [Olivier](https://www.linkedin.com/in/olivier-solon/), And [Polina](https://www.linkedin.com/in/polinagraphic/) for contributing to the initial build.
 
 ## Hosting Recommendation
 

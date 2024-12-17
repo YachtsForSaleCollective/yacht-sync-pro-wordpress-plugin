@@ -103,19 +103,26 @@
 .ysp-search-tags{
     
     .ysp-tag{
-        padding: 4px 6px;
+        display: inline-flex;
+        align-items: center;
+
+        padding: 5px 8px;
         
         background: #E2E8F0;
         color: #334155;
+
+        border-radius: 300px;
 
         font-size: 12px;    
 
         margin-right: 5px;
         margin-bottom: 5px;
 
+        cursor: pointer;
+
         svg{
+            margin-left: 4px;
             position: relative;
-            top: -1px;
         }
 
     }

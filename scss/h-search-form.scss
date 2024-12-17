@@ -10,26 +10,39 @@
         justify-content: space-between;
         flex-wrap: wrap;
         gap: 30px;
-          grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr;
+
+        @media (min-width: vars.$breakpoint-large) {
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr !important;
+        }
+
+        @media (min-width: vars.$breakpoint-med) {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        @media (min-width: vars.$breakpoint-small) {
+            grid-template-columns: 1fr 1fr;
+        }
 
         .ysp-s-field {
             position: relative;
             box-sizing: border-box;
+            
+            
+        }
 
-            input[type="submit"] {
+        input[type="submit"] {
+            background-color: vars.$button-bg-color;
+            color: vars.$button-text-color;
+
+            grid-columns-start: 3;
+            
+            width: 100%;
+            
+            &:hover{
                 background-color: vars.$button-bg-color;
                 color: vars.$button-text-color;
-
-                grid-columns-start: 3;
-                
-                width: 100%;
-                
-                &:hover{
-                    background-color: vars.$button-bg-color;
-                    color: vars.$button-text-color;
-                }
             }
-
         }
 
         .submit-container {

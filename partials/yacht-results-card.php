@@ -11,6 +11,10 @@
         $price = isset($yacht["Price"]) ? '$' . number_format($yacht['YSP_USDVal']) : 'Contact Us For Price'; 
     }
 
+    if ($price == "$0") {
+        $price = "Contact Us For Price";
+    }
+
     $yacht = (object) $yacht;
 
     $vesselLocation = ($yacht->BoatLocation->BoatCountryID == "US" || $yacht->BoatLocation->BoatCountryID == "United States") ? $yacht->BoatLocation->BoatCityName.', '.$yacht->BoatLocation->BoatStateCode : $yacht->BoatLocation->BoatCityName.', '. $yacht->BoatLocation->BoatCountryID;

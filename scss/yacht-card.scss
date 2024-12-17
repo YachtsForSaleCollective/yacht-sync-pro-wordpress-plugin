@@ -107,8 +107,11 @@
 
     .ri-location{
         font-size: 14px;
-        color: #718096;
         text-transform: capitalize;
+        
+        &, a{
+            color: #718096;
+        }
     }
 
     &.ysp-view-grid{

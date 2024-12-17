@@ -13,6 +13,7 @@
 
     #ysp-single-y-image-topper{
 
+        position: relative;
         display: grid;
         gap: 15px;
 
@@ -86,10 +87,17 @@
         padding-top: 30px;
         padding-bottom: 30px;
         margin-bottom: 30px;
-
+        
         display: flex;
+        gap: 30px;
+        flex-direction: column;
         justify-content: space-between;
-        align-items: center;
+
+        @media (min-width: vars.$breakpoint-med) {
+            align-items: center;        
+            flex-direction: row;
+        }
+
 
         ul{
             list-style: none;
@@ -152,18 +160,26 @@
         margin-bottom: 30px;
 
         h1{
-            font-size: 56px;
+            font-size: 26px;
             font-weight: normal;
            
             color: #2D3748;
+
+            @media (min-width: vars.$breakpoint-med) {
+                font-size: 56px;
+            }
         }
 
         h2{
-            font-size: 20px;
+            font-size: 18px;
             font-weight: normal;
                 
             &, a{
                 color: #2D3748;
+            }
+
+            @media (min-width: vars.$breakpoint-med) {
+                font-size: 20px;
             }
 
         }
@@ -182,26 +198,44 @@
         background: #F0F3FF;
 
         .ysp-single-y-price{
-            font-size: 36px;
+            font-size: 18px; 
             
             color: #2D3748;
+
+            @media(min-width: vars.$breakpoint-med) {
+                font-size: 36px;
+            }
         }
     }
 
     .ysp-single-y-basic-info-table{
         border: 0px;
 
-        td, th{
-            border: 0px;
+        display: grid;
+        gap: 15px;
+        justify-content: space-between;
+        grid-template-columns: 1fr;
+        
+        margin-top: 60px;
+        margin-bottom: 60px;
+
+        @media (min-width: vars.$breakpoint-med) {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .ysp-single-y-info-table-cell{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
             border-bottom: 2px solid #E4ECF7;
-            text-align: left;
-            width: 25%;
+            padding: 5px;
+
+            .cell-heading{
+                font-weight: bold;
+            }
+            
         }
-
-        tr{
-
-        }
-
     }
 
     .ysp-single-y-description{
@@ -218,14 +252,18 @@
             margin-bottom: 15px;
         }
 
-        ul, ol{
-            columns: 2;
-            padding-left: 0px;
-            margin-left: 0px;
+        @media (min-width: vars.$breakpoint-med) {
 
-            li{
-                margin-left: 40px;
+            ul, ol{
+                columns: 2;
+                padding-left: 0px;
+                margin-left: 0px;
+
+                li{
+                    margin-left: 40px;
+                }
             }
+
         }
     }
 
@@ -437,25 +475,50 @@
     }
 
     #ysp-single-y-similar-listings{
-        h3{
+        h2{
             text-align: center;
-            font-size: 44px;
+            font-size: 30px;
             font-weight: normal;
             margin-bottom: 30px;
+
+            @emdia (min-width: vars.$breakpoint-med) {
+                font-size: 44px;
+            }
+        }
+
+        @media (max-width: vars.$breakpoint-x-large) {
+            .ysp-yacht-item{
+                &:nth-child(n + 5){
+                    display: none;
+                } 
+            }
+        }
+        @media (max-width: vars.$breakpoint-med) {
+            .ysp-yacht-item{
+                &:nth-child(n + 3){
+                    display: none;
+                } 
+            }
         }
     }
 
-    #ysp-single-y-bottom-form{
-        display: flex;
+    #ysp-single-y-bottom-pdf-plus-contact{
         padding: 30px;
-
+        
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        
         align-items: flex-start;
         justify-content: space-between;
-        
-        gap: 10px;
 
         border-radius: 15px;
         background: #E4ECF7;
+        
+        @media(min-width: vars.$breakpoint-large) {
+            flex-direction: row;
+
+        }
 
         h3{
             color: #2D3748;
@@ -475,6 +538,14 @@
             font-style: normal;
             font-weight: 500;
             line-height: 32px; /* 133.333% */
+        }
+
+        .contact{
+            @media(min-width: vars.$breakpoint-large) {
+            
+                max-width: 560px;
+
+            }
         }
 
     }

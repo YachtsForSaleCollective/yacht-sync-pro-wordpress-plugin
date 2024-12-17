@@ -1,4 +1,4 @@
-<div id="ysp-v-super-search">
+ <div id="ysp-v-super-search">
     <form id="ysp-yacht-search-form" class="ysp-yacht-search-form ysp-form" >
    
     <input type="hidden" name="page_index" />    
@@ -188,10 +188,10 @@
 
         <div style="height: 125px;"></div>
 
-        <form id="ysp-mobile-yacht-search-form" class="ys-h-row ysp-yacht-search-form ysp-form ysp-search-mobile">
+        <form id="ysp-mobile-yacht-search-form" class="ysp-v-row ysp-yacht-search-form ysp-form ysp-search-mobile">
             <input type="hidden" name="page_index" />
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <?php 
                     $YSP_Options = new YachtSyncPro_Options();
                     $YSP_Comapny_name = $YSP_Options->get('company_name');
@@ -203,7 +203,7 @@
                 </label>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label for="ys_keyword">Keyword</label>
 
                 <input type="text" name="ys_keyword" placeholder="Search by keywords" list="ysp_keywords_list" />
@@ -217,7 +217,7 @@
                 </svg> -->
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label for="condition">Condition</label>
 
                 <select name="condition">
@@ -227,7 +227,7 @@
                 </select>
             </div>
         
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label for="make">Builder</label>
 
                 <select name="make" data-fill-options="Builders">
@@ -235,7 +235,7 @@
                 </select>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label>Year</label>
 
                 <div class="min-max-container">
@@ -245,7 +245,7 @@
                 </div>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label>Length</label>
                 
                 <div class="min-max-container">
@@ -255,7 +255,7 @@
                 </div>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label>Price</label>
 
                 <div class="min-max-container">
@@ -265,7 +265,7 @@
                 </div>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label for="staterooms">Staterooms</label>
 
                 <select name="staterooms">
@@ -287,7 +287,7 @@
                 </svg> -->
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label for="hull">Hull</label>
 
                 <select name="hull" data-fill-options="HullMaterials">

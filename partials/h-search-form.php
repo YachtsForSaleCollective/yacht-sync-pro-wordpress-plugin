@@ -180,7 +180,7 @@
 
         <div style="height: 125px;"></div>
 
-        <form id="ysp-mobile-yacht-search-form" class="ys-h-row ysp-yacht-search-form ysp-form ysp-search-mobile">
+        <form id="ysp-mobile-yacht-search-form" class="ysp-v-row ysp-yacht-search-form ysp-form ysp-search-mobile">
             <input type="hidden" name="page_index" />
 
             <div class="ysp-s-field">

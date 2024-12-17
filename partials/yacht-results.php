@@ -8,11 +8,11 @@
 
     
     <div class="yacht-search-top">
-        <div class="">
+        <div class="found">
             <span class="total-results"><span id="ysp-total-yacht-results"></span> YACHTS FOUND</span>
         </div>
 
-        <div  style="display: flex; gap: 10px;">
+        <div class="dropdowns">
             <div class="top-field">
                 <label>Sort by: </label>
 
@@ -98,7 +98,7 @@
                 </div>
 
                 <div style="display: none;">
-                    <input type="text" name="fax">
+                    <input type="text" name="fax" />
                 </div>
                 
                 <div class="ysp-lead-field">

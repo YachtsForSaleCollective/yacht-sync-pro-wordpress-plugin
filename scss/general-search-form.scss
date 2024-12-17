@@ -1,7 +1,7 @@
 
 @use "vars";
 
-#h-search-container{
+.ysp-search-desktop{
 
 	display: none;
 
@@ -77,7 +77,7 @@
 			color: #1A202C;  	
 		}
 
-		input, select{
+		input[type=text], input[type=number], select{
 			border-radius: 8px;
 			border: 1px solid var(--Grey-300, #E2E8F0);
 			background: var(--White, #FFF);

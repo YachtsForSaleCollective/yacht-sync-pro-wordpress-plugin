@@ -170,7 +170,7 @@
             </div>
 
             <div style=" padding: 15px; ">
-                <h3 style="margin-bottom: 5px;">Yacht Search</h3>
+                <!-- <h3 style="margin-bottom: 5px;">Yacht Search</h3> -->
 
                 <div class="ysp-search-tags">
                     
@@ -294,7 +294,7 @@
             <div style="height: 75px;"></div>
 
             <div class="submit-container" style="position: fixed; bottom: 0px; left: 0px; width: 100%; background: #fff; padding: 15px; border-top: 1px solid #d9d9d9;">
-                <button class="ysp-general-button" type="submit" style="background: #334155;">Search Yachts</button>
+                <button class="ysp-general-button ysp-btn-block" type="submit">Search Yachts</button>
             </div>
         </form>
 

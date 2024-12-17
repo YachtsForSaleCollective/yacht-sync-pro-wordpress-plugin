@@ -140,8 +140,23 @@
 		public function super_custome_wheres( $where = '',  $query ) {
 			global $wpdb;
 
-			//$where .= " AND post_date >= '" . date('Y-m-d', strtotime('-60 days')) . "'" . " AND post_date <= '" . date('Y-m-d', strtotime('-30 days')) . "'";
-    		
+			if ($this->if_query_var_check($query->get('ys_keyword_content'))) {
+				$keywords=$query->get('ys_keyword_content');
+
+				if (is_array($keywords)) {
+					foreach ($keywords as $keyw) {
+						//$where .= " AND $wpdb->posts.post_content LIKE '%".$keyw." %' ";	
+						//$where .= " OR $wpdb->posts.post_content LIKE '%{$keyw} %' ";	
+					}
+
+				}
+				else {
+					//$where .= " AND $wpdb->posts.post_content LIKE '%".$keywords." %' ";	
+				}
+
+
+			}
+			
     		return $where;
 		}
 		
@@ -149,7 +164,7 @@
 
 			$yacht_sync_meta_query=[];
 
-			if (is_page(6) || $query->get('post_type') == "ysp_yacht") {
+			if ($query->get('post_type') == "ysp_yacht") {
 
 				if (is_array($query->get('params_from_paths'))) {
 					$params = $query->get('params_from_paths');
@@ -179,6 +194,8 @@
 					$searchingfor = str_replace(',', '', $query->get('ys_keyword'));
 
 					$keywords=explode(' ', $searchingfor);
+
+					$query->set('ys_keyword_content', $keywords);
 
 					$yacht_sync_meta_query['ys_keyword']=[];
 

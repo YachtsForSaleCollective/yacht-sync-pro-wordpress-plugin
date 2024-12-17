@@ -165,8 +165,11 @@
            
             color: #2D3748;
 
-            @media (min-width: vars.$breakpoint-med) {
+            @media (min-width: vars.$breakpoint-large) {
                 font-size: 56px;
+            }
+            @media (min-width: vars.$breakpoint-med) {
+                font-size: 42px;
             }
         }
 

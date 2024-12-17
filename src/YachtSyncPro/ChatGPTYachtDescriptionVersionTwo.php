@@ -64,6 +64,8 @@
 				return ($gpt_body['choices'][0]['message']['content']);
 			}
 			else {
+				var_dump('meta description');
+				var_dump($gpt_body);
 				return "0";
 			}
 		}

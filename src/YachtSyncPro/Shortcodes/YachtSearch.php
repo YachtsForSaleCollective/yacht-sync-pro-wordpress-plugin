@@ -130,7 +130,7 @@
 
             ob_start();
 		  		
-				$file_to_include=YSP_TEMPLATES_DIR.'/quick-search.php'; 
+				$file_to_include=YSP_TEMPLATES_DIR.'/v-quick-search.php'; 
 
 		    	include apply_filters('ysp_ys_quick_search_results_template', $file_to_include);
 
@@ -151,7 +151,7 @@
 
             ob_start();
 		  		
-				$file_to_include=YSP_TEMPLATES_DIR.'/quick-h-search.php'; 
+				$file_to_include=YSP_TEMPLATES_DIR.'/h-quick-search.php'; 
 
 		    	include apply_filters('ysp_ys_h_quick_search_results_template', $file_to_include);
 

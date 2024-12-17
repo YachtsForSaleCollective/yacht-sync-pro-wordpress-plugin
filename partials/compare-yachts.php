@@ -51,7 +51,7 @@
                 <th>Image</th>
 
                 <?php foreach ($boats as $boat_post) : ?>
-                    <td><img src="<?php echo $boat_post->Images[0]->Uri; ?>" alt="Yacht Image" style="width: 100%; object-fit: cover;" /></td>
+                    <td><img src="<?php echo $boat_post->Images[0]->Uri; ?>" alt="Yacht Image" style="width: 320px; object-fit: cover;" /></td>
                 <?php endforeach; ?>
             </tr>
 

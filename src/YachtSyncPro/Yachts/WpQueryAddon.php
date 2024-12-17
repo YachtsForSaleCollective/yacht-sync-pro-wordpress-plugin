@@ -11,14 +11,18 @@
 		public function add_actions_and_filters() {
 
 			add_filter('query_vars', [$this, 'addQueryVars'], 30, 1);
+
+			add_filter( 'posts_join', [$this, 'super_custome_join'], 30, 2 );
+			add_filter( 'posts_where', [$this, 'super_custome_wheres'], 30, 2 );
+			
 			add_action('pre_get_posts', [$this, 'preGet'], 30, 1);
-		
 		}
 
 		public function addQueryVars($vars) {
 
 			$vars[] = 'ys_offset';
 			$vars[] = 'ys_keyword';
+			$vars[] = 'ys_keyword_content';
 			$vars[] = 'boatname';
 
 			$vars[] = 'condition';
@@ -124,12 +128,43 @@
 			}
 
 		}
+
+		public function super_custome_join( $join = '',  $query ) {
+			global $wpdb;
+
+			//$where .= " AND post_date >= '" . date('Y-m-d', strtotime('-60 days')) . "'" . " AND post_date <= '" . date('Y-m-d', strtotime('-30 days')) . "'";
+    		
+    		return $join;
+		}
+
+		public function super_custome_wheres( $where = '',  $query ) {
+			global $wpdb;
+
+			if ($this->if_query_var_check($query->get('ys_keyword_content'))) {
+				$keywords=$query->get('ys_keyword_content');
+
+				if (is_array($keywords)) {
+					foreach ($keywords as $keyw) {
+						//$where .= " AND $wpdb->posts.post_content LIKE '%".$keyw." %' ";	
+						//$where .= " OR $wpdb->posts.post_content LIKE '%{$keyw} %' ";	
+					}
+
+				}
+				else {
+					//$where .= " AND $wpdb->posts.post_content LIKE '%".$keywords." %' ";	
+				}
+
+
+			}
+			
+    		return $where;
+		}
 		
 		public function preGet($query) {
 
 			$yacht_sync_meta_query=[];
 
-			if (is_page(6) || $query->get('post_type') == "ysp_yacht") {
+			if ($query->get('post_type') == "ysp_yacht") {
 
 				if (is_array($query->get('params_from_paths'))) {
 					$params = $query->get('params_from_paths');
@@ -154,9 +189,13 @@
 
 				if ($this->if_query_var_check($query->get('ys_keyword'))) {
 
+					$query->set('ys_keyword_content', $query->get('ys_keyword'));
+
 					$searchingfor = str_replace(',', '', $query->get('ys_keyword'));
 
 					$keywords=explode(' ', $searchingfor);
+
+					$query->set('ys_keyword_content', $keywords);
 
 					$yacht_sync_meta_query['ys_keyword']=[];
 
@@ -173,7 +212,8 @@
 							
 							[	
 								'key' => 'ModelYear',
-								'compare' => "LIKE",
+								'type' => 'NUMERIC',
+								//'compare' => "LIKE",
 								'value' => $keyword
 							],
 							
@@ -196,12 +236,6 @@
 							],	
 							
 							[									
-								'key' => 'GeneralBoatDescription',
-								'compare' => "LIKE",
-								'value' => $keyword
-							],
-
-							[									
 								'key' => 'YSP_City',
 								'compare' => "LIKE",
 								'value' => $keyword
@@ -217,7 +251,14 @@
 								'key' => 'YSP_Full_State',
 								'compare' => "LIKE",
 								'value' => $keyword
-							]
+							],
+
+							/*[									
+								'key' => 'GeneralBoatDescription',
+            					'compare' => 'LIKE',
+								'value' => "[[:<:]]{$keyword}[[:>:]]", // matches exaclty "123", not just 123. This prevents a match for "1234"
+							],*/
+
 
 						];
 					}

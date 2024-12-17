@@ -1,7 +1,8 @@
 <div id="v-search-container">
     <form id="ysp-yacht-search-form" class="ys-v-row ysp-yacht-search-form ysp-form" >
-    <input type="hidden" name="page_index" />    
-    <div class="ys-v-row-item">
+    
+        <input type="hidden" name="page_index" />    
+        <div class="ys-v-row-item">
             <label>Keyword</label>
             <input type="text" name="ys_keyword" placeholder="Search by Name" list="ysp_keywords_list" />
             <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,17 +29,17 @@
         <div class="ys-v-row-item">
             <label>Length</label>
             <div class="min-max-container">
-                <input type="number" name="lengthlo" placeholder="Min"/>
+                <input type="number" name="lengthlo" placeholder="Min" />
                 <span>-</span>
-                <input type="number" name="lengthhi" placeholder="Max"/>
+                <input type="number" name="lengthhi" placeholder="Max" />
             </div>
         </div>
         <div class="ys-v-row-item">
             <label>Price</label>
             <div class="min-max-container">
-                <input type="number" name="pricelo" placeholder="Min"/>
+                <input type="number" name="pricelo" placeholder="Min" />
                 <span>-</span>
-                <input type="number" name="pricehi" placeholder="Max"/>
+                <input type="number" name="pricehi" placeholder="Max" />
             </div>
         </div>
         <div class="ys-v-row-item">

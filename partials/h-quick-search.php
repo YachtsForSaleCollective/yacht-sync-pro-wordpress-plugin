@@ -1,8 +1,9 @@
-<div id="quick-h-search-container">
-    <form id="ysp-yacht-quick-search-form" class="ys-h-row ysp-quick-search-form" action="<?php echo $action_url; ?>" method="GET" style="    justify-content: center;">
-            <input type="hidden" name="page_index">
+<div id="ysp-h-yacht-quick-search">
+    <form id="ysp-yacht-quick-search-form" class="ysp-quick-search-form ysp-yacht-search-form ysp-form ysp-h-yacht-search-form " action="<?php echo $action_url; ?>" method="GET">
+        <input type="hidden" name="page_index">
 
-            <div class="ys-h-row-item">
+        <div class="ys-h-row">
+            <div class="ysp-s-field">
                 <label for="ys_keyword">Keywords</label>
 
                 <input type="text" name="ys_keyword" placeholder="Boat Name, Location, Features" list="ysp_keywords_list">
@@ -15,7 +16,7 @@
                 </svg> -->
             </div>
             
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label for="make">Builder</label>
 
                 <select name="make" data-fill-options="Builders">
@@ -23,7 +24,7 @@
                 </select>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label>Year</label>
 
                 <div class="min-max-container">
@@ -33,7 +34,7 @@
                 </div>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label>Length</label>
                 
                 <div class="min-max-container">
@@ -43,7 +44,7 @@
                 </div>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label>Price</label>
 
                 <div class="min-max-container">
@@ -53,12 +54,13 @@
                 </div>
             </div>
 
-            <div class="ys-h-row-item submit-container">
-                <label>Submit</label>
+            <div class="ysp-s-field submit-container">
+                <label><br /></label>
                 
-                <button class="ysp-general-button" type="submit">Search</button>
+                <button type="submit" class="ysp-btn ysp-btn-block">Search</button>
             </div>
-        </form>
+        </div>
+    </form>
 
     <datalist id="ysp_keywords_list" data-fill-list='Keywords'></datalist>
-    </div>
+</div>

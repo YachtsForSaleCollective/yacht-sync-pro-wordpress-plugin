@@ -1,97 +1,68 @@
-#broker-results {
-    max-width: $max-width;
+@use "vars";
 
-    .brokers-section-title {
-        color: $secondary-text-color;
-        font-size: 30px;
-        font-weight: 600;
-        line-height: 36px;
-        letter-spacing: -0.225px;
+.ysp-broker-cards {
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: 1fr;
+
+    flex-wrap: wrap;
+    column-gap: vars.$broker-column-gap;
+    row-gap: vars.$broker-row-gap;
+
+    @media screen and (min-width: vars.$breakpoint-med){
+        grid-template-columns: 1fr 1fr; 
     }
 
-    .broker-cards {
+    .ysp-broker-card {
+            
         display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        column-gap: $broker-column-gap;
-        row-gap: $broker-row-gap;
 
-        .broker-card {
-            flex: 0 0 calc((100% - 3 * $broker-column-gap) / 4);
+        border-radius: 0px 12px 12px 0px;
+        border: 2px solid #E4ECF7;
+        border-left: 4px solid vars.$featured-color;
+        background: #FFF;
 
-            @media screen and (max-width: $breakpoint-x-large) {
-                flex: 0 0 calc((100% - 3 * $broker-column-gap) / 3);
+        padding: 30px;
+
+        box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+
+        .broker-image {
+            width: 80px;
+            min-width: 80px;
+            max-width: 80px;
+            height: 80px;
+
+            object-fit: cover;
+            object-position: top center;
+            
+            border-radius: 100%;
+
+            margin-right: 15px;
+
+            @media (min-width: vars.$breakpoint-large) {
+                min-width: 150px;
+                max-width: 150px;
+                height: 150px;
+                margin-right: 30px;
             }
-            @media screen and (max-width: $breakpoint-large) {
-                flex: 0 0 calc((100% - 3 * $broker-column-gap) / 2);
+
+        }
+
+        .broker-info {
+            p {
+                margin: 0;
             }
-            @media screen and (max-width: $breakpoint-med) {
-                flex: 0 0 100%;
+
+            a.broker-anchor{
+                text-decoration: none;
+                color: vars.$main-text-color;
             }
 
-            .broker-image {
-                height: 325px;
-                width: 100%;
-                object-fit: cover;
-                background: $border-color;
-            }
-            .broker-info {
+           .broker-name-container {
+                display: flex;           
+                align-items: center;
+           }
 
-                p {
-                    margin: 0;
-                }
-                a{
-                    text-decoration: none;
-                }
-
-               .broker-name-container {
-                    display: flex;
-                    align-items: center;
-                    margin-top: 10PX;
-
-                    .broker-name {
-                        margin: 0px;
-                        vertical-align: middle;
-                        font-size: 20px;
-                        font-weight: 600;
-                        line-height: 28px;
-                        color: $main-text-color;
-                    }
-
-                    .arrow-right {
-                        height: 24px;
-                        width: 24px;
-                        margin-left: 10px;
-                    }
-                
-               }
-
-               .broker-title {
-                    color: $secondary-text-color;
-                    font-size: 16px;
-                    font-weight: 500;
-                    line-height: 24px;
-                    margin-bottom: 19px;
-               }
-               .broker-email {
-                    a {
-                        color: $secondary-text-color;
-                        font-size: 16px;
-                        font-weight: 400;
-                        line-height: 24px;
-                        text-decoration: none;
-                    }
-               }
-               .broker-phone {
-                    a {
-                        color: $secondary-text-color;
-                        font-size: 16px;
-                        font-weight: 400;
-                        line-height: 24px;
-                        text-decoration: none;
-                    }
-               }
-            }
         }
     }
 }

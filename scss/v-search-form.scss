@@ -1,14 +1,10 @@
-#v-search-container {
-    max-width: 260px;
-    margin-right: auto;
-    margin-left: auto;
+@use "vars";
 
-    .ys-v-row {
-        display: block;
+#ysp-v-super-search, .ysp-v-row{
+	
 
-        .ys-v-row-item {
-            margin-bottom: 15px;
-            position: relative;
-        }
-    }
+	.ysp-s-field{
+		margin-bottom: 10px;
+	}
+
 }

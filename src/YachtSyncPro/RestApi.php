@@ -692,6 +692,8 @@
 
 				$urlbox_public_key = $this->options->get('pdf_urlbox_api_token_public_key');
 
+				$pdf_bandwidth = $this->options->get('pdf_bandwidth');
+
 				// ----------------------
 
 				
@@ -706,9 +708,10 @@
 						]
 					]);
 
-					/*
-					wp_redirect($s3_url);
-					exit();*/
+					if ($pdf_bandwidth == 'redirect') {
+						wp_redirect($s3_url);
+						exit();
+					}
 				}
 				elseif (isset($_GET['GalleryLimit'])) {
 					/*wp_redirect("https://api.urlbox.io/v1/$urlbox_public_key/pdf?url=". get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id'));
@@ -741,9 +744,12 @@
 					);*/
 				}
 				else {
-					/*wp_redirect("https://api.urlbox.io/v1/$urlbox_public_key/pdf?url=". get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id'));
+					if ($pdf_bandwidth == 'redirect') {
 
-					exit();*/
+						wp_redirect("https://api.urlbox.io/v1/$urlbox_public_key/pdf?url=". get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id'));
+
+						exit();
+					}
 
 					$render_url_parameters=[
 						'yacht_post_id' =>  $request->get_param('yacht_post_id'),

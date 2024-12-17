@@ -108,10 +108,11 @@ get_header();
             $broker_image = "";
             $broker_link = "";
 
+            $BoatPostId=$post->ID;
+
             if ($brokerQuery->have_posts()) {
 
                 while ($brokerQuery->have_posts()) {
-                    $BoatPostId=$post->ID;
 
                     $brokerQuery->the_post();
 
@@ -121,7 +122,7 @@ get_header();
                     $broker_email = get_post_meta($post->ID, 'ysp_team_email', true);
                     $broker_phone = get_post_meta($post->ID, 'ysp_team_phone', true);
                     $broker_image = esc_url(get_the_post_thumbnail_url());
-                    $broker_link = get_the_permalink();
+                    $broker_link = get_the_permalink($post->ID);
 
                 }
             }
@@ -402,12 +403,12 @@ get_header();
            
 
                         <div class="ysp-single-y-sidebar-broker">
-                            <a href="<?= get_the_permalink(); ?>">
-                                <img src="<?php echo $broker_image; ?>" alt="" id="ysp-single-y-broker-image" />
+                            <a href="<?= $broker_link; ?>">
+                                <img src="<?php echo $broker_image; ?>" alt="Photo Of <?= $broker_first_name ?>" id="ysp-single-y-broker-image" />
                             </a>
 
                             <div>
-                                <a href="<?= get_the_permalink(); ?>">
+                                <a href="<?= $broker_link; ?>">
                                     <h4><?= $broker_first_name.' '.$broker_last_name ?></h4>
                                 </a>
 
@@ -430,7 +431,7 @@ get_header();
                                 
                                 <br />
                                 
-                                <a href="<?= get_the_permalink(); ?>#listings">
+                                <a href="<?= $broker_link ?>#listings">
                                     View My Listings
                                 </a>
                             </div>

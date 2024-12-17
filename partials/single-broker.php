@@ -51,6 +51,8 @@ get_header();
                         Broker's Featured Listings
                     </h2> -->
 
+                    <div id="listings"></div>
+
                     <?php echo do_shortcode('[ys-featured-listings posts_per_page="12" ys_broker_name="'. $meta['ysp_team_fname'] .' '. $meta['ysp_team_lname'] .'"][/ys-featured-listings]'); ?>
                 </div>
             </div>

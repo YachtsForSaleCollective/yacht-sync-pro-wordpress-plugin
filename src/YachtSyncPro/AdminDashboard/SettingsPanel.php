@@ -70,6 +70,8 @@
 			register_setting( self::SLUG, self::SLUG . '_pdf_s3_key');
 			register_setting( self::SLUG, self::SLUG . '_pdf_s3_secret');
 
+			register_setting( self::SLUG, self::SLUG . '_pdf_bandwidth');
+
 			register_setting( self::SLUG, self::SLUG . '_youtube_data_api_key');
 
 			$this->fields->set_fields();

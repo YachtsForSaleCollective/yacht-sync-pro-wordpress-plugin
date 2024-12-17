@@ -326,6 +326,15 @@
 					);
 
 					add_settings_field(
+						self::SLUG . '_pdf_bandwidth',
+						"PDF Bandwidth",
+						array( $this, 'pdf_bandwidth_field' ),
+						self::SLUG,
+						self::SLUG . '_admin_fields',
+						array( )
+					);
+
+					add_settings_field(
 						self::SLUG . '_youtube_data_api_key',
 						"Youtube Data API Key",
 						array( $this, 'youtube_data_api_key_field' ),
@@ -813,6 +822,34 @@
 
 			<input type="text" name="<?= $nameOfField ?>" value="<?= $valOfField ?>" autocomplete="off"><?php 
 
+		}
+
+		public function pdf_bandwidth_field() {
+
+			$options=[
+				'' => '---- Not Picked Yet ----',
+				'redirect' => 'Redirect',
+				'sos' => 'Stay On Server',
+			];
+
+			$nameOfField=self::SLUG.'_pdf_bandwidth';
+			$valOfField=get_option($nameOfField);
+
+			?>
+
+			<select name="<?= $nameOfField ?>"> 
+				<?php 
+					foreach ( $options as $opt_value => $opt_label ) {
+						$option = '<option value="' . $opt_value . '" '. selected($opt_value, $valOfField, false) .'>';
+
+						$option .= $opt_label;
+						
+						$option .= '</option>';
+
+						echo $option;
+					}
+				?>
+			</select><?php 
 		}
 
 		public function youtube_data_api_key_field() {

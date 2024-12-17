@@ -173,6 +173,14 @@
 
 		           	}
 
+
+                    $theBoat['BoatLocation']= (object)[
+                    	'BoatCountryID' => $row['LocationCountry'],
+                    	'BoatCityName' => $row['LocationCity'],
+                    	'BoatStateCode' => $row['LocationState']
+                    ];
+
+
 		           	$detailsUrl = $this->api_url_base.'/ForSale/Vessel/'. $row['VesselID'] .'/Details/fullSpecsAll';
 
 		           	$detail_headers = [

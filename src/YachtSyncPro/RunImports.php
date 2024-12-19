@@ -161,7 +161,7 @@
 						AND 
 						wp.ID NOT IN (
 							SELECT ID FROM (
-								SELECT wp.ID as ID FROM $wpdb->posts wp
+								SELECT wp.ID as ID FROM $wpdb->posts wpdisable cron
 								LEFT JOIN $wpdb->postmeta pm ON pm.post_id = wp.ID 
 								WHERE wp.post_type = %s AND pm.meta_key = 'is_yacht_manual_entry' AND pm.meta_value = 'yes'
 							) manual_entered_yachts

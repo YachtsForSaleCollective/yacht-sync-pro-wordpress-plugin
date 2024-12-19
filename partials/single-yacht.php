@@ -135,8 +135,8 @@ get_header();
                 <img src="<?php echo ($vessel->Images[0]->Uri); ?>" alt="" class="img1" id="ysp-single-y-main-iamge" />
 
                 <div class="TwoStack">
-                    <img src="<?php echo ($vessel->Images[1]->Uri); ?>" class="img2" alt="" />
-                    <img src="<?php echo ($vessel->Images[2]->Uri); ?>" class="img3" alt="" />
+                    <img src="<?php echo ($vessel->Images[1]->Uri); ?>" class="img2" alt=""  loading="lazy " />
+                    <img src="<?php echo ($vessel->Images[2]->Uri); ?>" class="img3" alt=""  loading="lazy" />
 
                 </div>
                
@@ -170,15 +170,37 @@ get_header();
                 <nav class="ysp-single-y-links">
                 
                     <a href="tel: <?= $broker_phone ?>" title="Call">
-                        <img src="<?= YSP_ASSETS ?>/images/single-yacht/Message.png" alt="Message" />
+                        <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M1.75 11.8358V2.91667C1.75 2.60725 1.87292 2.3105 2.09171 2.09171C2.3105 1.87292 2.60725 1.75 2.91667 1.75H11.0833C11.3928 1.75 11.6895 1.87292 11.9083 2.09171C12.1271 2.3105 12.25 2.60725 12.25 2.91667V8.75C12.25 9.05942 12.1271 9.35616 11.9083 9.57496C11.6895 9.79375 11.3928 9.91667 11.0833 9.91667H4.64392C4.46905 9.91669 4.29643 9.95602 4.13882 10.0317C3.9812 10.1075 3.84262 10.2177 3.73333 10.3542L2.37358 12.054C2.32833 12.1107 2.26658 12.152 2.19686 12.172C2.12714 12.1921 2.0529 12.19 1.98442 12.1661C1.91594 12.1421 1.85659 12.0975 1.8146 12.0383C1.7726 11.9791 1.75003 11.9084 1.75 11.8358Z" stroke="#4A5568" stroke-width="0.875"/>
+                        </svg>
+                        </span>
                     </a>           
 
                     <a rel="nofollow" href="<?php echo get_rest_url(); ?>ysp/yacht-pdf-loader?yacht_post_id=<?php echo get_the_ID(); ?>" target="_blank" title="Download brochure">
-                        <img src="<?= YSP_ASSETS ?>/images/single-yacht/Brochure.png" alt="Brochure" />
+                        <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <g clip-path="url(#clip0_8145_4250)">
+                        <path d="M0.882812 0.881042H8.75408L5.25574 3.5048" stroke="#4A5568" stroke-width="0.875" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M0.882813 0.881042L0.882812 10.5015H5.25574" stroke="#4A5568" stroke-width="0.875" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M5.25781 3.50482H13.1291V13.1253H5.25781V3.50482Z" stroke="#4A5568" stroke-width="0.875" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M8.75781 0.881042V3.5048" stroke="#4A5568" stroke-width="0.875" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0_8145_4250">
+                        <rect width="14" height="14" fill="white"/>
+                        </clipPath>
+                        </defs>
+                        </svg>
+                        </span>
                     </a>
             
                     <a href="#" data-modal="#ysp-single-y-share-modal" title="Share This Page">
-                        <img src="<?= YSP_ASSETS ?>/images/single-yacht/Share.png" alt="Share" />
+                        <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M12.25 8.74998V11.0833C12.25 11.3927 12.1271 11.6895 11.9083 11.9083C11.6895 12.1271 11.3928 12.25 11.0833 12.25H2.91667C2.60725 12.25 2.3105 12.1271 2.09171 11.9083C1.87292 11.6895 1.75 11.3927 1.75 11.0833V8.74998M9.91602 4.91673L6.99935 2.00006M6.99935 2.00006V5.50006L6.99935 9.00006M6.99935 2.00006L5.54102 3.45839L4.08268 4.91673" stroke="#4A5568" stroke-width="1.16667" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        </span>
                     </a>
                 
                 </nav>
@@ -351,7 +373,7 @@ get_header();
 
                                     <a href="<?= $vessel->Videos->url[$aindex] ?>" target="_blank" title="Play video" class="ysp-single-y-video">
 
-                                        <img src="<?php echo ($vessel->Images[(10+$aindex)]->Uri); ?>" alt="" />
+                                        <img src="<?php echo ($vessel->Images[(10+$aindex)]->Uri); ?>" alt="Play Video" loading="lazy" />
 
                                         <svg xmlns="http://www.w3.org/2000/svg" width="81" height="83" viewBox="0 0 81 83" fill="none" id="play-button">
                                           <g filter="url(#filter0_d_5020_60896)">
@@ -491,16 +513,16 @@ get_header();
                     
                     <div style="display: none;">
                         <?php for ($imgI=0; $imgI <= 2; $imgI++) : ?>
-                            <img data-thumb-src="<?php echo ($vessel->Images[ $imgI ]->Uri); ?>" src="<?php echo ($vessel->Images[ $imgI ]->Uri); ?>" alt="" />    
+                            <img data-thumb-src="<?php echo ($vessel->Images[ $imgI ]->Uri); ?>" src="<?php echo ($vessel->Images[ $imgI ]->Uri); ?>" alt="" loading="lazy" />    
                         <?php endfor; ?>
                     </div>
 
                     <div class="set1"> 
-                        <img data-thumb-src="<?php echo ($vessel->Images[3]->Uri); ?>" src="<?php echo ($vessel->Images[3]->Uri); ?>" alt="" class="c1" style="width: 100%; height: 50%; flex-grow: 1; " />
+                        <img data-thumb-src="<?php echo ($vessel->Images[3]->Uri); ?>" src="<?php echo ($vessel->Images[3]->Uri); ?>" alt="" class="c1" style="width: 100%; height: 50%; flex-grow: 1;   loading="lazy"" />
 
                         <div class="thesplit">
-                            <img data-thumb-src="<?php echo ($vessel->Images[4]->Uri); ?>" src="<?php echo ($vessel->Images[4]->Uri); ?>" alt="" class="c2"/>     
-                            <img data-thumb-src="<?php echo ($vessel->Images[5]->Uri); ?>" src="<?php echo ($vessel->Images[5]->Uri); ?>" alt="" />
+                            <img data-thumb-src="<?php echo ($vessel->Images[4]->Uri); ?>" src="<?php echo ($vessel->Images[4]->Uri); ?>" alt="" class="c2"  loading="lazy"/>     
+                            <img data-thumb-src="<?php echo ($vessel->Images[5]->Uri); ?>" src="<?php echo ($vessel->Images[5]->Uri); ?>" alt=""  loading="lazy" />
 
                             <svg width="82" height="83" viewBox="0 0 82 83" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
                             <g filter="url(#filter0_d_8129_11006)">
@@ -524,11 +546,11 @@ get_header();
                     </div>
                     
                     <div class="set2">
-                        <img data-thumb-src="<?php echo ($vessel->Images[6]->Uri); ?>" src="<?php echo ($vessel->Images[6]->Uri); ?>" alt="" style="height: 100%; " />    
+                        <img data-thumb-src="<?php echo ($vessel->Images[6]->Uri); ?>" src="<?php echo ($vessel->Images[6]->Uri); ?>" alt="" style="height: 100%; "  loading="lazy" />    
                         
                         <div class="thesplit">
-                            <img data-thumb-src="<?php echo ($vessel->Images[7]->Uri); ?>"  src="<?php echo ($vessel->Images[7]->Uri); ?>" alt="" class="c3" />    
-                            <img data-thumb-src="<?php echo ($vessel->Images[8]->Uri); ?>" src="<?php echo ($vessel->Images[8]->Uri); ?>" alt="" class="c4" /> 
+                            <img data-thumb-src="<?php echo ($vessel->Images[7]->Uri); ?>"  src="<?php echo ($vessel->Images[7]->Uri); ?>" alt="" class="c3"  loading="lazy" />    
+                            <img data-thumb-src="<?php echo ($vessel->Images[8]->Uri); ?>" src="<?php echo ($vessel->Images[8]->Uri); ?>" alt="" class="c4"  loading="lazy" /> 
 
                             <svg width="82" height="83" viewBox="0 0 82 83" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon">
                             <g filter="url(#filter0_d_8129_11006)">
@@ -555,7 +577,7 @@ get_header();
                         <?php for ($imgI=9; $img <= count($vessel->Images) && $imgI <= 25; $imgI++) : 
                             if (isset($vessel->Images[ $imgI ]->Uri)) :
                             ?>
-                            <img data-thumb-src="<?php echo ($vessel->Images[ $imgI ]->Uri); ?>" src="<?php echo ($vessel->Images[ $imgI ]->Uri); ?>" alt="" />    
+                            <img data-thumb-src="<?php echo ($vessel->Images[ $imgI ]->Uri); ?>" src="<?php echo ($vessel->Images[ $imgI ]->Uri); ?>" alt=""  loading="lazy" />    
                         
                         <?php 
                             endif;
@@ -574,10 +596,10 @@ get_header();
                     <?php
                         $yachtQuery = new WP_Query(array(
                             'post_type' => 'ysp_yacht',
-                            'similar_listings_to' => get_the_ID(),
+                            'similar_listings_to' => $post->ID,
 
                             'posts_per_page' => 6,
-                            'orderby' => 'rand'
+                            'sortby' => 'length:desc'
                         ));
 
                         while ( $yachtQuery->have_posts() ) {
@@ -653,69 +675,6 @@ get_header();
                 </div>
             </div>
 
-<!-- 
-            <div id="ysp-single-y-bottom-broker-area" class="ysp-single-y-section">
-                
-                 <?php
-                    if ($brokerQuery->have_posts()) {
-                        while ($brokerQuery->have_posts()) {
-                            $brokerQuery->the_post();
-
-                            $broker_first_name = get_post_meta($post->ID, 'ysp_team_fname', true);
-                            $broker_last_name = get_post_meta($post->ID, 'ysp_team_lname', true);
-                            $broker_email = get_post_meta($post->ID, 'ysp_team_email', true);
-                            $broker_phone = get_post_meta($post->ID, 'ysp_team_phone', true);
-
-                            ?>
-
-                            <div class="ysp-single-y-bottom-broker-profile">
-
-                                <a href="<?= get_the_permalink(); ?>">
-                                    <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>" alt="" class="broker-image" />
-                                </a>
-
-                                <table>
-                                    <tr>
-                                        <th>Presented by:</th>
-                                        <td><?php echo ($broker_first_name . " " . $broker_last_name); ?></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Brokered by:</th>
-                                        <td>Big Baller Joshua Brokerage</td>
-                                    </tr>
-                                </table>
-
-                                <table>
-                                    <tr>
-                                        <th>Broker Location:</th>
-                                        <td>Fort Lauderdale, FL</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Data Source:</th>
-                                        <td>Yatco | BoatWizard | IYBA</td>
-                                    </tr>
-                                    <tr>
-                                        <th>MLS ID:</th>
-                                        <td>#890082345</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Data Source Copyright:</th>
-                                        <td>2023 YATCO. All rights reserved</td>
-                                    </tr>
-                                </table>
-
-
-                            </div>
-
-                            <?php
-                        }
-                    }
-                ?>
-
-
-            </div> -->
-
-
     <?php
         endwhile; // End of the loop.
     ?>
@@ -726,7 +685,7 @@ get_header();
 <div class="ysp-modal" id="ysp-single-y-share-modal">
     <div class="modal-content">
         <div class="modal-left">
-            <img src="<?php echo $image->{'Uri'}; ?>" alt="Vessel Image">
+            <img src="<?php echo $image->{'Uri'}; ?>" alt="Vessel Image"  loading="lazy" />
             <p class="modal-title" style="text-align: center;">
                 <?php echo esc_html($vessel->ModelYear . ' ' . $vessel->MakeString) .'<br />'. $vessel->BoatName; ?>
             </p>
@@ -737,19 +696,19 @@ get_header();
             <div class="modal-socials">
                 <div class="modal-social-icon">
                     <a href="mailto:?subject=<?php echo urlencode($vessel->ModelYear . ' ' . $vessel->MakeString . ' ' . $vessel->BoatName); ?>&body=<?php echo get_the_permalink(); ?>" style="text-decoration: none; color: black;">
-                        <img src="<?php echo YSP_ASSETS; ?>/icons/send.svg" alt="Email" style="width: 20px; height: 20px;">
+                        <img src="<?php echo YSP_ASSETS; ?>/icons/send.svg"  loading="lazy" alt="Email" style="width: 20px; height: 20px;">
                         <p class="modal-social"> Email </p>
                     </a>
                 </div>
                 <div class="modal-social-icon">
                     <a class="yacht-brochure" onclick="window.open('http://www.facebook.com/sharer/sharer.php?u=<?php echo get_the_permalink(); ?>&t=<?php echo urlencode($vessel->ModelYear . ' ' . $vessel->MakeString . ' ' . $vessel->BoatName); ?>', '_blank');" target="_blank" style="text-decoration: none; color: black;">
-                        <img src="<?php echo YSP_ASSETS; ?>/icons/facebook.svg" alt="Facebook Icon" style="width: 20px; height: 20px;">
+                        <img src="<?php echo YSP_ASSETS; ?>/icons/facebook.svg"  loading="lazy" alt="Facebook Icon" style="width: 20px; height: 20px;">
                         <p class="modal-social"> Facebook </p>
                     </a>
                 </div>
                 <div class="modal-social-icon">
                     <a href="http://twitter.com/share?url=<?php echo get_the_permalink(); ?>&text=<?php echo urlencode($vessel->ModelYear . ' ' . $vessel->MakeString . ' ' . $vessel->BoatName); ?>" target="_blank" style="text-decoration: none; color: black;">
-                        <img src="<?php echo YSP_ASSETS; ?>/icons/twitter.svg" alt="Twitter Icon" style="width: 20px; height: 20px;">
+                        <img src="<?php echo YSP_ASSETS; ?>/icons/twitter.svg"  loading="lazy" alt="Twitter Icon" style="width: 20px; height: 20px;">
                         <p class="modal-social"> Twitter </p>
                     </a>
                 </div>

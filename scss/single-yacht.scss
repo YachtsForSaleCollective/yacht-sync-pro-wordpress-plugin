@@ -115,10 +115,18 @@
         }
 
         .ysp-single-y-links{
-            gap: 15px;
+            display: flex;
+            gap: 8px;
 
             a{
                 text-decoration: none;
+            }
+
+            .icon{
+                display: flex;
+                border-radius: 6px;
+                border: 1px solid #4A5568; 
+                padding: 8px;
             }
         }   
     }

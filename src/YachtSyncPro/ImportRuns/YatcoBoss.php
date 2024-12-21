@@ -5,7 +5,7 @@
 		public $yachtBrokerAPIKey = '';
    		public $yachtClientId = '';
    		protected $url = '';
-   		protected $yachtBrokerLimit = 153;
+   		protected $yachtBrokerLimit = 23;
 
 		public function __construct() {
 
@@ -99,6 +99,7 @@
 
 				foreach ($apiBody['Results'] as $row) {
 		            $yachtSynced++; 
+
 		           	
 		           	$theBoat=[
 		           		
@@ -259,31 +260,10 @@
 	                    $theBoat['BoatHullID'] = $data['HullDeck']['HullID'];
 
 					}
-					
-					if (
-						( 
-							isset($theBoat['_yoast_wpseo_metadesc']) 
-							&& 
-							( 
-								empty($theBoat['_yoast_wpseo_metadesc']) 
-								|| 
-								is_null($theBoat['_yoast_wpseo_metadesc'])
-							) 
-						) 
-						|| 
-						! isset($theBoat['_yoast_wpseo_metadesc'])
-					) {
 
-						$theBoat['_yoast_wpseo_metadesc'] = $this->ChatGPTYachtDescriptionVersionTwo->make_description(
-							'Vessel Name - '.$theBoat['ModelYear'].' '.$theBoat['MakeString'].' '.$theBoat['Model'].' '.$theBoat['BoatName']. '. '.
-							'Vessel Description - '. $theBoat['GeneralBoatDescription']
-						);
+		            var_dump('balls to walls');
 
-					}
-
-					$theBoat['ImportSource'] = "YATCO";
-
-	                $find_post=get_posts([
+					$find_post=get_posts([
 	                    'post_type' => 'syncing_ysp_yacht',
 	                    'meta_query' => [
 	                        array(
@@ -292,8 +272,22 @@
 	                       )
 	                    ],
 	                ]);
+
+	                $find_post_from_synced=get_posts([
+	                    'post_type' => 'ysp_yacht',
+	                    'meta_query' => [
+							array(
+	                           'key' => 'YTC_VESSEL_ID',
+	                           'value' => $row['VesselID']
+	                       )
+	                    ],
+	                ]);
+
+	                var_dump($find_post_from_synced);
+	                var_dump($row['VesselID']);
 	           
 		            $post_id=0;
+					$updated_yacht=0;
 
 		            if (isset($find_post[0]->ID)) {
 		                $post_id=$find_post[0]->ID;
@@ -301,35 +295,80 @@
 		                $wpdb->delete($wpdb->postmeta, ['post_id' => $find_post[0]->ID], ['%d']);
 		            }
 
-		           	$y_post_id=wp_insert_post(
-		            	apply_filters('ysp_yacht_post', 
-			                [
-			                    'ID' => $post_id,
-								'post_type' => 'syncing_ysp_yacht',
-								
-								'post_title' =>  addslashes( $row['ModelYear'].' '.$row['BuilderName'].' '.$theBoat['Model'].' '.$row['VesselName'] ),
+		            if (isset($find_post_from_synced[0]->ID)) {
+		            	var_dump('hello');
 
-								'post_name' => sanitize_title(
-									$row['ModelYear'].'-'.$row['BuilderName'].'-'.$row['Model']
-								),
-								'post_content' => $data['VD']['VesselDescriptionShortDescriptionNoStyles'],
-								'post_status' => 'publish',
-								'meta_input' => apply_filters('ysp_yacht_meta_sync', (object) $theBoat)
+			            $saved_last_mod_date = get_post_meta($find_post_from_synced[0]->ID, 'ModifiedDate', true);
 
-							],
-							$theBoat
-						)
-					);
+			            if (strtotime($row->ModifiedDate) > strtotime($saved_last_mod_date)) {
+			            	$updated_yacht=1;
+			            	var_dump('updated');
+			            }
+			            else {
+			            	update_post_meta($find_post_from_synced[0]->ID, 'is_keeping', 'yes');
+			            	var_dump('pass/keeep as is.');
+			            }
 
-					wp_set_post_terms(
-						$y_post_id, 
-						[
-							$theBoat['MainCategoryText'],
-							$theBoat['SubCategoryText']
-						], 
-						'boatclass', 
-						false
-					);
+		            }			
+
+		            var_dump('balls to walls');
+
+		            if ($updated_yacht==1 || ! isset($find_post_from_synced[0]->ID) ) {
+
+		            	if (
+							( 
+								isset($theBoat['_yoast_wpseo_metadesc']) 
+								&& 
+								( 
+									empty($theBoat['_yoast_wpseo_metadesc']) 
+									|| 
+									is_null($theBoat['_yoast_wpseo_metadesc'])
+								) 
+							) 
+							|| 
+							! isset($theBoat['_yoast_wpseo_metadesc'])
+						) {
+
+							$theBoat['_yoast_wpseo_metadesc'] = $this->ChatGPTYachtDescriptionVersionTwo->make_description(
+								'Vessel Name - '.$theBoat['ModelYear'].' '.$theBoat['MakeString'].' '.$theBoat['Model'].' '.$theBoat['BoatName']. '. '.
+								'Vessel Description - '. $theBoat['GeneralBoatDescription']
+							);
+
+						}
+
+						$theBoat['ImportSource'] = "YATCO";
+
+			           	$y_post_id=wp_insert_post(
+			            	apply_filters('ysp_yacht_post', 
+				                [
+				                    'ID' => $post_id,
+									'post_type' => 'syncing_ysp_yacht',
+									
+									'post_title' =>  addslashes( $row['ModelYear'].' '.$row['BuilderName'].' '.$theBoat['Model'].' '.$row['VesselName'] ),
+
+									'post_name' => sanitize_title(
+										$row['ModelYear'].'-'.$row['BuilderName'].'-'.$row['Model']
+									),
+									'post_content' => $data['VD']['VesselDescriptionShortDescriptionNoStyles'],
+									'post_status' => 'publish',
+									'meta_input' => apply_filters('ysp_yacht_meta_sync', (object) $theBoat)
+
+								],
+								$theBoat
+							)
+						);
+
+						wp_set_post_terms(
+							$y_post_id, 
+							[
+								$theBoat['MainCategoryText'],
+								$theBoat['SubCategoryText']
+							], 
+							'boatclass', 
+							false
+						);
+
+		            }
 		        }
 
 	        }

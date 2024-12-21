@@ -91,7 +91,7 @@
 				)
 	        );
 
-	        if ($count_of_synced > $this->low_count) {
+	        if (true) {
 		       	$wpdb->query( 
 					$wpdb->prepare( 
 						"
@@ -103,8 +103,11 @@
 							SELECT ID FROM (
 								SELECT wp.ID as ID FROM $wpdb->posts wp
 								LEFT JOIN $wpdb->postmeta pm ON pm.post_id = wp.ID 
-								WHERE wp.post_type = %s AND pm.meta_key = 'is_yacht_manual_entry' AND pm.meta_value = 'yes'
-							) manual_entered_yachts
+								LEFT JOIN $wpdb->postmeta pm2 ON pm.post_id = wp.ID 
+								WHERE 
+								wp.post_type = %s AND 
+								((pm.meta_key = 'is_yacht_manual_entry' AND pm.meta_value = 'yes') OR (pm2.meta_key = 'is_keeping' AND pm.meta_value = 'yes'))
+							) 
 						)
 						",
 						'ysp_yacht',
@@ -127,6 +130,12 @@
 					"DELETE pm FROM $wpdb->postmeta pm 
 					LEFT JOIN $wpdb->posts wp ON wp.ID = pm.post_id 
 					WHERE wp.ID IS NULL"
+				);
+
+				$wpdb->query(
+					"DELETE pm FROM $wpdb->postmeta pm 
+					LEFT JOIN $wpdb->posts wp ON wp.ID = pm.post_id 
+					WHERE wp.post_type='ysp_yacht'  AND pm.meta_key='is_keeping' AND pm.meta_value='yes'"
 				);
 	        
 
@@ -164,7 +173,7 @@
 								SELECT wp.ID as ID FROM $wpdb->posts wpdisable cron
 								LEFT JOIN $wpdb->postmeta pm ON pm.post_id = wp.ID 
 								WHERE wp.post_type = %s AND pm.meta_key = 'is_yacht_manual_entry' AND pm.meta_value = 'yes'
-							) manual_entered_yachts
+							) 
 						)", 
 						'ysp_yacht',
 						'CompanyBoat',
@@ -288,12 +297,12 @@
 				}
 				else {
 					// EMAIL - AS SYNC FAILED DUE TO NOT MEETING THE REQUIREMENTS OF COUNT PROBILLY
-					var_dump('Failed');
+					var_dump('Failed 1');
 					$this->emailSyncFailed();
 				}
 			} 
 			else {
-				var_dump('Failed');
+				var_dump('Failed 2');
 				$this->emailSyncFailed();
 			}
 		}

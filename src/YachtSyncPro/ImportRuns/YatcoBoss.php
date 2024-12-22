@@ -181,88 +181,6 @@
                     	'BoatStateCode' => $row['LocationState']
                     ];
 
-
-		           	$detailsUrl = $this->api_url_base.'/ForSale/Vessel/'. $row['VesselID'] .'/Details/fullSpecsAll';
-
-		           	$detail_headers = [
-			        	'timeout' => 120,
-	
-			            'headers' => [
-			             	'Authorization' => 'Basic ' . $this->api_token,
-							'Accept' => 'application/json',
-							'Content-Type' => 'application/json'
-			            ]
-			        ];
-
-			        //sleep(2);
-
-					$apiCallDetails = wp_remote_get($detailsUrl, $detail_headers);
-
-					$apiCallDetailsStatus = wp_remote_retrieve_response_code($apiCallDetails);
-
-					if ($apiCallDetailsStatus == 200) {
-						// return;
-					}
-					elseif ($apiCallDetailsStatus == 401) {
-						return ['error' => 'Error with auth'];
-					}
-					else {
-						return ['error' => 'Error http error '.$apiCallDetailsStatus];
-					}
-					
-					$data = json_decode($apiCallDetails['body'], true);
-
-					if (isset($data['PhotoGallery']) && is_array($data['PhotoGallery'])) {
-	 
-						$reducedImages = array_slice($data['PhotoGallery'], 0, 50);
-
-	                    $reducedImages = array_map(
-	                    	function($img) {
-	                    		$reimg=[
-	                    			'Uri' => $img['largeImageURL']
-	                    		];
-
-	                    		if (! empty($img['Caption'])) {
-	                    			$reimg['Caption']=$img['Caption'];
-	                    		}
-
-	                    		return (object) $reimg;
-	                    	}, 
-	                    	$reducedImages
-	                    );
-
-	                    $theBoat['Images'] = $reducedImages;
-	                    $theBoat['CompanyName'] = $data['Company']['CompanyName'];
-
-	                    $theBoat['CruisingSpeedMeasure'] = $data['SpeedWeight']['CruiseSpeed'];
-	                    $theBoat['MaximumSpeedMeasure'] = $data['SpeedWeight']['MaxSpeed'];
-
-	                    $theBoat['MaximumSpeedMeasure'] = $data['Accommodations']['HeadsValue'];
-
-	                    $theBoat['AdditionalDetailDescription'] = $data['Sections'];
-	                    $theBoat['GeneralBoatDescription'] = $data['VD']['VesselDescriptionShortDescriptionNoStyles'];
-
-	                    if (isset($theBoat['Price'])) {
-							if (str_contains($theBoat['OriginalPrice'], 'EUR')) {
-								$theBoat['YSP_EuroVal'] = $theBoat['Price'];
-								$theBoat['YSP_USDVal'] = $theBoat['YSP_EuroVal']*$this->usd_c_c;
-
-							} else {
-								$theBoat['YSP_USDVal'] = intval($theBoat['Price']);
-								$theBoat['YSP_EuroVal'] = $theBoat['YSP_USDVal']*$this->euro_c_c;
-							}
-						}
-						else {
-							$theBoat['OriginalPrice'] = 0;
-							$theBoat['YSP_USDVal'] = 0;
-							$theBoat['YSP_EuroVal'] = 0;
-						}
-	                    $theBoat['BoatHullID'] = $data['HullDeck']['HullID'];
-
-					}
-
-		            var_dump('balls to walls');
-
 					$find_post=get_posts([
 	                    'post_type' => 'syncing_ysp_yacht',
 	                    'meta_query' => [
@@ -283,8 +201,8 @@
 	                    ],
 	                ]);
 
-	                var_dump($find_post_from_synced);
-	                var_dump($row['VesselID']);
+	                //var_dump($find_post_from_synced);
+	                //var_dump($row['VesselID']);
 	           
 		            $post_id=0;
 					$updated_yacht=0;
@@ -296,8 +214,6 @@
 		            }
 
 		            if (isset($find_post_from_synced[0]->ID)) {
-		            	var_dump('hello');
-
 			            $saved_last_mod_date = get_post_meta($find_post_from_synced[0]->ID, 'ModifiedDate', true);
 
 			            if (strtotime($row->ModifiedDate) > strtotime($saved_last_mod_date)) {
@@ -309,11 +225,88 @@
 			            	var_dump('pass/keeep as is.');
 			            }
 
-		            }			
-
-		            var_dump('balls to walls');
+		            }
 
 		            if ($updated_yacht==1 || ! isset($find_post_from_synced[0]->ID) ) {
+		            	$detailsUrl = $this->api_url_base.'/ForSale/Vessel/'. $row['VesselID'] .'/Details/fullSpecsAll';
+
+			           	$detail_headers = [
+				        	'timeout' => 120,
+		
+				            'headers' => [
+				             	'Authorization' => 'Basic ' . $this->api_token,
+								'Accept' => 'application/json',
+								'Content-Type' => 'application/json'
+				            ]
+				        ];
+
+				        //sleep(2);
+
+						$apiCallDetails = wp_remote_get($detailsUrl, $detail_headers);
+
+						$apiCallDetailsStatus = wp_remote_retrieve_response_code($apiCallDetails);
+
+						if ($apiCallDetailsStatus == 200) {
+							// return;
+						}
+						elseif ($apiCallDetailsStatus == 401) {
+							return ['error' => 'Error with auth'];
+						}
+						else {
+							return ['error' => 'Error http error '.$apiCallDetailsStatus];
+						}
+						
+						$data = json_decode($apiCallDetails['body'], true);
+
+						if (isset($data['PhotoGallery']) && is_array($data['PhotoGallery'])) {
+		 
+							$reducedImages = array_slice($data['PhotoGallery'], 0, 50);
+
+		                    $reducedImages = array_map(
+		                    	function($img) {
+		                    		$reimg=[
+		                    			'Uri' => $img['largeImageURL']
+		                    		];
+
+		                    		if (! empty($img['Caption'])) {
+		                    			$reimg['Caption']=$img['Caption'];
+		                    		}
+
+		                    		return (object) $reimg;
+		                    	}, 
+		                    	$reducedImages
+		                    );
+
+		                    $theBoat['Images'] = $reducedImages;
+		                    $theBoat['CompanyName'] = $data['Company']['CompanyName'];
+
+		                    $theBoat['CruisingSpeedMeasure'] = $data['SpeedWeight']['CruiseSpeed'];
+		                    $theBoat['MaximumSpeedMeasure'] = $data['SpeedWeight']['MaxSpeed'];
+
+		                    $theBoat['MaximumSpeedMeasure'] = $data['Accommodations']['HeadsValue'];
+
+		                    $theBoat['AdditionalDetailDescription'] = $data['Sections'];
+		                    $theBoat['GeneralBoatDescription'] = $data['VD']['VesselDescriptionShortDescriptionNoStyles'];
+
+		                    if (isset($theBoat['Price'])) {
+								if (str_contains($theBoat['OriginalPrice'], 'EUR')) {
+									$theBoat['YSP_EuroVal'] = $theBoat['Price'];
+									$theBoat['YSP_USDVal'] = $theBoat['YSP_EuroVal']*$this->usd_c_c;
+
+								} else {
+									$theBoat['YSP_USDVal'] = intval($theBoat['Price']);
+									$theBoat['YSP_EuroVal'] = $theBoat['YSP_USDVal']*$this->euro_c_c;
+								}
+							}
+							else {
+								$theBoat['OriginalPrice'] = 0;
+								$theBoat['YSP_USDVal'] = 0;
+								$theBoat['YSP_EuroVal'] = 0;
+							}
+		                    $theBoat['BoatHullID'] = $data['HullDeck']['HullID'];
+
+						}
+
 
 		            	if (
 							( 

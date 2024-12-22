@@ -233,6 +233,9 @@
 		}
 
 		public function run() {
+
+			var_dump('Sync Started At');
+			var_dump(date("F j, Y, g:i a"));
            
            	$boats_com_api_global_key = $this->options->get('boats_com_api_global_key');
            	$boats_com_api_global_key_2 = $this->options->get('boats_com_api_global_key_2');
@@ -305,6 +308,9 @@
 				var_dump('Failed 2');
 				$this->emailSyncFailed();
 			}
+
+			var_dump('Sync Ended At');
+			var_dump(date("F j, Y, g:i a"));
 		}
        
 

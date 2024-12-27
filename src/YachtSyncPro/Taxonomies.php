@@ -10,7 +10,7 @@
     }
 
     public function add_taxonomies() {
-        register_taxonomy('boatclass', 'ysp_yacht', array(
+        register_taxonomy('boatclass', ['ysp_yacht', 'syncing_ysp_yacht'], array(
 
             'public' => false,
             'publicly_queryable' => true,

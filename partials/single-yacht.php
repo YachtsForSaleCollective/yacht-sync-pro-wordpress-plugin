@@ -599,7 +599,8 @@ get_header();
                             'similar_listings_to' => $post->ID,
 
                             'posts_per_page' => 6,
-                            'sortby' => 'length:desc'
+                            
+                            'sortby' => 'length:desc',
                         ));
 
                         while ( $yachtQuery->have_posts() ) {

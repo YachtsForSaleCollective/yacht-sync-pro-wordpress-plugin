@@ -27,7 +27,7 @@
             $similar_post_id = $query->get('similar_listings_to');
             
             if ( $query->get('post_type') == "ysp_yacht" && is_numeric( $similar_post_id )  ) {
-                $length = intval(get_post_meta($similar_post_id, 'YSP_Length', true));
+                $length = intval(get_post_meta($similar_post_id, 'NominalLength', true));
 
                 $year = intval(get_post_meta($similar_post_id, 'ModelYear', true));
                 $make = get_post_meta($similar_post_id, 'MakeString', true);
@@ -44,6 +44,11 @@
                     'yearhi' => $year + 5,
 
                     'make' => $make,
+
+                    'no_found_rows' => true,
+                    //'nopaging' => true,
+
+                    'posts_per_page' => 6,
 
                 ];
 
@@ -64,6 +69,11 @@
                         'yearhi' => $year + 10,
 
                         'boatclass' => $category,
+
+                        'no_found_rows' => true,
+                        //'nopaging' => true,
+    
+                        'posts_per_page' => 6,
                     ];
 
                     $similar_query_two = new WP_Query($similar_query_two_args);

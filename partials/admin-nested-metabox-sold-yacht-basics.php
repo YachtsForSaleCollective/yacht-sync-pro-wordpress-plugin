@@ -1,4 +1,4 @@
-    <?php
+<?php
 
     $yacht_ysp_general_boat_description = get_post_meta( $post->ID, 'GeneralBoatDescription', true );
 
@@ -61,7 +61,7 @@
 ?>
 
 
-<div id="yacht-nested-metabox-basics">
+<div id="sold-yacht-nested-metabox-basics">
     <fieldset class="field-group">
         <legend>General Details</legend>
         <div class="grid-container">
@@ -174,7 +174,7 @@
 </div>
 
 <script type="text/javascript">
-    jQuery('#yacht-nested-metabox-basics .ysp-manual-images-uploads').each(function() {
+    jQuery('#sold-yacht-nested-metabox-basics .ysp-manual-images-uploads').each(function() {
     
         jQuery(this).on('click', function(e) {
             e.preventDefault();
@@ -207,7 +207,7 @@
 
                 let url = attachment.url;
 
-                let field = document.querySelector('#yacht-nested-metabox-basics input[name="'+ name +'"]');
+                let field = document.querySelector('#sold-yacht-nested-metabox-basics input[name="'+ name +'"]');
 
                 field.value = url;
             });
@@ -220,7 +220,7 @@
 
 
 <style type="text/css">
-	/* #yacht-nested-metabox-basics .metafield{
+	/* #sold-yacht-nested-metabox-basics .metafield{
 		display: block;
 		margin-top: 10px;
 		margin-bottom: 10px;
@@ -228,21 +228,21 @@
 		border-bottom: 1px solid #000;
 	}
 
-	#yacht-nested-metabox-basics .metafield label{
+	#sold-yacht-nested-metabox-basics .metafield label{
 		display: block;
 		margin-bottom: 10px;
 	}
 
-	#yacht-nested-metabox-basics .metafield input{
+	#sold-yacht-nested-metabox-basics .metafield input{
 		display: block;
 		width: 100%;
 		max-width: 500px;
 
 	}
-    #yacht-nested-metabox-basics .metafield input[type="button"]{
+    #sold-yacht-nested-metabox-basics .metafield input[type="button"]{
         margin-top: 20px;
     } */
-    #yacht-nested-metabox-basics {
+    #sold-yacht-nested-metabox-basics {
         font-family: Arial, sans-serif;
     }
 

@@ -176,9 +176,8 @@ gulp.task(
     gulp.series(
         'global-sass', 'global-sass-no-maps', 
         'global-js', 'global-minify-js',
-        'single-yacht-sass', 'single-yacht-sass-no-maps', 
+        'single-yacht-sass', 'single-yacht-sass-no-maps',
         'single-yacht-js', 'single-yacht-minify-js'
-
     )
 );
 

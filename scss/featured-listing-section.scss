@@ -1,8 +1,10 @@
+@use "vars";
+
 .featured-listings-container {
     margin-top: 80px;
     min-width: 1000px;
 
-    @media screen and (max-width: $breakpoint-x-large){
+    @media screen and (max-width: vars.$breakpoint-x-large){
       min-width: auto;
     }
 
@@ -22,13 +24,13 @@
       box-sizing: border-box;
       border: 1px solid #cbd5e1;
 
-      @media screen and (max-width: $breakpoint-x-large) {
+      @media screen and (max-width: vars.$breakpoint-x-large) {
         flex: 0 0 calc((100% - 40px) / 2);
         box-sizing: border-box;
         border: 1px solid #cbd5e1;
       }
 
-      @media screen and (max-width: $breakpoint-med) {
+      @media screen and (max-width: vars.$breakpoint-med) {
         flex: 0 0 100%;
         box-sizing: border-box;
         border: 1px solid #cbd5e1;

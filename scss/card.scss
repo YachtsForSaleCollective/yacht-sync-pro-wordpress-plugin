@@ -1,3 +1,5 @@
+@use "vars";
+
 .yacht-general-info-container {
     background-color: #ffffff;
 
@@ -66,8 +68,8 @@
       .yacht-details {
         padding: 10px 18px 10px 18px;
         align-self: flex-end;
-        background-color: $button-bg-color;
-        color: $white-color;
+        background-color: vars.$button-bg-color;
+        color: vars.$white-color;
         text-decoration: none;
       }
     }

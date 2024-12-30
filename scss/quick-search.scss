@@ -1,6 +1,8 @@
+@use "vars";
+
 #quick-search-container {
     //max-width: 300px;
-    border: 1px solid $main-text-color;
+    border: 1px solid vars.$main-text-color;
     padding: 10px;  
   
   .ys-quick-row-item {
@@ -12,7 +14,7 @@
   
   label {
     order: -1; /* Place labels above inputs */
-    color: $main-text-color;
+    color: vars.$main-text-color;
   }
   
   .min-max-container {
@@ -39,8 +41,8 @@
   input[type="submit"] {
     width: auto;
     padding: 10px 20px;
-    background-color: $button-bg-color;
-    color: $button-text-color;
+    background-color: vars.$button-bg-color;
+    color: vars.$button-text-color;
     border: none;
     cursor: pointer;
   }

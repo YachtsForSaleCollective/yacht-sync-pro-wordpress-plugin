@@ -81,7 +81,7 @@
 
 			wp_add_inline_style('yacht-sync-styles', $this->pickedColorsFromWpAdmin());
 
-			if (is_singular('ysp_yacht')) {
+			if (is_singular('ysp_yacht') || is_singular('ysp_sold_yacht')) {
 				wp_enqueue_style("ysp-single-yacht-styles");
 				wp_enqueue_script("ysp-single-yacht-script");
 			}

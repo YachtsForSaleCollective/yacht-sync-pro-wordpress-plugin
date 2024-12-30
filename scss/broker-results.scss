@@ -1,8 +1,10 @@
+@use "vars";
+
 #broker-results {
-    max-width: $max-width;
+    max-width: vars.$max-width;
 
     .brokers-section-title {
-        color: $secondary-text-color;
+        color: vars.$secondary-text-color;
         font-size: 30px;
         font-weight: 600;
         line-height: 36px;
@@ -13,19 +15,19 @@
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
-        column-gap: $broker-column-gap;
-        row-gap: $broker-row-gap;
+        column-gap: vars.$broker-column-gap;
+        row-gap: vars.$broker-row-gap;
 
         .broker-card {
-            flex: 0 0 calc((100% - 3 * $broker-column-gap) / 4);
+            flex: 0 0 calc((100% - 3 * vars.$broker-column-gap) / 4);
 
-            @media screen and (max-width: $breakpoint-x-large) {
-                flex: 0 0 calc((100% - 3 * $broker-column-gap) / 3);
+            @media screen and (max-width: vars.$breakpoint-x-large) {
+                flex: 0 0 calc((100% - 3 * vars.$broker-column-gap) / 3);
             }
-            @media screen and (max-width: $breakpoint-large) {
-                flex: 0 0 calc((100% - 3 * $broker-column-gap) / 2);
+            @media screen and (max-width: vars.$breakpoint-large) {
+                flex: 0 0 calc((100% - 3 * vars.$broker-column-gap) / 2);
             }
-            @media screen and (max-width: $breakpoint-med) {
+            @media screen and (max-width: vars.$breakpoint-med) {
                 flex: 0 0 100%;
             }
 
@@ -33,7 +35,7 @@
                 height: 325px;
                 width: 100%;
                 object-fit: cover;
-                background: $border-color;
+                background: vars.$border-color;
             }
             .broker-info {
 
@@ -55,7 +57,7 @@
                         font-size: 20px;
                         font-weight: 600;
                         line-height: 28px;
-                        color: $main-text-color;
+                        color: vars.$main-text-color;
                     }
 
                     .arrow-right {
@@ -67,7 +69,7 @@
                }
 
                .broker-title {
-                    color: $secondary-text-color;
+                    color: vars.$secondary-text-color;
                     font-size: 16px;
                     font-weight: 500;
                     line-height: 24px;
@@ -75,7 +77,7 @@
                }
                .broker-email {
                     a {
-                        color: $secondary-text-color;
+                        color: vars.$secondary-text-color;
                         font-size: 16px;
                         font-weight: 400;
                         line-height: 24px;
@@ -84,7 +86,7 @@
                }
                .broker-phone {
                     a {
-                        color: $secondary-text-color;
+                        color: vars.$secondary-text-color;
                         font-size: 16px;
                         font-weight: 400;
                         line-height: 24px;

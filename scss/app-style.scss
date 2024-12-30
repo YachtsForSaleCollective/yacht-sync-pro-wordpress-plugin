@@ -1,19 +1,19 @@
-@import 'vars';
+@use 'vars';
 
-@import 'jquery-modal';
+@use 'jquery-modal';
 
-@import 'single-broker';
-@import 'broker-results';
+@use 'single-broker';
+@use 'broker-results';
 
-@import 'h-search-form';
-@import 'v-search-form';
-@import 'search-form';
-@import 'yacht-results';
-@import 'similar-listing-cards';
-@import 'featured-listing-section';
+@use 'h-search-form';
+@use 'v-search-form';
+@use 'search-form';
+@use 'yacht-results';
+@use 'similar-listing-cards';
+@use 'featured-listing-section';
 
-@import 'quick-search';
-@import 'quick-h-search';
-@import 'compare-yachts';
-@import 'card';
-@import 'main';
+@use 'quick-search';
+@use 'quick-h-search';
+@use 'compare-yachts';
+@use 'card';
+@use 'main';

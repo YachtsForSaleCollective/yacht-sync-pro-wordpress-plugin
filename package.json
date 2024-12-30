@@ -58,6 +58,7 @@
     "gulp-concat-util": "^0.5.5",
     "gulp-jshint": "^2.1.0",
     "gulp-watch": "^5.0.1",
-    "map-stream": "^0.0.7"
+    "map-stream": "^0.0.7",
+    "sass-migrator": "^2.3.0"
   }
 }

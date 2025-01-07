@@ -29,6 +29,7 @@
 
 			$this->urlbox_secret_key = $this->options->get('pdf_urlbox_api_secret_key');
 
+			$this->pdf_author = $this->options->get('pdf_author');
 
 			$this->CarryOverKeys = [
 				'_yoast_wpseo_title',
@@ -412,6 +413,16 @@
 					
 					if ( $this->opt_prerender_brochures == 'yes' && $pdf_still_e == false && ! in_array($boatC->SalesStatus, ['Sold', 'Suspend']) ) {
 
+						$pdf_title = $boat['ModelYear'].' '.$boat['MakeString'].' '.$boat['Model'];
+
+						if ($boat['BoatName'] != '') {
+							$pdf_title .= ' ' . $boat['BoatName'];
+						}
+
+						if ($this->pdf_author != '') {
+							$pdf_title .= ' | '. $this->pdf_author;
+						}
+
 						$generatorPDF = wp_remote_post(
 							"https://api.urlbox.io/v1/render/async", 
 							[
@@ -423,7 +434,11 @@
 									'url' => get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $y_post_id,
 									'webhook_url' => get_rest_url() ."ysp/set-yacht-pdf?yacht_post_id=". $y_post_id,
 									'use_s3' => true,
-									'format' => 'pdf'
+									'format' => 'pdf',
+									'pdf_options' => [
+										'title' => $pdf_title,
+										'author' => ($this->pdf_author ? $this->pdf_author : ''),
+									]
 								])
 							]
 						);

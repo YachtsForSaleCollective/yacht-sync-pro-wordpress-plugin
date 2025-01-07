@@ -65,6 +65,7 @@
 
 			register_setting( self::SLUG, self::SLUG . '_pdf_urlbox_api_token_public_key');
 			register_setting( self::SLUG, self::SLUG . '_pdf_urlbox_api_secret_key');
+			register_setting( self::SLUG, self::SLUG . '_pdf_author');
 
 			register_setting( self::SLUG, self::SLUG . '_pdf_s3_bucket');
 			register_setting( self::SLUG, self::SLUG . '_pdf_s3_endpoint');

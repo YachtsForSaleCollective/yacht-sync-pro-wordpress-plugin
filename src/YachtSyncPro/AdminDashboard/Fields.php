@@ -299,6 +299,15 @@
 					);
 
 					add_settings_field(
+						self::SLUG . '_pdf_author',
+						"PDF Author",
+						array( $this, 'pdf_author_field' ),
+						self::SLUG,
+						self::SLUG . '_admin_fields',
+						array( )
+					);
+
+					add_settings_field(
 						self::SLUG . '_pdf_s3_bucket',
 						"S3 Bucket (FOR PDF STORAGE)",
 						array( $this, 'pdf_s3_bucket_field' ),
@@ -786,6 +795,16 @@
 
 		public function pdf_urlbox_api_secret_token_field() {
 			$nameOfField=self::SLUG.'_pdf_urlbox_api_secret_key';
+			$valOfField=get_option($nameOfField);
+
+			?>
+
+			<input type="text" name="<?= $nameOfField ?>" value="<?= $valOfField ?>" autocomplete="off"><?php 
+
+		}
+
+		public function pdf_author_field() {
+			$nameOfField=self::SLUG.'_pdf_author';
 			$valOfField=get_option($nameOfField);
 
 			?>

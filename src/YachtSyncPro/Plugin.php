@@ -30,6 +30,7 @@
 			$this->Yachts_Search_Seo_ApplyToYoast = new YachtSyncPro_YoastFun_SearchSEOApply();
 			$this->Yachts_Search_Seo_Shortcode = new YachtSyncPro_Shortcodes_YachtSearchSeo();
 			$this->Yachts_RestrictManagePosts = new YachtSyncPro_Yachts_RestrictManagePosts();
+			$this->Yachts_Shortcode_Sold = new YachtSyncPro_Shortcodes_YachtSearchSold();
 
 			$this->Yachts_Meta_Brochure = new YachtSyncPro_Yachts_MetaBrochureSection();
 			$this->Yachts_MetaFields = new YachtSyncPro_Yachts_MetaSections();

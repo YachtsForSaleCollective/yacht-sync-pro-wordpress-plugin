@@ -601,6 +601,7 @@ get_header();
                             'posts_per_page' => 6,
                             
                             'sortby' => 'length:desc',
+                            'no_found_rows' => true,
                         ));
 
                         while ( $yachtQuery->have_posts() ) {

@@ -398,6 +398,7 @@
 					);
 
 					wp_set_post_terms($y_post_id, $boat['BoatClassCode'], 'boatclass', false);
+					wp_set_post_terms($y_post_id, $boat['MakeString'], 'boatmaker', false);
 					
 					if ( $this->opt_prerender_brochures == 'yes' && $pdf_still_e == false && ! in_array($boatC->SalesStatus, ['Sold', 'Suspend']) ) {
 

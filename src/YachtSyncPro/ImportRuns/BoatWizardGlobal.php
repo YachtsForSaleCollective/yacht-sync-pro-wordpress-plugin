@@ -2,7 +2,7 @@
     #[AllowDynamicProperties]
 		
 	class YachtSyncPro_ImportRuns_BoatWizardGlobal {
-   		protected $limit = 53;
+   		protected $limit = 153;
 	
 		// Testing URL
 		//public $globalInventoryUrl = 'https://services.boats.com/pls/boats/search?fields=ModelYear,MakeString,Model,BoatName,DocumentID,NominalLength,BoatClassCode&key=';
@@ -397,6 +397,9 @@
 					$boatC->Touched_InSync=1;
 					$boatC->ImportSource = "BoatWizard";
 
+					$boatC->MakeString = strtolower($boatC->MakeString);
+					$boatC->MakeString = ucwords($boatC->MakeString);
+
 		            $y_post_id=wp_insert_post(
 		            	apply_filters('ysp_yacht_post', 
 		            		[
@@ -418,6 +421,7 @@
 					);
 
 					wp_set_post_terms($y_post_id, $boat['BoatClassCode'], 'boatclass', false);
+					wp_set_post_terms($y_post_id, $boatC->MakeString, 'boatmaker', false);
 
 					if ($this->opt_prerender_brochures == 'yes' && $pdf_still_e == false && ! in_array($boatC->SalesStatus, ['Sold', 'Suspend']) ) {
 

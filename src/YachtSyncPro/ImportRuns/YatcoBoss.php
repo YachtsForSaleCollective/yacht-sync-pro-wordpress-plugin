@@ -5,7 +5,7 @@
 		public $yachtBrokerAPIKey = '';
    		public $yachtClientId = '';
    		protected $url = '';
-   		protected $yachtBrokerLimit = 153;
+   		protected $yachtBrokerLimit = 253;
 
 		public function __construct() {
 
@@ -104,6 +104,9 @@
 		           		
 		           	];
 
+		           	$row['BuilderName'] = strtolower($row['BuilderName']);
+		           	$row['BuilderName'] = ucwords($row['BuilderName']);
+
 		           	$MapToBoatOrg=[
 		           		'YTC_VESSEL_ID' => 'VesselID',
 		           		'DocumentID' => 'VesselID',
@@ -126,6 +129,8 @@
 		                'MakeString' => 'BuilderName',
 		                
 		                'BoatCategoryCode' => 'MainCategoryText',
+		                'BoatSubCategoryCode' => 'SubCategoryText',
+		                
 		                'BoatName' => 'VesselName',
 
 		                //'CruisingSpeedMeasure' => 'CruiseSpeed', 
@@ -330,6 +335,8 @@
 						'boatclass', 
 						false
 					);
+
+					wp_set_post_terms($y_post_id, $row['BuilderName'], 'boatmaker', false);
 		        }
 
 	        }

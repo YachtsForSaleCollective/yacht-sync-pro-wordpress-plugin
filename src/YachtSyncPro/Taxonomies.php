@@ -32,6 +32,28 @@
             )
         ));
 
+        register_taxonomy('boatmaker', ['ysp_yacht', 'syncing_ysp_yacht'], array(
+
+            'public' => false,
+            'publicly_queryable' => true,
+            'show_ui' => true,
+            'hierarchical' => false,
+
+            'labels' => array(
+              'name' => __( 'Boat Maker Class' ),
+              'singular_name' => __( 'Boat Maker Class' ),
+              'search_items' =>  __( 'Search Maker' ),
+              'all_items' => __( 'All Boat Maker Classes' ),
+              'parent_item' => __( 'Parent Maker' ),
+              'parent_item_colon' => __( 'Parent Maker:' ),
+              'edit_item' => __( 'Edit Maker Class' ),
+              'update_item' => __( 'Update Maker Class' ),
+              'add_new_item' => __( 'Add New MakerClass' ),
+              'new_item_name' => __( 'New Maker Class' ),
+              'menu_name' => __( 'Boat Maker Classes' ),
+            )
+        ));
+
         register_taxonomy('membercategroy', 'ysp_team', array(
 
             'public' => false,

@@ -32,12 +32,16 @@
 
                 $make = get_post_meta($similar_post_id, 'MakeString', true);
                 $category = wp_get_post_terms($similar_post_id, 'boatclass', array( 'fields' => 'slugs' ) );
+
+                //$diff_year = 5;
+
+                $diff_length = 15;
                 
                 $similar_query_one_args = [
                     'post_type' => 'ysp_yacht',
                     'post__not_in' => [ $similar_post_id ],
                    
-                    'lengthlo' => $length - 15,
+                    'lengthlo' => $length - $diff_length,
                     //'lengthhi' => $length + 15,
 
                     'yearlo' => $year - 5,
@@ -57,37 +61,58 @@
                    $query->query_vars = array_merge($query->query_vars, $similar_query_one_args);
                 }
                 else {
-                    $similar_query_two_args = [
-                        'post_type' => 'ysp_yacht',
-                        'post__not_in' => [ $similar_post_id ],
-                    
-                        'lengthlo' => $length - 30,
-                        //'lengthhi' => $length + 30,
+                    $diff_length=30;
 
-                        'yearlo' => $year - 10,
-                        //'yearhi' => $year + 10,
+                    if (count($category) > 0) {
+                        $similar_query_two_args = [
+                            'post_type' => 'ysp_yacht',
+                            'post__not_in' => [ $similar_post_id ],
+                        
+                            'lengthlo' => $length - $diff_length,
+                            //'lengthhi' => $length + 30,
 
-                        'boatclass' => $category,
+                            'yearlo' => $year - 10,
+                            //'yearhi' => $year + 10,
 
-                        'no_found_rows' => true,
-                    
-                        'posts_per_page' => 6,
-                    ];
+                            'boatclass' => $category,
 
-                    $similar_query_two = new WP_Query($similar_query_two_args);
+                            'no_found_rows' => true,
+                        
+                            'posts_per_page' => 6,
+                        ];
 
-                    if (count($similar_query_two->posts) >= 3) {
+                        $similar_query_two = new WP_Query($similar_query_two_args);
 
-                        $query->query_vars = array_merge($query->query_vars, $similar_query_two_args);
+                        if (count($similar_query_two->posts) >= 3) {
+
+                            $query->query_vars = array_merge($query->query_vars, $similar_query_two_args);
+                        }
+                        else {
+                            $query->query_vars = array_merge($query->query_vars, [
+                                
+                                'post__not_in' => [ $similar_post_id ],
+                                'boatclass'  => $category
+                                
+                            ]);
+                        }
                     }
                     else {
+                        if ($length > 200) {
+                            $diff_length = 60;
+                        }
+
                         $query->query_vars = array_merge($query->query_vars, [
+                            'lengthlo' => $length - $diff_length,
+                            'lengthhi' => $length + $diff_length,
                             
-                            'post__not_in' => [ $similar_post_id ],
-                            'boatclass'  => $category
-                            
+                            'yearlo' => $year - 15,
+                            'yearhi' => $year + 15,
+
+                            'post__not_in' => [ $similar_post_id ],                            
                         ]);
                     }
+
+
                 }
 
             }

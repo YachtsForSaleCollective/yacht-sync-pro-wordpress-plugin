@@ -33,10 +33,12 @@
 
 			$vars[] = 'yearlo';
 			$vars[] = 'yearhi';
+			$vars[] = 'yearcompare';
 
 			$vars[] = 'lengthunit';
 			$vars[] = 'lengthlo';
 			$vars[] = 'lengthhi';
+			$vars[] = 'lengthcompare';
 
 			$vars[] = 'currency';
 			$vars[] = 'pricelo';
@@ -427,6 +429,15 @@
 					];
 				}
 
+				if ($this->if_query_var_check($query->get('yearcompare'))) {
+					$yacht_sync_meta_query[]=[
+						'key' => 'ModelYear',
+						'compare' => "BETWEEN",
+						'type' => 'NUMERIC',
+						'value' => $query->get('yearcompare')
+					];
+				}
+
 				if ($this->if_query_var_check($query->get('currency'))) {
 
 					$currency = strtolower($query->get('currency'));
@@ -650,6 +661,15 @@
 							'compare' => "<=",
 							'type' => 'NUMERIC',
 							'value' => $query->get('lengthhi')
+						];
+					}
+
+					if ($this->if_query_var_check($query->get('lengthcompare'))) {
+						$yacht_sync_meta_query['lc']=[
+							'key' => 'NominalLength',
+							'compare' => "BETWEEN",
+							'type' => 'NUMERIC',
+							'value' => $query->get('lengthcompare')
 						];
 					}
 

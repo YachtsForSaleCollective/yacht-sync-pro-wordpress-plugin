@@ -122,13 +122,8 @@ var ysp_templates={};
 	ysp_templates.yacht.list=function(vessel) {
 		let meters = parseInt(vessel.NominalLength) * 0.3048;
 		let price = '';
-
-		if (typeof vessel.Price == 'string') {
-			let price = vessel.Price.slice(0, -3);
-		}
-		
 		let length = '';
-		
+
 		if(ysp_yacht_sync.europe_option_picked == "yes"){
 			length = vessel.NominalLength ? meters.toFixed(2) + ' m' : 'N/A';
 			price = vessel.Price ? `€ ${new Intl.NumberFormat('en-us', { minimumFractionDigits: 2}).format((parseInt(vessel.Price.slice(0, -3)) * ysp_yacht_sync.euro_c_c))}` : 'Contact Us For Price';

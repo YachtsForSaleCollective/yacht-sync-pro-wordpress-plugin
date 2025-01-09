@@ -33,6 +33,9 @@
                 $make = get_post_meta($similar_post_id, 'MakeString', true);
                 $category = wp_get_post_terms($similar_post_id, 'boatclass', array( 'fields' => 'slugs' ) );
 
+                $category_and_count = wp_get_post_terms($similar_post_id, 'boatclass', array( ) );
+                $make_and_count = wp_get_post_terms($similar_post_id, 'boatmake', array( ) );
+
                 //$diff_year = 5;
 
                 $diff_length = 15;
@@ -40,12 +43,12 @@
                 $similar_query_one_args = [
                     'post_type' => 'ysp_yacht',
                     'post__not_in' => [ $similar_post_id ],
-                   
-                    'lengthlo' => $length - $diff_length,
-                    //'lengthhi' => $length + 15,
 
-                    'yearlo' => $year - 5,
-                    //'yearhi' => $year + 5,
+                    'lengthcompare' => [($length - $diff_length), ($length + $diff_length)],
+                    'yearcompare' => [( $year - 5 ), (  $year + 5 )],
+
+                    'sortby' => null,
+                    'orderby' => 'lc',
 
                     'make' => $make,
 
@@ -54,6 +57,13 @@
                     'posts_per_page' => 6,
 
                 ];
+/*
+                if ($make_and_count[0]->count >= 3) {
+                    $similar_query_one_args['make'] = $make;
+                }
+                elseif ($category_and_count[0]->count >= 3) {
+                    $similar_query_one_args['boatclass'] = $category;
+                } */
 
                 $similar_query_one = new WP_Query($similar_query_one_args);
 
@@ -68,16 +78,16 @@
                             'post_type' => 'ysp_yacht',
                             'post__not_in' => [ $similar_post_id ],
                         
-                            'lengthlo' => $length - $diff_length,
-                            //'lengthhi' => $length + 30,
-
-                            'yearlo' => $year - 10,
-                            //'yearhi' => $year + 10,
+                            'lengthcompare' => [($length - $diff_length), ($length + $diff_length)],
+                            'yearcompare' => [( $year - 10 ), (  $year + 10 )],
 
                             'boatclass' => $category,
 
+                            'sortby' => null,
+                            'orderby' => 'lc',
+
                             'no_found_rows' => true,
-                        
+                            
                             'posts_per_page' => 6,
                         ];
 
@@ -102,13 +112,16 @@
                         }
 
                         $query->query_vars = array_merge($query->query_vars, [
-                            'lengthlo' => $length - $diff_length,
-                            'lengthhi' => $length + $diff_length,
-                            
-                            'yearlo' => $year - 15,
-                            'yearhi' => $year + 15,
-
                             'post__not_in' => [ $similar_post_id ],                            
+                            
+                            'lengthcompare' => [($length - $diff_length), ($length + $diff_length)],
+
+                            //'yearcompare' => [( $year - 15 ), (  $year + 15 )],
+
+                            'sortby' => null,
+
+                            'orderby' => 'lc',
+
                         ]);
                     }
 

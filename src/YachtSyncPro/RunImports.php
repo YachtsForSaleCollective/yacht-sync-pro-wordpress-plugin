@@ -235,6 +235,10 @@
 
 			$yatco_api_token = $this->options->get('yatco_api_token');
 
+			$start_datetime = date("F j, Y, g:i a");
+
+			var_dump('Sync Started At ' . date("F j, Y, g:i a"));
+
 			$this->pre_clean_up();
 
 			$resultsOfSync=[];
@@ -296,6 +300,9 @@
 				var_dump('Failed');
 				$this->emailSyncFailed();
 			}
+
+			var_dump('Sync Was Started At ' . $start_datetime);
+			var_dump('Sync Finished At ' . date("F j, Y, g:i a"));
 		}
        
 

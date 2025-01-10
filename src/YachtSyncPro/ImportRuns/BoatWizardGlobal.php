@@ -424,9 +424,9 @@
 
 					wp_set_post_terms($y_post_id, $boat['MakeString'], 'boatmaker', false);
 
-					//wp_set_post_terms($y_post_id, $row['VesselConditionText'], 'boatcondition', false);
+					wp_set_post_terms($y_post_id, $boat['SaleClassCode'], 'boatcondition', false);
 
-					//wp_set_post_terms($y_post_id, $row['VesselTypeText'], 'boattype', false);
+					wp_set_post_terms($y_post_id, $boat['BoatCategoryCode'], 'boattype', false);
 
 					if ($this->opt_prerender_brochures == 'yes' && $pdf_still_e == false && ! in_array($boatC->SalesStatus, ['Sold', 'Suspend']) ) {
 

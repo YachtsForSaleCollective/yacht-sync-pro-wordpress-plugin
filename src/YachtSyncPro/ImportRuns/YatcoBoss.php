@@ -206,16 +206,13 @@
 
                     if (isset($theBoat['BoatLocation'])) {
 	                    $theBoat['YSP_City'] = $theBoat['BoatLocation']->{'BoatCityName'};
-	                    $theBoat['YSP_CountryID'] = $theBoat['BoatLocation']->{'BoatCountryID'};
-	                    $theBoat['YSP_State'] = $theBoat['BoatLocation']->{'BoatStateCode'};
+	                    $theBoat['YSP_Full_Country'] = $theBoat['BoatLocation']->{'BoatCountryID'};
+	                   	$theBoat['YSP_Full_State'] = $theBoat['YSP_State'];
 
-	                    $theBoat['YSP_Full_Country'] = $this->LocationConvert->filpped_country[ $theBoat['YSP_CountryID'] ];
+	                    $theBoat['YSP_CountryID'] = $this->LocationConvert->filpped_country[ $theBoat['YSP_CountryID'] ];
 
 	                    if (isset($this->LocationConvert->filpped_state[ $theBoat['YSP_State'] ])) {
-	                   		$theBoat['YSP_Full_State'] = $this->LocationConvert->filpped_state[ $theBoat['YSP_State'] ];
-	                    }
-	                    else {
-	                   		$theBoat['YSP_Full_State'] = $theBoat['YSP_State'];
+	                    	$theBoat['YSP_State'] = $this->LocationConvert->filpped_state[ $theBoat['YSP_State'] ];
 	                    }
 
                     }

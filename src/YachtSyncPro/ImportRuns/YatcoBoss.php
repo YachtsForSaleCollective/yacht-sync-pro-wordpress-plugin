@@ -75,7 +75,7 @@
 				return ['error' => 'Error http error '.$api_status_code];
 			}
 
-	        $total = 500; //$json['Count'];
+	        $total = $json['Count'];
 	        $yachtSynced = 0;
 	        $page = -1;
 

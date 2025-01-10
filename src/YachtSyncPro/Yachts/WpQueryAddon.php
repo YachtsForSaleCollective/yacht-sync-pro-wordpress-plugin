@@ -255,6 +255,12 @@
 								'value' => $keyword
 							],
 
+							[									
+								'key' => 'BoatLocation',
+								'compare' => "LIKE",
+								'value' => $keyword
+							],
+
 							/*[									
 								'key' => 'GeneralBoatDescription',
             					'compare' => 'LIKE',

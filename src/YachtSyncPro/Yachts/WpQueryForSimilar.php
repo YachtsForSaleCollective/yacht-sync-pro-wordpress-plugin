@@ -30,104 +30,94 @@
                 $length = intval(get_post_meta($similar_post_id, 'NominalLength', true));
                 $year = intval(get_post_meta($similar_post_id, 'ModelYear', true));
 
-                $make = get_post_meta($similar_post_id, 'MakeString', true);
                 $category = wp_get_post_terms($similar_post_id, 'boatclass', array( 'fields' => 'slugs' ) );
+                $maker = wp_get_post_terms($similar_post_id, 'boatmaker', array( 'fields' => 'slugs' ) );
+                $type = wp_get_post_terms($similar_post_id, 'boattype', array( 'fields' => 'slugs' ) );
+                $condition = wp_get_post_terms($similar_post_id, 'boatcondition', array( 'fields' => 'slugs' ) );
 
-                $category_and_count = wp_get_post_terms($similar_post_id, 'boatclass', array( ) );
-                $make_and_count = wp_get_post_terms($similar_post_id, 'boatmake', array( ) );
-
-                //$diff_year = 5;
-
-                $diff_length = 15;
-                
-                $similar_query_one_args = [
+                $similar_queries_const = [
                     'post_type' => 'ysp_yacht',
                     'post__not_in' => [ $similar_post_id ],
-
-                    'lengthcompare' => [($length - $diff_length), ($length + $diff_length)],
-                    'yearcompare' => [( $year - 5 ), (  $year + 5 )],
 
                     'sortby' => null,
                     'orderby' => 'lc',
 
-                    'make' => $make,
-
                     'no_found_rows' => true,
-                    
-                    'posts_per_page' => 6,
-
+                    'posts_per_page' => 6
                 ];
-/*
-                if ($make_and_count[0]->count >= 3) {
-                    $similar_query_one_args['make'] = $make;
-                }
-                elseif ($category_and_count[0]->count >= 3) {
-                    $similar_query_one_args['boatclass'] = $category;
-                } */
 
-                $similar_query_one = new WP_Query($similar_query_one_args);
+                $similar_queries_to_test = [
+                    [
+                        'boatmaker' => $maker,
+                        'boatclass' => $category,
+                        'boattype' => $type,
+                        'boatcondition' => $condition,
+                        'lengthcompare' => [($length - 5), ($length + 5)],
+                        'yearcompare' => [( $year - 8 ), (  $year + 8 )],
+                    ],
 
-                if (count($similar_query_one->posts) >= 3) {
-                   $query->query_vars = array_merge($query->query_vars, $similar_query_one_args);
-                }
-                else {
-                    $diff_length=30;
+                    [
+                        'boatmaker' => $maker,
+                        'boattype' => $type,
+                        'lengthcompare' => [($length - 5), ($length + 5)],
+                        'yearcompare' => [( $year - 8 ), (  $year + 8 )],
+                    ],
 
-                    if (count($category) > 0) {
-                        $similar_query_two_args = [
-                            'post_type' => 'ysp_yacht',
-                            'post__not_in' => [ $similar_post_id ],
-                        
-                            'lengthcompare' => [($length - $diff_length), ($length + $diff_length)],
-                            'yearcompare' => [( $year - 10 ), (  $year + 10 )],
+                    [
+                        'boatclass' => $category,
+                        'boattype' => $type,
+                        'boatcondition' => $condition,
+                        'lengthcompare' => [($length - 10), ($length + 10)],
+                        'yearcompare' => [( $year - 12 ), ($year + 12 )],
+                    ],
 
-                            'boatclass' => $category,
+                    [
+                        'boatclass' => $category,
+                        'lengthcompare' => [($length - 15), ($length + 15)],
+                        'yearcompare' => [( $year - 18 ), (  $year + 18 )],
+                    ],
 
-                            'sortby' => null,
-                            'orderby' => 'lc',
+                    [
+                        'boatclass' => $category,
+                        'yearcompare' => [( $year - 15 ), (  $year + 15 )],
+                        'lengthcompare' => null,
+                    ],
 
-                            'no_found_rows' => true,
-                            
-                            'posts_per_page' => 6,
-                        ];
+                    [
+                        'lengthcompare' => [($length - 20), ($length + 20)],
+                        'yearcompare' => [( $year - 20 ), (  $year + 20 )]
+                    ]
+                ];
 
-                        $similar_query_two = new WP_Query($similar_query_two_args);
+                foreach ($similar_queries_to_test as $tIndex => $test) {
+                    $args = array_merge($similar_queries_const, $test);
 
-                        if (count($similar_query_two->posts) >= 3) {
+                    $similar_query = new WP_Query($args);
 
-                            $query->query_vars = array_merge($query->query_vars, $similar_query_two_args);
-                        }
-                        else {
-                            $query->query_vars = array_merge($query->query_vars, [
-                                
-                                'post__not_in' => [ $similar_post_id ],
-                                'boatclass'  => $category
-                                
-                            ]);
-                        }
+                    if (count($similar_query->posts) >= 3) {
+                        $query->query_vars = array_merge($query->query_vars, $args);
+                        return $query;
                     }
                     else {
-                        if ($length > 200) {
-                            $diff_length = 60;
-                        }
-
-                        $query->query_vars = array_merge($query->query_vars, [
-                            'post__not_in' => [ $similar_post_id ],                            
-                            
-                            'lengthcompare' => [($length - $diff_length), ($length + $diff_length)],
-
-                            //'yearcompare' => [( $year - 15 ), (  $year + 15 )],
-
-                            'sortby' => null,
-
-                            'orderby' => 'lc',
-
-                        ]);
+                        continue;
                     }
-
 
                 }
 
+                $diff_length=20;
+                $diff_year=20;
+
+                $query->query_vars = array_merge($query->query_vars, [
+                    'post__not_in' => [ $similar_post_id ],                            
+                    
+                    'lengthcompare' => [($length - $diff_length), ($length + $diff_length)],
+                    'yearcompare' => [( $year - $diff_length ), (  $year + $diff_length )],
+
+                    'sortby' => null,
+                    'orderby' => 'lc',
+
+                ]);
+        
             }
 
 			return $query;

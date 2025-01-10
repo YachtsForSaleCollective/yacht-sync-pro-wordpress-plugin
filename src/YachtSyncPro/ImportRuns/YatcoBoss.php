@@ -33,7 +33,18 @@
 	        	'timeout' => 90,
 
 	        	'body' => json_encode([
+	        		'year' => [
+					  "Start" => 1960,
+					  "End" => 2030
+	        		],
+
+	        		'loa' => [
+	        			'Start' => 5, 
+	        			'End' => 200
+	        		],
+
 	        		"Records" => 12,
+
 	        	]),
 	        	
 	            'headers' => [
@@ -64,7 +75,7 @@
 				return ['error' => 'Error http error '.$api_status_code];
 			}
 
-	        $total = $json['Count'];
+	        $total = 500; //$json['Count'];
 	        $yachtSynced = 0;
 	        $page = -1;
 
@@ -76,9 +87,19 @@
 
 	        	$page++;
 
-	        	sleep(3);
+	        	sleep(2);
 
 	        	$headers['body']=json_encode([
+	        		'year' => [
+					  "Start" => 1960,
+					  "End" => 2030
+	        		],
+
+	        		'loa' => [
+	        			'Start' => 5, 
+	        			'End' => 200
+	        		],
+
 	        		'Records' => $this->yachtBrokerLimit,
 	        		'Offset' => ($page*$this->yachtBrokerLimit)
 	        	]);
@@ -110,8 +131,8 @@
 		           	$MapToBoatOrg=[
 		           		'YTC_VESSEL_ID' => 'VesselID',
 		           		'DocumentID' => 'VesselID',
-		  				'SalesStatus' => 'VesselStatus',
-		                'SaleClassCode' => 'VesselCondition',
+		  				'SalesStatus' => 'VesselStatusText',
+		                'SaleClassCode' => 'VesselConditionText',
 		                'CompanyName' => 'CompanyID' ,
 
 		                //'GeneralBoatDescription' => 'BrokerTeaser',
@@ -175,9 +196,7 @@
 		           		else {
 		           			$theBoat[ $mapToKey ] = '';
 		           		}
-
 		           	}
-
 
                     $theBoat['BoatLocation']= (object)[
                     	'BoatCountryID' => $row['LocationCountry'],
@@ -185,6 +204,21 @@
                     	'BoatStateCode' => $row['LocationState']
                     ];
 
+                    if (isset($theBoat['BoatLocation'])) {
+	                    $theBoat['YSP_City'] = $theBoat['BoatLocation']->{'BoatCityName'};
+	                    $theBoat['YSP_CountryID'] = $theBoat['BoatLocation']->{'BoatCountryID'};
+	                    $theBoat['YSP_State'] = $theBoat['BoatLocation']->{'BoatStateCode'};
+
+	                    $theBoat['YSP_Full_Country'] = $this->LocationConvert->filpped_country[ $theBoat['YSP_CountryID'] ];
+
+	                    if (isset($this->LocationConvert->filpped_state[ $theBoat['YSP_State'] ])) {
+	                   		$theBoat['YSP_Full_State'] = $this->LocationConvert->filpped_state[ $theBoat['YSP_State'] ];
+	                    }
+	                    else {
+	                   		$theBoat['YSP_Full_State'] = $theBoat['YSP_State'];
+	                    }
+
+                    }
 
 		           	$detailsUrl = $this->api_url_base.'/ForSale/Vessel/'. $row['VesselID'] .'/Details/fullSpecsAll';
 
@@ -198,7 +232,7 @@
 			            ]
 			        ];
 
-			        //sleep(2);
+			        sleep(2);
 
 					$apiCallDetails = wp_remote_get($detailsUrl, $detail_headers);
 
@@ -208,17 +242,21 @@
 						// return;
 					}
 					elseif ($apiCallDetailsStatus == 401) {
-						return ['error' => 'Error with auth'];
+						var_dump(['error' => 'Error with auth']);
+						continue;
+						//return ['error' => 'Error with auth'];
 					}
 					else {
-						return ['error' => 'Error http error '.$apiCallDetailsStatus];
+						var_dump(['error' => 'Error http error '.$apiCallDetailsStatus]);
+						continue;
+						//return ['error' => 'Error http error '.$apiCallDetailsStatus];
 					}
 					
 					$data = json_decode($apiCallDetails['body'], true);
 
 					if (isset($data['PhotoGallery']) && is_array($data['PhotoGallery'])) {
 	 
-						$reducedImages = array_slice($data['PhotoGallery'], 0, 50);
+						$reducedImages = array_slice($data['PhotoGallery'], 0, 75);
 
 	                    $reducedImages = array_map(
 	                    	function($img) {
@@ -261,8 +299,8 @@
 							$theBoat['YSP_USDVal'] = 0;
 							$theBoat['YSP_EuroVal'] = 0;
 						}
-	                    $theBoat['BoatHullID'] = $data['HullDeck']['HullID'];
 
+	                    $theBoat['BoatHullID'] = $data['HullDeck']['HullID'];
 					}
 					
 					if (
@@ -319,8 +357,15 @@
 								),
 								'post_content' => $data['VD']['VesselDescriptionShortDescriptionNoStyles'],
 								'post_status' => 'publish',
-								'meta_input' => apply_filters('ysp_yacht_meta_sync', (object) $theBoat)
 
+								'meta_input' => apply_filters('ysp_yacht_meta_sync', (object) $theBoat)
+								
+								/*'tax_input' => [
+									'boatmaker' => [ $row['BuilderName'] ],
+									'boatcondition' => [ $row['VesselConditionText'] ],
+									'boattype' => [ $row['VesselTypeText'] ],
+									'boatclass' => [ $row['MainCategoryText'], $row['SubCategoryText']]
+								]*/
 							],
 							$theBoat
 						)
@@ -329,14 +374,18 @@
 					wp_set_post_terms(
 						$y_post_id, 
 						[
-							$theBoat['MainCategoryText'],
-							$theBoat['SubCategoryText']
+							$row['MainCategoryText'],
+							$row['SubCategoryText']
 						], 
 						'boatclass', 
 						false
 					);
 
 					wp_set_post_terms($y_post_id, $row['BuilderName'], 'boatmaker', false);
+
+					wp_set_post_terms($y_post_id, $row['VesselConditionText'], 'boatcondition', false);
+
+					wp_set_post_terms($y_post_id, $row['VesselTypeText'], 'boattype', false);
 		        }
 
 	        }

@@ -25,19 +25,20 @@ var ysp_templates={};
 
 		let vesselLocation, vesselKeywordLocationLink;
 
-		if (vessel.BoatLocation.BoatCityName != '') {
+		if (typeof vessel.BoatLocation.BoatCountryID != 'undefined' && vessel.BoatLocation.BoatCountryID != null) {
 
-	        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCityName.replace(' ', '-') }`;
-			
-			vesselLocation = (vessel.BoatLocation.BoatCountryID == "US" || vessel.BoatLocation.BoatCountryID == "United States" ? `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatStateCode}` : `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatCountryID}`);
-	        
-	            vesselLocation = vesselLocation;
+			if (vessel.BoatLocation.BoatCityName != '') {
 
-		}
-		else {
-	        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCountryID.replace(' ', '-') }`;
+		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCityName.replace(' ', '-') }`;
+				
+				vesselLocation = (vessel.BoatLocation.BoatCountryID == "US" || vessel.BoatLocation.BoatCountryID == "United States" ? `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatStateCode}` : `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatCountryID}`);
+			}
+			else {
+		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCountryID.replace(' ', '-') }`;
 
-			vesselLocation = `${vessel.BoatLocation.BoatCountryID}`;
+				vesselLocation = `${vessel.BoatLocation.BoatCountryID}`;
+			}
+
 		}
 
 		return `
@@ -46,6 +47,7 @@ var ysp_templates={};
 					<a href="${ vessel._link }">
 						<img class="yacht-image" src="${vessel.Images ? vessel.Images[0].Uri : ysp_yacht_sync.assets_url + 'images/default-yacht-image.jpeg'}" alt="yacht-image" loading="lazy" />
 						
+		
 						<svg title="like" class="like-me love" xmlns="http://www.w3.org/2000/svg" width="57" height="54" viewBox="0 0 57 54" fill="none"  data-yacht-id="${ vessel.DocumentID }">
 						  <g filter="url(#filter0_d_2888_4333)">
 						    <path d="M34.7028 11.5755C36.2094 11.5755 37.6251 12.1699 38.6898 13.2488L38.8223 13.383C41.0206 15.6116 41.0206 19.2375 38.8223 21.466L38.0992 22.199L27.4995 32.9442L18.4883 23.808L16.9011 22.199L16.178 21.466C13.9797 19.2375 13.9797 15.6116 16.178 13.383L16.3083 13.2509C17.3739 12.1708 18.79 11.5759 20.2962 11.5764C21.8023 11.5764 23.2176 12.1708 24.2819 13.2492L25.005 13.9822L27.4991 16.5101L29.9928 13.9818L30.7158 13.2488C31.7801 12.1699 33.1962 11.5755 34.7028 11.5755ZM34.7028 8C32.357 8 30.0112 8.9068 28.2222 10.7204L27.4991 11.4534L26.776 10.7204C24.9878 8.90723 22.642 8.00043 20.297 8C17.9508 8 15.605 8.90723 13.8147 10.7221L13.6844 10.8542C10.1046 14.4832 10.1046 20.3645 13.6844 23.9935L14.4074 24.7265L15.9946 26.3354L27.4995 38L40.5933 24.7265L41.3164 23.9935C44.8945 20.3663 44.8945 14.4814 41.3164 10.8542L41.1839 10.72C39.3945 8.9068 37.0486 8 34.7028 8Z" fill="white"></path>
@@ -134,21 +136,23 @@ var ysp_templates={};
 
 		let vesselLocation, vesselKeywordLocationLink;
 
-		if (vessel.BoatLocation.BoatCityName != '') {
+		if (typeof vessel.BoatLocation.BoatCountryID != 'undefined' && vessel.BoatLocation.BoatCountryID != null) {
 
-	        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCityName.replace(' ', '-') }`;
-			
-			vesselLocation = (vessel.BoatLocation.BoatCountryID == "US" || vessel.BoatLocation.BoatCountryID == "United States" ? `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatStateCode}` : `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatCountryID}`);
-	        
-	            vesselLocation = vesselLocation;
+			if (vessel.BoatLocation.BoatCityName != '') {
 
+		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCityName.replace(' ', '-') }`;
+				
+				vesselLocation = (vessel.BoatLocation.BoatCountryID == "US" || vessel.BoatLocation.BoatCountryID == "United States" ? `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatStateCode}` : `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatCountryID}`);
+		        
+		            vesselLocation = vesselLocation;
+
+			}
+			else {
+		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCountryID.replace(' ', '-') }`;
+		        
+				vesselLocation = `${vessel.BoatLocation.BoatCountryID}`;
+			}
 		}
-		else {
-	        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCountryID.replace(' ', '-') }`;
-	        
-			vesselLocation = `${vessel.BoatLocation.BoatCountryID}`;
-		}
-
 
 		return `
 			<div class="ysp-yacht-item ysp-view-list" data-post-id="${ vessel._postID }" data-yacht-id="${ vessel.DocumentID }">

@@ -255,6 +255,23 @@
 					
 					$apiCall = wp_remote_get($url, ['timeout' => 180]);
 
+					$apiCallDetailsStatus = wp_remote_retrieve_response_code($apiCall);
+
+					if ($apiCallDetailsStatus == 200) {
+						// return;
+					}
+					elseif ($apiCallDetailsStatus == 401) {
+						var_dump(['error' => 'Error with auth']);
+						continue;
+						//return ['error' => 'Error with auth'];
+					}
+					else {
+						var_dump(['error' => 'Error http error '.$apiCallDetailsStatus]);
+						continue;
+						//return ['error' => 'Error http error '.$apiCallDetailsStatus];
+					}
+					
+
 					$response = $apiCall['body'];
 
 						$response=json_decode($response, true);

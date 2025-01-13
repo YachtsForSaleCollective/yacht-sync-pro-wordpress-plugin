@@ -56,7 +56,7 @@ We merge the data via hull IDs
 - Full Template Customization
 - Basic Lead Forms
 - Akismet SPAM Protection For Lead Forms
-- Broker Post-Type With Meta Fields (Name, Email, Phone And Bio)
+- Broker Post-Type With Meta Fields (Name, Title, Email, Phone And Bio)
 - Manual Entry Of Vessels 
 - Similar Listings Section And Query
 - Mobile-friendly search
@@ -68,8 +68,10 @@ We merge the data via hull IDs
 
 - [theitalianyachtgroup.com](https://theitalianyachtgroup.com)
 - [preowned.palmbeachmotoryachts.com](https://preowned.palmbeachmotoryachts.com)
+- [preowned.grandbanks.com](https://preowned.grandbanks.com)
 - [southjerseyyachtsales.com](https://southjerseyyachtsales.com)
 - [hbgyachts.com](https://hbgyachts.com)
+- [deanyachts.com](https://deanyachts.com)
 
 ## Credits
 

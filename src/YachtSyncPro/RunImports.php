@@ -161,7 +161,7 @@
 						AND 
 						wp.ID NOT IN (
 							SELECT ID FROM (
-								SELECT wp.ID as ID FROM $wpdb->posts wp
+								SELECT wp.ID as ID FROM $wpdb->posts wpdisable cron
 								LEFT JOIN $wpdb->postmeta pm ON pm.post_id = wp.ID 
 								WHERE wp.post_type = %s AND pm.meta_key = 'is_yacht_manual_entry' AND pm.meta_value = 'yes'
 							) manual_entered_yachts
@@ -235,6 +235,10 @@
 
 			$yatco_api_token = $this->options->get('yatco_api_token');
 
+			$start_datetime = date("F j, Y, g:i a");
+
+			var_dump('Sync Started At ' . date("F j, Y, g:i a"));
+
 			$this->pre_clean_up();
 
 			$resultsOfSync=[];
@@ -296,6 +300,9 @@
 				var_dump('Failed');
 				$this->emailSyncFailed();
 			}
+
+			var_dump('Sync Was Started At ' . $start_datetime);
+			var_dump('Sync Finished At ' . date("F j, Y, g:i a"));
 		}
        
 

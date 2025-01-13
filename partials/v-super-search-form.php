@@ -1,36 +1,32 @@
-<div id="v-search-container">
-    <form id="ysp-yacht-search-form" class="ys-v-row ysp-yacht-search-form ysp-form" >
+ <div id="ysp-v-super-search">
+    <form id="ysp-yacht-search-form" class="ysp-yacht-search-form ysp-form" >
+   
     <input type="hidden" name="page_index" />    
-    <div class="ys-v-row-item">
+
+
+    <div class="ysp-s-field">
             <label>Keyword</label>
             <input type="text" name="ys_keyword" placeholder="Search by Name, Models, Builders, Size, And Location!" list="ysp_keywords_list" />
-
-            <!-- <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g id="icon/search">
-                    <path id="Vector" d="M7.33333 12.6667C10.2789 12.6667 12.6667 10.2789 12.6667 7.33333C12.6667 4.38781 10.2789 2 7.33333 2C4.38781 2 2 4.38781 2 7.33333C2 10.2789 4.38781 12.6667 7.33333 12.6667Z" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path id="Vector_2" d="M14.0001 14.0001L11.1001 11.1001" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </g>
-            </svg> -->
         </div>
-        <div class="ys-v-row-item">
+        <div class="ysp-s-field">
             <label>Condition</label>
 
-            <div style="height: 100px; overflow-y: scroll;">
+            <div class="selection-overflow">
                 <label><input type="checkbox" name="condition" value="" style='width: auto;'> Both</label>
                 <label><input type="checkbox" name="condition" value="Used" style='width: auto;'> Used</label>
                 <label><input type="checkbox" name="condition" value="New" style='width: auto;'> New</label>
             </div>
         </div>
 
-        <div class="ys-v-row-item">
+        <div class="ysp-s-field">
             <label>Type</label>
+            <div class="selection-overflow">
             
-            <div style="height: 200px; overflow-y: scroll;">
                 <?php 
                     echo "<label class='pick-all'><input type='checkbox' name='boatclass' value='' style='width: auto;'> All</label>";
 
                     $categories = get_terms([
-                        'taxonomy'   => 'boatclass',
+                        'taxonomy' => 'boatclass',
                     ]);
 
                     foreach ($categories as $cat) {
@@ -42,10 +38,10 @@
             </div>
         </div>
 
-        <div class="ys-v-row-item">
+        <div class="ysp-s-field">
             <label>Builder</label>
             
-            <div style="height: 200px; overflow-y: scroll;">
+            <div class="selection-overflow">
                 <?php 
                     echo "<label><input type='checkbox' name='make' value='' style='width: auto;'> All</label>";
                    
@@ -62,7 +58,7 @@
             </div>
         </div>
 
-       <!--  <div class="ys-v-row-item">
+       <!--  <div class="ysp-s-field">
             <label>Hull</label>
             
             <div style="height: 100px; overflow-y: scroll;">
@@ -80,7 +76,7 @@
             </div>
         </div>
  -->
-        <!-- <div class="ys-v-row-item">
+        <!-- <div class="ysp-s-field">
             <label>Staterooms</label>
             
             <div style="height: 100px; overflow-y: scroll;">
@@ -96,9 +92,7 @@
             </div>
         </div> -->
         
-        
-        
-        <div class="ys-v-row-item">
+        <div class="ysp-s-field">
             <label>Year</label>
             <div class="min-max-container">
                 <input type="number" name="yearlo" placeholder="Min"/>
@@ -107,7 +101,7 @@
             </div>
         </div>
         
-        <div class="ys-v-row-item">
+        <div class="ysp-s-field">
             <label>Length</label>
             <div class="min-max-container">
                 <input type="number" name="lengthlo" placeholder="Min"/>
@@ -116,7 +110,7 @@
             </div>
         </div>
         
-        <div class="ys-v-row-item">
+        <div class="ysp-s-field">
             <label>Price</label>
             <div class="min-max-container">
                 <input type="number" name="pricelo" placeholder="Min"/>
@@ -125,8 +119,9 @@
             </div>
         </div>
         
-        <div class="ys-v-row-item submit-container">
-            <input class="ysp-general-button" type="submit" value="Submit"/>
+        <div class="ysp-s-field submit-container">
+            <label><br /></label>
+            <input type="submit" value="Search" class="ysp-general-button ysp-btn-block" />
         </div>
     </form>
 </div>
@@ -193,10 +188,10 @@
 
         <div style="height: 125px;"></div>
 
-        <form id="ysp-mobile-yacht-search-form" class="ys-h-row ysp-yacht-search-form ysp-form ysp-search-mobile">
+        <form id="ysp-mobile-yacht-search-form" class="ysp-v-row ysp-yacht-search-form ysp-form ysp-search-mobile">
             <input type="hidden" name="page_index" />
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <?php 
                     $YSP_Options = new YachtSyncPro_Options();
                     $YSP_Comapny_name = $YSP_Options->get('company_name');
@@ -208,7 +203,7 @@
                 </label>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label for="ys_keyword">Keyword</label>
 
                 <input type="text" name="ys_keyword" placeholder="Search by keywords" list="ysp_keywords_list" />
@@ -222,7 +217,7 @@
                 </svg> -->
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label for="condition">Condition</label>
 
                 <select name="condition">
@@ -232,7 +227,7 @@
                 </select>
             </div>
         
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label for="make">Builder</label>
 
                 <select name="make" data-fill-options="Builders">
@@ -240,7 +235,7 @@
                 </select>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label>Year</label>
 
                 <div class="min-max-container">
@@ -250,7 +245,7 @@
                 </div>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label>Length</label>
                 
                 <div class="min-max-container">
@@ -260,7 +255,7 @@
                 </div>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label>Price</label>
 
                 <div class="min-max-container">
@@ -270,7 +265,7 @@
                 </div>
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label for="staterooms">Staterooms</label>
 
                 <select name="staterooms">
@@ -292,7 +287,7 @@
                 </svg> -->
             </div>
 
-            <div class="ys-h-row-item">
+            <div class="ysp-s-field">
                 <label for="hull">Hull</label>
 
                 <select name="hull" data-fill-options="HullMaterials">

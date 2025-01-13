@@ -156,18 +156,9 @@
 		        )
 		    ) );
 
-    		// Leads 
-			register_rest_route( $this->rest_path, '/yacht-leads', array(
-		        'callback' => [$this, 'yacht_leads'],
-		        'methods'  => [WP_REST_Server::READABLE, WP_REST_Server::CREATABLE],
-		        'permission_callback' => '__return_true',
-		        'args' => array(
-		            
-		        )
-		    ) );
-
-			register_rest_route( $this->rest_path, '/broker-leads', array(
-		        'callback' => [$this, 'broker_leads'],
+    		// Leads v2 
+			register_rest_route( $this->rest_path, '/lead-v2', array(
+		        'callback' => [$this, 'lead_submittion_v2'],
 		        'methods'  => [WP_REST_Server::READABLE, WP_REST_Server::CREATABLE],
 		        'permission_callback' => '__return_true',
 		        'args' => array(
@@ -514,7 +505,6 @@
 	   				return ['error' => 'post does not exists.'];
 	   			}
 
-	   			
 	   			header('Content-Type: text/html; charset=UTF-8');
 
 	   			$file_to_include=YSP_TEMPLATES_DIR.'/pdf-loader.php';
@@ -533,6 +523,7 @@
 			if ($request->get_param('yacht_post_id') != '') {
 	
 				$yacht_post_id = $request->get_param('yacht_post_id');
+				$template_name = $request->get_param('template');
 
 				$post_exists = get_post($request->get_param('yacht_post_id'));
 
@@ -547,8 +538,12 @@
 
 				$file_to_include=YSP_TEMPLATES_DIR.'/pdf.php';
 
-		    	include apply_filters('ysp_ys_yacht_pdf_template', $file_to_include);
-		    	
+		    	$file_to_include=apply_filters('ysp_ys_yacht_pdf_template', $file_to_include);
+
+		    	$file_to_include=apply_filters('ysp_ys_yacht_pdf_template_name', $file_to_include, $template_name);
+
+		    	include $file_to_include;
+
 			}
 			else {
 				return ['success' => 'No YACHT ID'];
@@ -697,6 +692,8 @@
 
 				$urlbox_public_key = $this->options->get('pdf_urlbox_api_token_public_key');
 
+				$pdf_bandwidth = $this->options->get('pdf_bandwidth');
+
 				// ----------------------
 
 				
@@ -711,16 +708,24 @@
 						]
 					]);
 
-					/*
-					wp_redirect($s3_url);
-					exit();*/
+					if ($pdf_bandwidth == 'redirect') {
+						wp_redirect($s3_url);
+						exit();
+					}
 				}
 				elseif (isset($_GET['GalleryLimit'])) {
 					/*wp_redirect("https://api.urlbox.io/v1/$urlbox_public_key/pdf?url=". get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id'));
 
 					exit();*/
 
-					$render_url = urlencode(get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id') ."&GalleryLimit=". $_GET['GalleryLimit']);
+					$render_url_parameters=[
+						'yacht_post_id' =>  $request->get_param('yacht_post_id'),
+						'template' =>  $request->get_param('template'),
+						'GalleryLimit' =>  $request->get_param('GalleryLimit'),
+
+					];
+
+					$render_url = urlencode(get_rest_url() ."ysp/yacht-pdf?".http_build_query($render_url_parameters));
 
 					$pdfbox = "https://api.urlbox.io/v1/$urlbox_public_key/pdf?url=".$render_url;
 
@@ -739,11 +744,19 @@
 					);*/
 				}
 				else {
-					/*wp_redirect("https://api.urlbox.io/v1/$urlbox_public_key/pdf?url=". get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id'));
+					if ($pdf_bandwidth == 'redirect') {
 
-					exit();*/
+						wp_redirect("https://api.urlbox.io/v1/$urlbox_public_key/pdf?url=". get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id'));
 
-					$render_url = urlencode( get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id') );
+						exit();
+					}
+
+					$render_url_parameters=[
+						'yacht_post_id' =>  $request->get_param('yacht_post_id'),
+						'template' =>  $request->get_param('template')
+					];
+
+					$render_url = urlencode(get_rest_url() ."ysp/yacht-pdf?".http_build_query($render_url_parameters));
 
 					$apiCall = wp_remote_get(
 						"https://api.urlbox.io/v1/$urlbox_public_key/pdf?url=". $render_url, 
@@ -945,5 +958,93 @@
 			}
 		}
 
+		public function lead_submittion_v2(WP_REST_Request $request) {
+	
+
+			// FIELDS			
+			$fname = $request->get_param('fname');
+			$lname = $request->get_param('lname');
+
+			$message = $request->get_param('message');
+			$email = $request->get_param('email');
+			$phone = $request->get_param('phone');
+
+			$fax = $request->get_param('fax');
+			$ReferrerUrl = $_SERVER['HTTP_REFERER'];
+
+			// TO AND SUBJECT
+			$BrokerIs=$request->get_param('WhichBroker');
+
+			if (isset($BrokerIs) && !empty($BrokerIs)) {
+				$HasBroker = true;
+
+				$BrokerPost = get_post($BrokerIs);
+
+				$to = get_post_meta($BrokerIs, "ysp_team_email", true);
+				$subject = '';
+			}
+
+			$YachtIs=$request->get_param('WhichBoat');
+
+			if (isset($YachtIs) && !empty($YachtIs)) {
+				$HasYacht = true;
+
+				$to = $this->options->get('send_lead_to_this_email');
+				$subject = $fname.' is interested in '.$YachtIs;
+			}
+
+			$YachtID=$request->get_param('WhichBoatID');
+
+			if (isset($YachtID) && !empty($YachtID)) {
+				$HasYacht = true;
+
+				$YachtPost = get_post($YachtID);
+
+				$to = '';
+				//$to = $this->options->get('send_lead_to_this_email');
+				$subject = $fname.' is interested in '.$YachtPost->post_title;
+			}
+
+			$spamChecker = $this->spamChecker([
+				'fname' => $fname,
+				'lname' => $lname,
+				'message' => $message,
+				'email' => $email,
+				'phone' => $phone,
+				'brokerID' => $broker_email,
+				'fax' => $fax,
+				'ReferrerUrl' => $_SERVER['HTTP_REFERER']
+			]);
+
+			if  ( isset( $spamChecker['not_spam_aki']) && $spamChecker['not_spam_aki'] == true ) {
+			
+				$fullMessage = '<!DOCTYPE html><html><body>';
+				$fullMessage .= '<h1>' . $subject . '</h1>';
+				$fullMessage .= '<p><strong>Name:</strong> ' . "$fname $lname" . '</p>';
+				$fullMessage .= '<p><strong>Page:</strong> ' . $ReferrerUrl . '</p>';
+				$fullMessage .= '<p><strong>Email:</strong> ' . $email . '</p>';
+				$fullMessage .= '<p><strong>Phone:</strong> ' . $phone . '</p>';
+				$fullMessage .= '<p><strong>Message:</strong></p>';
+				$fullMessage .= '<p>' . nl2br($message) . '</p>'; 
+			
+				$fullMessage .= '</body></html>';
+			
+				$headers = array(
+					'Content-Type: text/html; charset=UTF-8',
+				);
+			
+				$sent = wp_mail($to, $subject, $fullMessage, $headers);
+
+				if ($sent) {
+					return array('message' => 'Email sent successfully');
+				} else {
+					return array('error' => 'Email failed to send');
+				}
+			}
+			else {
+				return array('error' => 'Email failed to send');
+			}
+
+		}
 		
 	}

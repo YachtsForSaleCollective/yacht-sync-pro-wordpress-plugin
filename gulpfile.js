@@ -42,7 +42,6 @@ var single_yachts_scripts = [
     'js/threeP/lightgallery-dist/plugins/video/lg-video.umd.js',
     'js/threeP/lightgallery-dist/plugins/rotate/lg-rotate.umd.js',
 
-    //'js/threeP/flickity.js',
     'js/single-yacht.js'
 
 ];

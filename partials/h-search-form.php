@@ -119,12 +119,11 @@
 </div>
 
 <button class="open-mobile-search ysp-general-button" style="width: auto;">
-    <img src="<?= YSP_ASSETS ?>/icons/filters.png" alt="icon" style="vertical-align: middle;"/> 
+    <img src="<?= YSP_ASSETS ?>/icons/filters.png" alt="icon" style="vertical-align: middle; display: inline-block;" /> 
     Filters
 </button>
 
 <div class="Filters-Floating-Bar">
-    
     <button class="open-mobile-search ysp-general-button" style="width: auto;"> 
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none" style="position: relative; top: 2px;">
         <path d="M13.8335 4.6665H7.8335" stroke="white" stroke-width="0.886667" stroke-linecap="round" stroke-linejoin="round"/>

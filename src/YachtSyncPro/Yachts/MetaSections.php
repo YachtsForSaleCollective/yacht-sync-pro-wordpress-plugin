@@ -122,9 +122,6 @@
 				if (isset($_POST['BoatClassCode'])) {
 					update_post_meta($post_id, "BoatClassCode", [ $_POST['BoatClassCode'] ]);
 				}
-
 			}
 		}
-
-
 	}

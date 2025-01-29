@@ -38,6 +38,7 @@
 
 			$this->SoldYachts_DetailOverride = new YachtSyncPro_SoldYachts_DetailsOverride();
 			$this->SoldYachts_MetaFields = new YachtSyncPro_SoldYachts_MetaSections();
+			$this->SoldYachts_NestedMetaFields = new YachtSyncPro_SoldYachts_NestedMetaSections();
 			// $this->SoldYachts_MetaIsManual = new YachtSyncPro_SoldYachts_MetaIsManual();
 
 			$this->Brokers_DetailOverride = new YachtSyncPro_Brokers_DetailsOverride();

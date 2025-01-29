@@ -35,7 +35,23 @@
             </div>
 
             <div class="ysp-s-field">
-                <label>Length</label>
+                 <div class="labal-with-toggles">
+                    <label>Length</label>
+                        
+                    <div class="toggles">
+                        <input type="radio" name="lengthunit" id="ysp-lenghtft-hs" checked="" value="Feet" />
+                        
+                        <label class="" for="ysp-lenghtft-hs">
+                            FT
+                        </label>
+
+                        <input type="radio" name="lengthunit" id="ysp-lenghtm-hs" value="Meter" />
+                        
+                        <label class="" for="ysp-lenghtm-hs">
+                            M
+                        </label>
+                    </div>
+                </div>    
                 
                 <div class="min-max-container">
                     <input type="number" label="Length Above" name="lengthlo" placeholder="Min" min=5 />
@@ -45,7 +61,23 @@
             </div>
 
             <div class="ysp-s-field">
-                <label>Price</label>
+                <div class="labal-with-toggles">
+                    <label>Price</label>
+                        
+                    <div class="toggles">
+                        <input type="radio" name="currency" id="ysp-currency-switcher-usd-hs" value="Usd" checked="" />
+ 
+                        <label class="" for="ysp-currency-switcher-usd-hs">
+                            USD
+                        </label>
+
+                        <input type="radio" class="btn-check" name="currency" id="ysp-currency-switcher-eur-hs" value="Eur" />
+                        
+                        <label class="" for="ysp-currency-switcher-eur-hs">
+                            EUR
+                        </label>
+                    </div>
+                </div>    
 
                 <div class="min-max-container">
                     <input type="number" label="Price Above" name="pricelo" placeholder="Min" min=0 />

@@ -95,6 +95,18 @@ $permalink = get_permalink($yacht_post_id);
 $colorTxt = $YSP_Options->get('rai_ys_button_txt_color_one');
 $colorBg = $YSP_Options->get('rai_ys_button_bg_color_one');
 
+$limitOfGallery = 16;
+
+if ( isset( $_GET['GalleryLimit'] ) && ! empty( $_GET['GalleryLimit'] )) {
+
+    $limitOfGallery = $_GET['GalleryLimit'];
+
+}
+
+$imageGallery = array_slice($vessel->Images, 0, $limitOfGallery);
+
+$chuckedGallery = array_chunk($imageGallery, 8);
+
 $broker = $vessel->SalesRep->Name;
     
 $BrokerNames = explode(' ', $broker);
@@ -367,7 +379,7 @@ else {
             
             padding-top: 20px;
             padding-bottom: 20px;
-            
+            font-size: 24px;
             text-align: center;
         }
     </style>
@@ -539,22 +551,6 @@ else {
         </div>
     </div>
 
-    <?php
-        
-        $limitOfGallery = 12;
-
-        if ( isset( $_GET['GalleryLimit'] ) && ! empty( $_GET['GalleryLimit'] )) {
-
-            $limitOfGallery = $_GET['GalleryLimit'];
-
-        }
-
-        $imageGallery = array_slice($vessel->Images, 0, $limitOfGallery);
-
-        $chuckedGallery = array_chunk($imageGallery, 6);
-
-    ?>
-
     <?php foreach ($chuckedGallery as $cg) { ?> 
         <div class="pdf-page" style="page-break-after: always;">
             <div class="image-gallery-container">
@@ -577,13 +573,13 @@ else {
             $broker_email = get_post_meta($brokerQuery->post->ID, 'ysp_team_email', true);
             $broker_phone = get_post_meta($brokerQuery->post->ID, 'ysp_team_phone', true);
          ?>
-            <div class="footer-container" style="page-break-after: always;">
+            <!-- <div class="footer-container" style="page-break-after: always;">
                 <div class="footer-broker-info">
                     <a href="<?= get_permalink($brokerQuery->post->ID) ?>"><?php echo ($broker_first_name . " " . $broker_last_name); ?></a>
                     - <a href="tel:<?php echo $broker_phone; ?>"><?php echo $broker_phone; ?></a> - 
                     <a href="mailto:<?php echo $broker_email; ?>"><?php echo $broker_email; ?></a>
                 </div>
-            </div>
+            </div> -->
         <?php
             }
             wp_reset_postdata();

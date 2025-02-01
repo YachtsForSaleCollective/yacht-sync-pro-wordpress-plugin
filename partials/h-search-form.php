@@ -35,7 +35,23 @@
             </div>
 
             <div class="ysp-s-field">
-                <label>Length</label>
+                 <div class="labal-with-toggles">
+                    <label>Length</label>
+                        
+                    <div class="toggles">
+                        <input type="radio" name="lengthunit" id="ysp-lenghtft-hs" checked="" value="Feet" />
+                        
+                        <label class="" for="ysp-lenghtft-hs">
+                            FT
+                        </label>
+
+                        <input type="radio" name="lengthunit" id="ysp-lenghtm-hs" value="Meter" />
+                        
+                        <label class="" for="ysp-lenghtm-hs">
+                            M
+                        </label>
+                    </div>
+                </div>    
                 
                 <div class="min-max-container">
                     <input type="number" label="Length Above" name="lengthlo" placeholder="Min" min=5 />
@@ -45,7 +61,23 @@
             </div>
 
             <div class="ysp-s-field">
-                <label>Price</label>
+                <div class="labal-with-toggles">
+                    <label>Price</label>
+                        
+                    <div class="toggles">
+                        <input type="radio" name="currency" id="ysp-currency-switcher-usd-hs" value="Usd" checked="" />
+ 
+                        <label class="" for="ysp-currency-switcher-usd-hs">
+                            USD
+                        </label>
+
+                        <input type="radio" class="btn-check" name="currency" id="ysp-currency-switcher-eur-hs" value="Eur" />
+                        
+                        <label class="" for="ysp-currency-switcher-eur-hs">
+                            EUR
+                        </label>
+                    </div>
+                </div>    
 
                 <div class="min-max-container">
                     <input type="number" label="Price Above" name="pricelo" placeholder="Min" min=0 />
@@ -119,12 +151,11 @@
 </div>
 
 <button class="open-mobile-search ysp-general-button" style="width: auto;">
-    <img src="<?= YSP_ASSETS ?>/icons/filters.png" alt="icon" style="vertical-align: middle;"/> 
+    <img src="<?= YSP_ASSETS ?>/icons/filters.png" alt="icon" style="vertical-align: middle; display: inline-block;" /> 
     Filters
 </button>
 
 <div class="Filters-Floating-Bar">
-    
     <button class="open-mobile-search ysp-general-button" style="width: auto;"> 
         <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none" style="position: relative; top: 2px;">
         <path d="M13.8335 4.6665H7.8335" stroke="white" stroke-width="0.886667" stroke-linecap="round" stroke-linejoin="round"/>

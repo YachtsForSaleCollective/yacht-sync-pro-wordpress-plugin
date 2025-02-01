@@ -27,8 +27,40 @@
         .ysp-s-field {
             position: relative;
             box-sizing: border-box;
-            
-            
+        }
+
+        .labal-with-toggles{
+            display: flex;
+            justify-content: space-between;
+
+            .toggles{
+                display: flex;
+                gap: 5px;
+
+                position: absolute;
+                right: 0px;
+                
+                input[type=radio]{
+                    display: none;
+
+                    & + label{
+                        font-size: 12px;
+                        color: vars.$button-bg-color;
+
+                        cursor: pointer;
+
+                        border: 1px solid vars.$button-bg-color;
+                        border-radius: 8px;
+                        padding: 0px 6px;
+                    }
+
+                    &:checked + label{
+                        background: vars.$button-bg-color;
+                        color: vars.$button-text-color;
+                    }
+                }
+            }
+
         }
 
         input[type="submit"] {

@@ -746,7 +746,16 @@
 				else {
 					if ($pdf_bandwidth == 'redirect') {
 
-						wp_redirect("https://api.urlbox.io/v1/$urlbox_public_key/pdf?url=". get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id'));
+						$render_url_parameters=[
+							'url' => get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id'),
+							'pdf_show_header' => true,
+							'pdf_show_footer' => true,
+							//'pdf_header' => '<div class="text title center"></div>',
+							'pdf_header' => '<div class="text center"></div>',
+							'pdf_footer' => '<div class="footer-broker-info text center"><a href="http://yspdemo.local/team/joshua-hoffman/">Joshua Hoffman</a> - <a href="tel:(863) 332-9038">(863) 332-9038</a> - <a href="mailto:mail@joshuahoffman.me">mail@joshuahoffman.me</a></div>',
+						];
+
+						wp_redirect("https://api.urlbox.io/v1/$urlbox_public_key/pdf?".http_build_query($render_url_parameters));
 
 						exit();
 					}

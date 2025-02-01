@@ -27,7 +27,24 @@
             </div>
         </div>
         <div class="ys-v-row-item">
-            <label>Length</label>
+             <div class="labal-with-toggles">
+                <label>Length</label>
+                    
+                <div class="toggles">
+                    <input type="radio" name="lengthunit" id="ysp-lenghtft-qs" checked="" value="Feet" />
+                    
+                    <label class="" for="ysp-lenghtft-qs">
+                        FT
+                    </label>
+
+                    <input type="radio" name="lengthunit" id="ysp-lenghtm-qs" value="Meter" />
+                    
+                    <label class="" for="ysp-lenghtm-qs">
+                        M
+                    </label>
+                </div>
+            </div>    
+
             <div class="min-max-container">
                 <input type="number" name="lengthlo" placeholder="Min" />
                 <span>-</span>
@@ -35,7 +52,24 @@
             </div>
         </div>
         <div class="ys-v-row-item">
-            <label>Price</label>
+            <div class="labal-with-toggles">
+                <label>Price</label>
+                    
+                <div class="toggles">
+                    <input type="radio" name="currency" id="ysp-currency-switcher-usd-qs" value="Usd" checked="" />
+
+                    <label class="" for="ysp-currency-switcher-usd-qs">
+                        USD
+                    </label>
+
+                    <input type="radio" class="btn-check" name="currency" id="ysp-currency-switcher-eur-qs" value="Eur" />
+                    
+                    <label class="" for="ysp-currency-switcher-eur-qs">
+                        EUR
+                    </label>
+                </div>
+            </div>    
+            
             <div class="min-max-container">
                 <input type="number" name="pricelo" placeholder="Min" />
                 <span>-</span>

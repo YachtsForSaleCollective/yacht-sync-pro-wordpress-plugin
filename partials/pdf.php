@@ -372,8 +372,8 @@ else {
             height: 200px;
             width: 100%;
             display: block;
-            height: auto;
             border-radius: 12px;
+            object-fit: cover;
         }
 
         .footer-broker-info {
@@ -524,7 +524,7 @@ else {
             </table>
         </div>
 
-        <div class="other-specs-group" style="page-break-after: always;">
+        <div class="other-specs-group" style="">
             <h3 class="other-specs-title">DIMENSIONS</h3>
 
             <table class="other-specs-table">
@@ -550,14 +550,41 @@ else {
                 </tr>
             </table>
         </div>
+
+    <?php
+        if (is_array($enginesData) && !empty($enginesData)) {
+            $counter = 1;
+
+            foreach ($enginesData as $engineData) {
+                ?>
+                <div class="other-specs-group">
+                    <h3 class="other-specs-title"><?= 'ENGINE ' . $counter ?></h3>
+
+                    <table class="other-specs-table">
+                        <?php foreach ($engineData as $key => $waolue) { ?>
+                            <tr class="individual-specs-group">
+                                <th><?= strtoupper($key) ?></th>
+                                <td><?= $waolue ? $waolue : "N/A" ?></td>
+                            </tr>
+                        <?php } ?>
+                    </table>
+                </div>
+                <?php
+                $counter++;
+            }
+        }
+        ?>
+        <div  style="page-break-after: always;"></div>
     </div>
+
+    <h3 class="other-specs-title">GALLERY</h3>
 
     <?php foreach ($chuckedGallery as $cg) { ?> 
         <div class="pdf-page" style="page-break-after: always;">
             <div class="image-gallery-container">
                 <?php foreach($cg as $image) { ?>
                     <div class="individual-image-container">
-                        <img class="gallery-image" src="<?= str_replace("XLARGE", "LARGE", $image->Uri) ?>" alt="boat-image" style="object-fit: cover;" />
+                        <img class="gallery-image" src="<?= str_replace("XLARGE", "LARGE", $image->Uri) ?>" alt="boat-image" />
                     </div>
                 <?php } ?>
             </div>

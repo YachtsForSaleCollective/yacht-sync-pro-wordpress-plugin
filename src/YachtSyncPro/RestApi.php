@@ -745,6 +745,71 @@
 				}
 				else {
 					if ($pdf_bandwidth == 'redirect') {
+						$yacht_post_id = $request->get_param('yacht_post_id');
+
+						$meta = get_post_meta($yacht_post_id);
+
+
+						foreach ($meta as $indexM => $valM) {
+						    if (is_array($valM) && ! isset($valM[1])) {
+						        $meta[$indexM] = $valM[0];
+						    }
+						}
+
+						$vessel = array_map("maybe_unserialize", $meta);
+
+						$vessel = (object) $vessel;
+    
+						$broker = $vessel->SalesRep->Name;
+						
+						$BrokerNames = explode(' ', $broker);
+
+						$brokerQueryArgs = array(
+						    'post_type' => 'ysp_team',
+						    'posts_per_page' => 1,
+
+						    'meta_query' => [
+						        'name' => [
+						            'relation' => 'OR'
+						        ],
+						    ],
+						);
+
+						foreach ($BrokerNames as $bName) {
+						    $brokerQueryArgs['meta_query']['name'][]=[
+						        'key' => 'broker_fname',
+						        'compare' => 'LIKE',
+						        'value' => $bName,
+						    ];
+						}
+
+						foreach ($BrokerNames as $bName) {
+						    $brokerQueryArgs['meta_query']['name'][]=[
+						        'key' => 'broker_lname',
+						        'compare' => 'LIKE',
+						        'value' => $bName,
+						    ];
+						}
+
+						$brokerQuery = new WP_Query($brokerQueryArgs);
+
+						if ($brokerQuery->have_posts()) {
+
+						}
+						else {
+						    $mainBrokerQueryArgs = array(
+						        'post_type' => 'ysp_team',
+						        'meta_query' => array(
+						            array(
+						                'key' => 'ysp_main_broker',
+						                'value' => '1',
+						            ),
+						        ),
+						        'posts_per_page' => 1,
+						    );
+
+						    $brokerQuery = new WP_Query($mainBrokerQueryArgs);
+						}
 
 						$render_url_parameters=[
 							'url' => get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id'),
@@ -752,8 +817,26 @@
 							'pdf_show_footer' => true,
 							//'pdf_header' => '<div class="text title center"></div>',
 							'pdf_header' => '<div class="text center"></div>',
-							'pdf_footer' => '<div class="footer-broker-info text center"><a href="http://yspdemo.local/team/joshua-hoffman/">Joshua Hoffman</a> - <a href="tel:(863) 332-9038">(863) 332-9038</a> - <a href="mailto:mail@joshuahoffman.me">mail@joshuahoffman.me</a></div>',
+							//'pdf_footer' => '<div class="footer-broker-info text center"><a href="http://yspdemo.local/team/joshua-hoffman/">Joshua Hoffman</a> - <a href="tel:(863) 332-9038">(863) 332-9038</a> - <a href="mailto:mail@joshuahoffman.me">mail@joshuahoffman.me</a></div>',
 						];
+
+						if ($brokerQuery->have_posts()) {
+					        while ($brokerQuery->have_posts()) {
+					            $brokerQuery->the_post(); 
+					            $broker_first_name = get_post_meta($brokerQuery->post->ID, 'ysp_team_fname', true);
+					            $broker_last_name = get_post_meta($brokerQuery->post->ID, 'ysp_team_lname', true);
+					            $broker_email = get_post_meta($brokerQuery->post->ID, 'ysp_team_email', true);
+					            $broker_phone = get_post_meta($brokerQuery->post->ID, 'ysp_team_phone', true);
+					        
+					        	$render_url_parameters['pdf_footer'] = '<div class="footer-broker-info text center">
+					        	<a href="'. get_permalink($brokerQuery->post->ID) .'">'. ($broker_first_name . " " . $broker_last_name) .'</a>
+			                    - <a href="tel:'. $broker_phone .'">'. $broker_phone .'</a> - 
+			                    <a href="mailto:'. $broker_email .'">'. $broker_email .'</a>
+					        	</div>';
+					        }
+					    
+					        wp_reset_postdata();
+					    }					        
 
 						wp_redirect("https://api.urlbox.io/v1/$urlbox_public_key/pdf?".http_build_query($render_url_parameters));
 

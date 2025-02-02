@@ -116,15 +116,15 @@
                 <select name="staterooms">
                     <option value="">Any</option>
                     <option value="1">1 Cabins</option>
-                    <option value="2">2 Cabinss</option>
-                    <option value="3">3 Cabinss</option>
-                    <option value="4">4 Cabinss</option>
-                    <option value="5">5 Cabinss</option>
-                    <option value="6">6 Cabinss</option>
-                    <option value="7">7 Cabinss</option>
-                    <option value="8">8 Cabinss</option>
-                    <option value="9">9 Cabinss</option>
-                    <option value="10">10 Cabinss</option>
+                    <option value="2">2 Cabins</option>
+                    <option value="3">3 Cabins</option>
+                    <option value="4">4 Cabins</option>
+                    <option value="5">5 Cabins</option>
+                    <option value="6">6 Cabins</option>
+                    <option value="7">7 Cabins</option>
+                    <option value="8">8 Cabins</option>
+                    <option value="9">9 Cabins</option>
+                    <option value="10">10 Cabins</option>
                 </select>
             </div>
 

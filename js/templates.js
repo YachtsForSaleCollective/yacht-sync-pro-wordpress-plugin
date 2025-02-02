@@ -137,18 +137,16 @@ var ysp_templates={};
 
 			if (vessel.BoatLocation.BoatCityName != '') {
 
-		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCityName.replace(' ', '-') }`;
+		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCityName.replace(/( )/g, '-') }`;
 				
 				vesselLocation = (vessel.BoatLocation.BoatCountryID == "US" || vessel.BoatLocation.BoatCountryID == "United States" ? `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatStateCode}` : `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatCountryID}`);
-		        
-		            vesselLocation = vesselLocation;
-
 			}
 			else {
-		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCountryID.replace(' ', '-') }`;
-		        
+		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCountryID.replace(/( )/g, '-') }`;
+
 				vesselLocation = `${vessel.BoatLocation.BoatCountryID}`;
 			}
+			
 		}
 
 		return `

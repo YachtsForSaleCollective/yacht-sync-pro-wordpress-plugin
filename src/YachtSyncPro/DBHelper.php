@@ -97,6 +97,19 @@
 		}
 
 
+		public function get_unique_yacht_tax_values($tax) {
+
+			$terms = get_terms( array(
+			    'taxonomy'   => $tax,
+			    'post_type' => 'ysp_yacht',
+			    'fields' => 'names',
+			    'hide_empty' => true,
+			));
+
+			return $terms;
+
+		}
+
 
 
 	}

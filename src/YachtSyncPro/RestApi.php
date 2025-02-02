@@ -264,21 +264,36 @@
 	   		$labels = $request->get_param('labels');
    		
 	   		$labelsToMetaField = [
-	   			"Builders" => "MakeString",
-	   			"HullMaterials" => "BoatHullMaterialCode"
+	   			"Builders" => (object) ["meta" => "MakeString"],
+	   			"HullMaterials" => (object) ["meta" => "BoatHullMaterialCode"],
+
+	   			'BoatConditions' => (object) ['tax' => 'boatcondition'],
+	   			'BoatTypes' => (object) ['tax' => 'boattype'],
+	   			"BoatCategories" => (object) ['tax' => 'boatclass'],
+	   			"BoatMakes" => (object) ['tax' => 'boatmaker'],
 	   		];
 
 	   		$return = get_transient('ysp_yacht_dropdown_options_'.join('_', $labels));
 
-			if (! $return) {
+			//if (! $return) {
 				$return = [];
 
 				foreach ($labels as $label) {
-					$return[ $label ] = $this->db_helper->get_unique_yacht_meta_values( $labelsToMetaField[ $label ] );
+
+					$id = $labelsToMetaField[ $label ]; 
+
+					if (isset($id->meta)) {
+						$metafield = $id->meta;
+						$return[ $label ] = $this->db_helper->get_unique_yacht_meta_values( $metafield );
+					}
+					elseif (isset($id->tax)) {
+						$tax = $id->tax;
+						$return[ $label ] = $this->db_helper->get_unique_yacht_tax_values( $tax );
+					}
 				}
 	
-				set_transient('ysp_yacht_dropdown_options_'.join('_', $labels), $return, 4 * HOUR_IN_SECONDS);
-			}
+				//set_transient('ysp_yacht_dropdown_options_'.join('_', $labels), $return, 4 * HOUR_IN_SECONDS);
+			//}
 
 	   		return $return; 
 
@@ -297,8 +312,6 @@
 	   				$models=$this->db_helper->get_unique_yacht_meta_values('Model');
 	   				$boat_names=$this->db_helper->get_unique_yacht_meta_values('BoatName');
 	   				$locations=$this->db_helper->get_unique_yacht_meta_values('BoatName');
-
-
 	   				
 	   				//$lengths=$this->get_unique_yacht_meta_values('LengthOverall', 'ysp_yacht');
 

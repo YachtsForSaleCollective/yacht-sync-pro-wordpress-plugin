@@ -85,58 +85,46 @@
                     <input type="number" label="Price Below" name="pricehi" placeholder="Max">
                 </div>
             </div>
-            
-            <div class="ysp-s-field">
-                <label for="staterooms">Staterooms</label>
-
-                <select name="staterooms">
-                    <option value="">Any</option>
-                    <option value="1">1 Stateroom</option>
-                    <option value="2">2 Staterooms</option>
-                    <option value="3">3 Staterooms</option>
-                    <option value="4">4 Staterooms</option>
-                    <option value="5">5 Staterooms</option>
-                    <option value="6">6 Staterooms</option>
-                    <option value="7">7 Staterooms</option>
-                    <option value="8">8 Staterooms</option>
-                    <option value="9">9 Staterooms</option>
-                    <option value="10">10 Staterooms</option>
-                </select>
-                
-                <!-- <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M4 6L8 10L12 6" stroke="#94A3B8" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg> -->
-            </div>
-
-            <div class="ysp-s-field">
-                <label for="hull">Hull</label>
-
-                <select name="hull" data-fill-options="HullMaterials">
-                    <option value="">Any</option>
-                </select>
-
-                <!-- <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M4 6L8 10L12 6" stroke="#94A3B8" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg> -->
-            </div>
 
             <div class="ysp-s-field">
                 <label for="condition">Condition</label>
 
-                <select name="condition">
+                <select name="condition" data-fill-options="BoatConditions">
                     <option value="">Any</option>
-                    <option value="New">New</option>
-                    <option value="Used">Used</option>
                 </select>
             </div>
 
             <div class="ysp-s-field">
-                <label for="status">Status</label>
+                <label for="boattype">Type</label>
 
-                <select name="status">
+                <select name="boattype" data-fill-options="BoatTypes">
                     <option value="">Any</option>
-                    <option value="Active">Active</option>
-                    <option value="Onorder">On-Order</option>
+                </select>
+            </div>
+
+            <div class="ysp-s-field">
+                <label for="boatclass">Category</label>
+
+                <select name="boatclass" data-fill-options="BoatCategories">
+                    <option value="">Any</option>
+                </select>
+            </div>
+
+            <div class="ysp-s-field">
+                <label for="cabins">Cabins</label>
+
+                <select name="staterooms">
+                    <option value="">Any</option>
+                    <option value="1">1 Cabins</option>
+                    <option value="2">2 Cabinss</option>
+                    <option value="3">3 Cabinss</option>
+                    <option value="4">4 Cabinss</option>
+                    <option value="5">5 Cabinss</option>
+                    <option value="6">6 Cabinss</option>
+                    <option value="7">7 Cabinss</option>
+                    <option value="8">8 Cabinss</option>
+                    <option value="9">9 Cabinss</option>
+                    <option value="10">10 Cabinss</option>
                 </select>
             </div>
 
@@ -322,20 +310,20 @@
             </div>
 
             <div class="ysp-s-field">
-                <label for="staterooms">Staterooms</label>
+                <label for="staterooms">Cabinss</label>
 
                 <select name="staterooms">
                     <option value="">Any</option>
-                    <option value="1">1 Stateroom</option>
-                    <option value="2">2 Staterooms</option>
-                    <option value="3">3 Staterooms</option>
-                    <option value="4">4 Staterooms</option>
-                    <option value="5">5 Staterooms</option>
-                    <option value="6">6 Staterooms</option>
-                    <option value="7">7 Staterooms</option>
-                    <option value="8">8 Staterooms</option>
-                    <option value="9">9 Staterooms</option>
-                    <option value="10">10 Staterooms</option>
+                    <option value="1">1 Cabins</option>
+                    <option value="2">2 Cabinss</option>
+                    <option value="3">3 Cabinss</option>
+                    <option value="4">4 Cabinss</option>
+                    <option value="5">5 Cabinss</option>
+                    <option value="6">6 Cabinss</option>
+                    <option value="7">7 Cabinss</option>
+                    <option value="8">8 Cabinss</option>
+                    <option value="9">9 Cabinss</option>
+                    <option value="10">10 Cabinss</option>
                 </select>
                 
                 <!-- <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">

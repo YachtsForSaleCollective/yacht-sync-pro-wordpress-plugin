@@ -89,7 +89,7 @@
             <div class="ysp-s-field">
                 <label for="condition">Condition</label>
 
-                <select name="condition" data-fill-options="BoatConditions">
+                <select name="boatcondition" data-fill-options="BoatConditions">
                     <option value="">Any</option>
                 </select>
             </div>

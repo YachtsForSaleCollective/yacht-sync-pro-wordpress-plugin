@@ -19,7 +19,7 @@
             <div class="ysp-s-field">
                 <label for="make">Builder</label>
 
-                <select name="make" data-fill-options="Builders">
+                <select name="boatmaker" data-fill-options="BoatMakes">
                     <option value="">Any</option>
                 </select>
             </div>
@@ -113,18 +113,17 @@
             <div class="ysp-s-field">
                 <label for="cabins">Cabins</label>
 
-                <select name="staterooms">
+                <select name="stateroomlo">
                     <option value="">Any</option>
-                    <option value="1">1 Cabins</option>
-                    <option value="2">2 Cabins</option>
-                    <option value="3">3 Cabins</option>
-                    <option value="4">4 Cabins</option>
-                    <option value="5">5 Cabins</option>
-                    <option value="6">6 Cabins</option>
-                    <option value="7">7 Cabins</option>
-                    <option value="8">8 Cabins</option>
-                    <option value="9">9 Cabins</option>
-                    <option value="10">10 Cabins</option>
+                    <option value="1">1+ Cabins</option>
+                    <option value="2">2+ Cabins</option>
+                    <option value="3">3+ Cabins</option>
+                    <option value="4">4+ Cabins</option>
+                    <option value="5">5+ Cabins</option>
+                    <option value="6">6+ Cabins</option>
+                    <option value="7">7+ Cabins</option>
+                    <option value="8">8+ Cabins</option>
+                    <option value="9">9+ Cabins</option>
                 </select>
             </div>
 

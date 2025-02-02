@@ -153,7 +153,9 @@
 
 				}
 				else {
-					//$where .= " AND $wpdb->posts.post_content LIKE '%".$keywords." %' ";	
+					// $wpdb->posts.post_content LIKE '%".$keywords."%'  OR
+					$where .= " OR ( $wpdb->posts.post_title LIKE '%".$keywords."%' )  ";
+					//var_dump($keywords);
 				}
 
 
@@ -197,7 +199,7 @@
 
 					$keywords=explode(' ', $searchingfor);
 
-					$query->set('ys_keyword_content', $keywords);
+					//$query->set('ys_keyword_content', $keywords);
 
 					$yacht_sync_meta_query['ys_keyword']=[];
 
@@ -205,7 +207,7 @@
 
 						$yacht_sync_meta_query['ys_keyword'][]=[
 							'relation' => "OR",
-
+/*
 							[
 								'key' => 'MakeString',
 								'compare' => "LIKE",
@@ -230,7 +232,13 @@
 								'compare' => "LIKE",
 								'value' => $keyword
 							],
-				
+				*/
+							[
+								'key' => '_yoast_wpseo_metadesc',
+								'compare' => "LIKE",
+								'value' => $keyword
+							],	
+							
 							[
 								'key' => 'LengthOverall',
 								'compare' => "LIKE",
@@ -254,12 +262,12 @@
 								'compare' => "LIKE",
 								'value' => $keyword
 							],
-
+/*
 							[									
 								'key' => 'BoatLocation',
 								'compare' => "LIKE",
 								'value' => $keyword
-							],
+							],*/
 
 							/*[									
 								'key' => 'GeneralBoatDescription',

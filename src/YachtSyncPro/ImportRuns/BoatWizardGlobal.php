@@ -267,6 +267,7 @@
 					}
 					else {
 						var_dump(['error' => 'Error http error '.$apiCallDetailsStatus]);
+						sleep(120);
 						continue;
 						//return ['error' => 'Error http error '.$apiCallDetailsStatus];
 					}

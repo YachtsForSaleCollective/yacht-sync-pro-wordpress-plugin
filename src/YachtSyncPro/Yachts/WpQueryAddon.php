@@ -147,7 +147,7 @@
 
 				if (is_array($keywords)) {
 					foreach ($keywords as $keyw) {
-						//$where .= " AND $wpdb->posts.post_content LIKE '%".$keyw." %' ";	
+						$where .= " OR $wpdb->posts.post_title LIKE '%".$keyw." %' ";	
 						//$where .= " OR $wpdb->posts.post_content LIKE '%{$keyw} %' ";	
 					}
 
@@ -199,7 +199,7 @@
 
 					$keywords=explode(' ', $searchingfor);
 
-					//$query->set('ys_keyword_content', $keywords);
+					$query->set('ys_keyword_content', $keywords);
 
 					$yacht_sync_meta_query['ys_keyword']=[];
 
@@ -238,7 +238,7 @@
 								'compare' => "LIKE",
 								'value' => $keyword
 							],	
-							
+
 							[
 								'key' => 'LengthOverall',
 								'compare' => "LIKE",

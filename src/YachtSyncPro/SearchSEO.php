@@ -224,7 +224,7 @@
 						}
 
 						if (isset($params['stateroomlo'])) {
-							$pVal = 'Above '. $params['stateroomlo'] .' Cabins';
+							$pVal = 'With '. $params['stateroomlo'] .'+ Cabins';
 						}
 
 						break;

@@ -4,7 +4,7 @@
 
         <div class="ys-h-row">
             <div class="ysp-s-field">
-                <label for="ys_keyword">Keyword</label>
+                <label for="ys_keyword">Keywords</label>
 
                 <input type="text" name="ys_keyword" placeholder="Boat Name, Location, Features" list="ysp_keywords_list" />
                 <!-- <img src="" alt="magnifying-glass" /> -->
@@ -240,7 +240,7 @@
             <div class="ysp-s-field">
                 <label for="make">Builder</label>
 
-                <select name="make" data-fill-options="Builders">
+                <select name="boatmaker" data-fill-options="BoatMakes">
                     <option value="">Any</option>
                 </select>
             </div>

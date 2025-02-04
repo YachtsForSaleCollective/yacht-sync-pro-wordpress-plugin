@@ -78,10 +78,10 @@
 			}
 
 			foreach($builders_list as $b) {
-				$path_list[]="make-$b/";
+				$path_list[]="boatmaker-$b/";
 
 				foreach($conditions as $c) {
-					$path_list[]="condition-$c/make-$b/";
+					$path_list[]="condition-$c/boatmaker-$b/";
 				}
 			}
 

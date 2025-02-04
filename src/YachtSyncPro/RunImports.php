@@ -20,6 +20,7 @@
 			$this->ImportBrokerageOnlyBoatsCom2 = new YachtSyncPro_ImportRuns_BoatWizardBrokerageOnly('boats_com_api_brokerage_key_2');
 			
 			$this->ImportYachtBrokerOrg = new YachtSyncPro_ImportRuns_YachtBrokerOrg();
+			$this->ImportYachtBrokerOrgGlobal = new YachtSyncPro_ImportRuns_YachtBrokerOrgGlobal();
 			
 			$this->ImportYatco = new YachtSyncPro_ImportRuns_YatcoBoss();
 			
@@ -232,6 +233,7 @@
 			$boats_com_api_brokerage_key_2 = $this->options->get('boats_com_api_brokerage_key_2');
 			
 			$yacht_broker_org_api_token = $this->options->get('yacht_broker_org_api_token');
+			$yacht_broker_org_api_token_2 = $this->options->get('yacht_broker_org_api_token_2');
 
 			$yatco_api_token = $this->options->get('yatco_api_token');
 
@@ -255,6 +257,10 @@
 
 			if (!empty($yacht_broker_org_api_token)) {
 				$resultsOfSync[]=$this->ImportYachtBrokerOrg->run();
+			}
+
+			if (!empty($yacht_broker_org_api_token_2)) {
+				$resultsOfSync[]=$this->ImportYachtBrokerOrgGlobal->run();
 			}
 
 			if (! empty($boats_com_api_brokerage_key)) {

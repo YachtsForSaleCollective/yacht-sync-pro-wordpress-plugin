@@ -14,7 +14,7 @@
         </div>
         <div class="ys-v-row-item">
             <label>Builder</label>
-            <select name="make" data-fill-options="Builders">
+            <select name="boatmaker" data-fill-options="BoatMakes">
                 <option value="">Any</option>
             </select>
         </div>

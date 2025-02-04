@@ -7,13 +7,6 @@
                 <label for="ys_keyword">Keywords</label>
 
                 <input type="text" name="ys_keyword" placeholder="Boat Name, Location, Features" list="ysp_keywords_list" />
-                <!-- <img src="" alt="magnifying-glass" /> -->
-                <!-- <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g id="icon/search">
-                        <path id="Vector" d="M7.33333 12.6667C10.2789 12.6667 12.6667 10.2789 12.6667 7.33333C12.6667 4.38781 10.2789 2 7.33333 2C4.38781 2 2 4.38781 2 7.33333C2 10.2789 4.38781 12.6667 7.33333 12.6667Z" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path id="Vector_2" d="M14.0001 14.0001L11.1001 11.1001" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </g>
-                </svg> -->
             </div>
             
             <div class="ysp-s-field">
@@ -82,7 +75,7 @@
                 <div class="min-max-container">
                     <input type="number" label="Price Above" name="pricelo" placeholder="Min" min=0 />
                     <span>-</span>
-                    <input type="number" label="Price Below" name="pricehi" placeholder="Max">
+                    <input type="number" label="Price Below" name="pricehi" placeholder="Max" />
                 </div>
             </div>
 
@@ -230,7 +223,7 @@
             <div class="ysp-s-field">
                 <label for="condition">Condition</label>
 
-                <select name="condition">
+                <select name="boatcondition">
                     <option value="">Any</option>
                     <option value="New">New</option>
                     <option value="Used">Used</option>
@@ -249,9 +242,9 @@
                 <label>Year</label>
 
                 <div class="min-max-container">
-                    <input type="number" label="Year Above" name="yearlo" placeholder="Min"/>
+                    <input type="number" label="Year Above" name="yearlo" placeholder="Min" />
                     <span>-</span>
-                    <input type="number" label="Year Below" name="yearhi" placeholder="Max"/>
+                    <input type="number" label="Year Below" name="yearhi" placeholder="Max" />
                 </div>
             </div>
 
@@ -275,9 +268,9 @@
                 </div>    
                 
                 <div class="min-max-container">
-                    <input type="number" label="Length Above" name="lengthlo" placeholder="Min"/>
+                    <input type="number" label="Length Above" name="lengthlo" placeholder="Min" />
                     <span>-</span>
-                    <input type="number" label="Length Below" name="lengthhi" placeholder="Max"/>
+                    <input type="number" label="Length Below" name="lengthhi" placeholder="Max" />
                 </div>
             </div>
 
@@ -309,20 +302,19 @@
             </div>
 
             <div class="ysp-s-field">
-                <label for="staterooms">Cabinss</label>
+                <label for="staterooms">Cabins</label>
 
-                <select name="staterooms">
+                <select name="stateroomlo">
                     <option value="">Any</option>
-                    <option value="1">1 Cabins</option>
-                    <option value="2">2 Cabinss</option>
-                    <option value="3">3 Cabinss</option>
-                    <option value="4">4 Cabinss</option>
-                    <option value="5">5 Cabinss</option>
-                    <option value="6">6 Cabinss</option>
-                    <option value="7">7 Cabinss</option>
-                    <option value="8">8 Cabinss</option>
-                    <option value="9">9 Cabinss</option>
-                    <option value="10">10 Cabinss</option>
+                    <option value="1">1+ Cabins</option>
+                    <option value="2">2+ Cabins</option>
+                    <option value="3">3+ Cabins</option>
+                    <option value="4">4+ Cabins</option>
+                    <option value="5">5+ Cabins</option>
+                    <option value="6">6+ Cabins</option>
+                    <option value="7">7+ Cabins</option>
+                    <option value="8">8+ Cabins</option>
+                    <option value="9">9+ Cabins</option>
                 </select>
                 
                 <!-- <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">

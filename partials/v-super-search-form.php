@@ -19,7 +19,7 @@
         </div>
 
         <div class="ysp-s-field">
-            <label>Type</label>
+            <label>Category</label>
             <div class="selection-overflow">
             
                 <?php 
@@ -43,7 +43,7 @@
             
             <div class="selection-overflow">
                 <?php 
-                    echo "<label><input type='checkbox' name='make' value='' style='width: auto;'> All</label>";
+                    echo "<label><input type='checkbox' name='boatmaker' value='' style='width: auto;'> All</label>";
                    
                     $YSP_DBHelper = new YachtSyncPro_DBHelper();
 
@@ -51,7 +51,7 @@
 
                     foreach ($builders as $build) {
 
-                        echo "<label><input type='checkbox' name='make' value='$build' style='width: auto;'> $build</label>";
+                        echo "<label><input type='checkbox' name='boatmaker' value='$build' style='width: auto;'> $build</label>";
 
                     }
                 ?>

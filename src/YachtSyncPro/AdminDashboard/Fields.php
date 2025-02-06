@@ -98,6 +98,24 @@
 						self::SLUG . '_admin_fields',
 						array( )
 					);
+
+					add_settings_field(
+						self::SLUG . '_yacht_broker_org_api_token_2',
+						"YachtBroker.org Api Token #2",
+						array( $this, 'yacht_broker_org_api_token_2_field' ),
+						self::SLUG,
+						self::SLUG . '_admin_fields',
+						array( )
+					);
+
+					add_settings_field(
+						self::SLUG . '_yacht_broker_org_id_2',
+						"YachtBroker.org Company ID #2",
+						array( $this, 'yacht_broker_org_id_2_field' ),
+						self::SLUG,
+						self::SLUG . '_admin_fields',
+						array( )
+					);
 					
 					add_settings_field(
 						self::SLUG . '_yatco_api_token',
@@ -462,6 +480,27 @@
 		public function yacht_broker_org_api_token_field() {
 
 			$nameOfField=self::SLUG.'_yacht_broker_org_api_token';
+			$valOfField=get_option($nameOfField);
+
+			?>
+
+			<input type="text" name="<?= $nameOfField ?>" value="<?= $valOfField ?>" autocomplete="off"><?php 
+
+		}
+
+		public function yacht_broker_org_id_2_field() {
+			$nameOfField=self::SLUG.'_yacht_broker_org_id_2';
+			$valOfField=get_option($nameOfField);
+
+			?>
+
+			<input type="text" name="<?= $nameOfField ?>" value="<?= $valOfField ?>" autocomplete="off"><?php 
+
+		}
+
+		public function yacht_broker_org_api_token_2_field() {
+
+			$nameOfField=self::SLUG.'_yacht_broker_org_api_token_2';
 			$valOfField=get_option($nameOfField);
 
 			?>

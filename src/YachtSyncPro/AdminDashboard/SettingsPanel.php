@@ -26,8 +26,10 @@
 			register_setting( self::SLUG, self::SLUG . '_boats_com_api_brokerage_status_override');
 			
 			register_setting( self::SLUG, self::SLUG . '_yacht_broker_org_api_token');
-			
 			register_setting( self::SLUG, self::SLUG . '_yacht_broker_org_id');
+
+			register_setting( self::SLUG, self::SLUG . '_yacht_broker_org_api_token_2');
+			register_setting( self::SLUG, self::SLUG . '_yacht_broker_org_id_2');
 
 			register_setting( self::SLUG, self::SLUG . '_yatco_api_token');
 

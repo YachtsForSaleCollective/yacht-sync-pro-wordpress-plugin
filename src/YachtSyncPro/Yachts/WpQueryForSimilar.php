@@ -95,6 +95,8 @@
                     $similar_query = new WP_Query($args);
 
                     if (count($similar_query->posts) >= 3) {
+                        unset($args['posts_per_page']);
+                        
                         $query->query_vars = array_merge($query->query_vars, $args);
                         return $query;
                     }

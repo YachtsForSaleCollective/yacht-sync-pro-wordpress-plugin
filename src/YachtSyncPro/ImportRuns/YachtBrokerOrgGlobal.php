@@ -14,6 +14,7 @@
 
 			$this->yachtBrokerAPIKey = $this->options->get('yacht_broker_org_api_token_2');
 			$this->yachtClientId = $this->options->get('yacht_broker_org_id_2');
+			$this->yachtBrokerageId = $this->options->get('yacht_broker_brokerage_id');
 
 			$this->euro_c_c = floatval($this->options->get('euro_c_c'));
 			$this->usd_c_c = floatval($this->options->get('usd_c_c'));
@@ -40,7 +41,7 @@
 	            'timeout' => 120
 	        ];
 
-	        $apiUrlOne  = 'https://api.yachtbroker.org/vessel?key='.$this->yachtBrokerAPIKey.'&id='. $this->yachtClientId .'&gallery=true&engines=true&generators=true&textblocks=true&media=true&limit='.$this->yachtBrokerLimit;
+	        $apiUrlOne  = 'https://api.yachtbroker.org/vessel?key='.$this->yachtBrokerAPIKey.'&id='. $this->yachtClientId .'&gallery=true&engines=true&generators=true&textblocks=true&media=true&limit='.$this->yachtBrokerLimit.'&vessel_ids=2773459,2787599,2798053,2804792,280470,2773494';
 
 	        $apiCall = wp_remote_get($apiUrlOne, $headers);
 
@@ -69,7 +70,7 @@
 
 	        	var_dump( sprintf("%.2f%%", intval((($yachtSynced / $total)*100)))." Completed" );
 
-	        	$apiUrl  = 'https://api.yachtbroker.org/vessel?key='.$this->yachtBrokerAPIKey.'&id='. $this->yachtClientId .'&gallery=true&engines=true&generators=true&textblocks=true&media=true&limit='.$this->yachtBrokerLimit;
+	        	$apiUrl  = 'https://api.yachtbroker.org/vessel?key='.$this->yachtBrokerAPIKey.'&id='. $this->yachtClientId .'&gallery=true&engines=true&generators=true&textblocks=true&media=true&limit='.$this->yachtBrokerLimit.'&vessel_ids=2773459,2787599,2798053,2804792,280470,2773494';
 
 	        	$apiUrl .='&page='.$page;
 
@@ -90,13 +91,13 @@
 		           	$theBoat=[
 		           		'BoatLocation' => (object) [
 		           			'BoatCityName' => $row['City'],
-		           			'BoatCountryID' => $this->LocationConvert->filpped_country[ $row['Country'] ],
-		           			'BoatStateCode' => $this->LocationConvert->filpped_state[ $row['State'] ]
+		           			'BoatCountryID' => $row['Country'],
+		           			'BoatStateCode' => $row['State']
 		           		],
 
 		           		'YSP_City' => $row['City'],
-		           		'YSP_CountryID' => $this->LocationConvert->filpped_country[ $row['Country'] ],
-		           		'YSP_State' => $this->LocationConvert->filpped_state[ $row['State'] ],
+		           		'YSP_CountryID' => $row['Country'],
+		           		'YSP_State' => $row['State'],
 
 		           		'YSP_Full_Country' => $row['Country'],
 		           		'YSP_Full_State' => $row['State'],
@@ -230,6 +231,14 @@
 		            if (isset($row['Category'])) {
 		                $theBoat['BoatClassCode'] = [$row['Category']];
 		            }
+					
+					if (isset($row['ListingOwnerBrokerageID'])) {
+						if ($row['ListingOwnerBrokerageID'] == (int) $this->yachtBrokerageId) {
+							$theBoat['CompanyBoat'] = 1;
+						}
+					} else {
+						$theBoat['CompanyBoat'] = 0;
+					}
 
 		            // if there is no additional description and TextBlocks has description then let's grab it from there.
 		            if (isset($row['AdditionalDetailDescription']) && ! empty($row['AdditionalDetailDescription']) 
@@ -395,7 +404,6 @@
 		                $wpdb->delete($wpdb->postmeta, ['post_id' => $find_post[0]->ID], ['%d']);
 		            }
 
-		            $theBoat['CompanyBoat'] = 0;
 		            $theBoat['Touched_InSync'] = 1;
 		            $theBoat['ImportSource'] = "IYBA";
 

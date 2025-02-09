@@ -116,6 +116,15 @@
 						self::SLUG . '_admin_fields',
 						array( )
 					);
+
+					add_settings_field(
+						self::SLUG . '_yacht_broker_brokerage_id',
+						"YachtBroker.org Brokerage ID",
+						array( $this, 'yacht_broker_brokerage_id_field' ),
+						self::SLUG,
+						self::SLUG . '_admin_fields',
+						array( )
+					);
 					
 					add_settings_field(
 						self::SLUG . '_yatco_api_token',
@@ -515,6 +524,14 @@
 
 			?>
 
+			<input type="text" name="<?= $nameOfField ?>" value="<?= $valOfField ?>" autocomplete="off"><?php 
+
+		}
+
+		public function yacht_broker_brokerage_id_field() {
+			$nameOfField=self::SLUG.'_yacht_broker_brokerage_id';
+			$valOfField=get_option($nameOfField);
+			?>
 			<input type="text" name="<?= $nameOfField ?>" value="<?= $valOfField ?>" autocomplete="off"><?php 
 
 		}

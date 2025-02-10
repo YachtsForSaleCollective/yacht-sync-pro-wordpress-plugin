@@ -157,6 +157,7 @@
                         'YSP_EuroVal' => 'PriceEuro',
 
 						'YSP_Country' => 'Country',
+						'YSP_Full_Country' => 'Country',
 						'YSP_State' => 'State',
 						'YSP_City' => 'City',
 
@@ -355,39 +356,37 @@
 					if (isset($find_post_from_synced[0]->ID)) {
 	                	$synced_post_id = $find_post_from_synced[0]->ID;
 
-		                $synced_pdf = get_post_meta($synced_post_id, 'YSP_PDF_URL', true);
+		                // $synced_pdf = get_post_meta($synced_post_id, 'YSP_PDF_URL', true);
 
 		                $saved_last_mod_date = get_post_meta($synced_post_id, 'LastModificationDate', true);
 		                $current_last_mod_date = $theBoat['LastModificationDate'];
 
-		                if (!is_null($synced_pdf) && !empty($synced_pdf)) {
-							$apiPDF = wp_remote_request($synced_pdf, [
-								'method' => 'HEAD',
+		                // if (!is_null($synced_pdf) && !empty($synced_pdf)) {
+						// 	$apiPDF = wp_remote_request($synced_pdf, [
+						// 		'method' => 'HEAD',
+						// 		'timeout' => 180,
+						// 		'stream' => false, 
+						// 		'headers' => [
+						// 			'Content-Type'  => 'application/pdf',
 
-								'timeout' => 180,
-								'stream' => false, 
-								
-								'headers' => [
-									'Content-Type'  => 'application/pdf',
+						// 		]
+						// 	]);
 
-								]
-							]);
+						// 	$api_status_code = wp_remote_retrieve_response_code($apiPDF);
 
-							$api_status_code = wp_remote_retrieve_response_code($apiPDF);
-
-							if ($api_status_code == '200') {
-								$pdf_still_e = true;
-							}
-						}
+						// 	if ($api_status_code == '200') {
+						// 		$pdf_still_e = true;
+						// 	}
+						// }
 
 						if (strtotime($current_last_mod_date) > strtotime($saved_last_mod_date)) {
 							$pdf_still_e = false;
 							$yacht_updated = true;
 						}
 
-						if ( $pdf_still_e ) {
-							$theBoat['YSP_PDF_URL'] = $synced_pdf;
-						}
+						// if ( $pdf_still_e ) {
+						// 	$theBoat['YSP_PDF_URL'] = $synced_pdf;
+						// }
 
 						// carry overs
 						foreach ($this->CarryOverKeys as $metakey) {
@@ -415,11 +414,10 @@
 		            }*/
 		            elseif (isset($find_post[0]->ID)) {
 		                $post_id=$find_post[0]->ID;
-
 		                $wpdb->delete($wpdb->postmeta, ['post_id' => $find_post[0]->ID], ['%d']);
 		            }
 
-		            $theBoat['Touched_InSync'] = 1;
+		            // $theBoat['Touched_InSync'] = 1;
 		            $theBoat['ImportSource'] = "IYBA";
 
 		            $y_post_id=wp_insert_post(
@@ -427,7 +425,7 @@
 			                [
 			                    'ID' => $post_id,
 								'post_type' => 'syncing_ysp_yacht',
-								'post_title' =>  addslashes( $theBoat['ModelYear'].' '.$theBoat['MakeString'].' '.$theBoat['Model'].' '.$theBoat['BoatName'] ),
+								'post_title' =>  addslashes( $theBoat['ModelYear'].' '.$theBoat['MakeString'].' '.$theBoat['Model'].($theBoat['BoatName'] ? ' '.$theBoat['BoatName'] : '') ),
 								'post_name' => sanitize_title(
 									$theBoat['ModelYear'].'-'.$theBoat['MakeString'].'-'.$theBoat['Model']
 								),
@@ -445,25 +443,25 @@
 					//wp_set_post_terms($y_post_id, $theBoat['BoatCategoryCode'], 'boattype', false);
 					//wp_set_post_terms($y_post_id, $theBoat['SaleClassCode'], 'boatcondition', false);
 
-					if ($this->opt_prerender_brochures == 'yes' && $pdf_still_e == false && ! in_array($theBoat['SalesStatus'], ['Sold', 'Suspend']) ) {
+					// if ($this->opt_prerender_brochures == 'yes' && $pdf_still_e == false && ! in_array($theBoat['SalesStatus'], ['Sold', 'Suspend']) ) {
 
-						$generatorPDF = wp_remote_post(
-							"https://api.urlbox.io/v1/render/async", 
-							[
-								'headers' => [
-									'Authorization' => 'Bearer ae1422deb6fc4f658c55f5dda7a08704',
-									'Content-Type' => 'application/json'
-								],
-								'body' => json_encode([
-									'url' => get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $y_post_id,
-									'webhook_url' => get_rest_url() ."ysp/set-yacht-pdf?yacht_post_id=". $y_post_id,
-									'use_s3' => true,
-									'format' => 'pdf'
-								])
-							]
-						);
+					// 	$generatorPDF = wp_remote_post(
+					// 		"https://api.urlbox.io/v1/render/async", 
+					// 		[
+					// 			'headers' => [
+					// 				'Authorization' => 'Bearer ae1422deb6fc4f658c55f5dda7a08704',
+					// 				'Content-Type' => 'application/json'
+					// 			],
+					// 			'body' => json_encode([
+					// 				'url' => get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $y_post_id,
+					// 				'webhook_url' => get_rest_url() ."ysp/set-yacht-pdf?yacht_post_id=". $y_post_id,
+					// 				'use_s3' => true,
+					// 				'format' => 'pdf'
+					// 			])
+					// 		]
+					// 	);
 
-					}
+					// }
 		        }
 
 	        }

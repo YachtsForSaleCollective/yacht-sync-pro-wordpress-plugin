@@ -41,7 +41,7 @@
 	            'timeout' => 120
 	        ];
 
-	        $apiUrlOne  = 'https://api.yachtbroker.org/vessel?key='.$this->yachtBrokerAPIKey.'&id='. $this->yachtClientId .'&gallery=true&engines=true&generators=true&textblocks=true&media=true&limit='.$this->yachtBrokerLimit.'&vessel_ids=2773459,2787599,2798053,2804792,280470,2773494';
+	        $apiUrlOne  = 'https://api.yachtbroker.org/vessel?key='.$this->yachtBrokerAPIKey.'&id='. $this->yachtClientId .'&gallery=true&engines=true&generators=true&textblocks=true&media=true&limit='.$this->yachtBrokerLimit;
 
 	        $apiCall = wp_remote_get($apiUrlOne, $headers);
 
@@ -70,7 +70,7 @@
 
 	        	var_dump( sprintf("%.2f%%", intval((($yachtSynced / $total)*100)))." Completed" );
 
-	        	$apiUrl  = 'https://api.yachtbroker.org/vessel?key='.$this->yachtBrokerAPIKey.'&id='. $this->yachtClientId .'&gallery=true&engines=true&generators=true&textblocks=true&media=true&limit='.$this->yachtBrokerLimit.'&vessel_ids=2773459,2787599,2798053,2804792,280470,2773494';
+	        	$apiUrl  = 'https://api.yachtbroker.org/vessel?key='.$this->yachtBrokerAPIKey.'&id='. $this->yachtClientId .'&gallery=true&engines=true&generators=true&textblocks=true&media=true&limit='.$this->yachtBrokerLimit;
 
 	        	$apiUrl .='&page='.$page;
 
@@ -150,6 +150,9 @@
 						'YSP_BeamFeet' => 'BeamFeet',
 		                'YSP_BeamMeter' => 'BeamMeter',
 
+						'YSP_Max_Draft_Feet_Measurement' => 'MaximumDraftFeet',
+						'YSP_Max_Draft_Inch_Measurement' => 'MaximumDraftInches',
+
                         'YSP_USDVal' => 'PriceUSD',
                         'YSP_EuroVal' => 'PriceEuro',
 
@@ -213,6 +216,14 @@
 		                $row['BeamFeet'] .= ' ft';
 		                $theBoat['BeamMeasure']=$row['BeamFeet'];
 		            }
+
+					if (isset($row['MaximumDraftFeet'])) {
+						$theBoat['YSP_Max_Draft_Feet_Measurement'] = $row['MaximumDraftFeet'];
+					}
+
+					if (isset($row['MaximumDraftInches'])) {
+						$theBoat['YSP_Max_Draft_Inch_Measurement'] = $row['MaximumDraftInches'];
+					}
 
 		            if (isset($row['WaterTankCapacityMeasure'])) {
 		                $row['WaterTankCapacityMeasure'] .= '|gallon';

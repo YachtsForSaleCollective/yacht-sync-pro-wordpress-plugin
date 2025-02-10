@@ -153,6 +153,10 @@
                         'YSP_USDVal' => 'PriceUSD',
                         'YSP_EuroVal' => 'PriceEuro',
 
+						'YSP_Country' => 'Country',
+						'YSP_State' => 'State',
+						'YSP_City' => 'City',
+
 		                'AdditionalDetailDescription' => 'Description',
 		                'CabinCountNumeric' => 'CabinCount'
 		           	];

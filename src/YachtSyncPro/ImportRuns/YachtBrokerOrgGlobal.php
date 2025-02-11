@@ -147,8 +147,8 @@
 		                'YSP_LOAFeet' => 'LOAFeet',
 		                'YSP_LOAMeter' => 'LOAMeter',
 						
-						'YSP_BeamFeet' => 'BeamFeet',
-		                'YSP_BeamMeter' => 'BeamMeter',
+						'YSP_Beam_Feet_Measurement' => 'BeamFeet',
+						'YSP_Beam_Inch_Measurement' => 'BeamInch',
 
 						'YSP_Max_Draft_Feet_Measurement' => 'MaximumDraftFeet',
 						'YSP_Max_Draft_Inch_Measurement' => 'MaximumDraftInches',

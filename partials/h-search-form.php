@@ -12,7 +12,7 @@
             <div class="ysp-s-field">
                 <label for="make">Builder</label>
 
-                <select name="boatmaker" data-fill-options="BoatMakes">
+                <select name="boatmaker" data-fill-options="BoatMakesWithCount">
                     <option value="">Any</option>
                 </select>
             </div>
@@ -82,7 +82,7 @@
             <div class="ysp-s-field">
                 <label for="condition">Condition</label>
 
-                <select name="boatcondition" data-fill-options="BoatConditions">
+                <select name="boatcondition" data-fill-options="BoatConditionsWithCount">
                     <option value="">Any</option>
                 </select>
             </div>
@@ -90,7 +90,7 @@
             <div class="ysp-s-field">
                 <label for="boattype">Type</label>
 
-                <select name="boattype" data-fill-options="BoatTypes">
+                <select name="boattype" data-fill-options="BoatTypesWithCount">
                     <option value="">Any</option>
                 </select>
             </div>
@@ -98,7 +98,7 @@
             <div class="ysp-s-field">
                 <label for="boatclass">Category</label>
 
-                <select name="boatclass" data-fill-options="BoatCategories">
+                <select name="boatclass" data-fill-options="BoatCategoriesWithCount">
                     <option value="">Any</option>
                 </select>
             </div>
@@ -223,17 +223,15 @@
             <div class="ysp-s-field">
                 <label for="condition">Condition</label>
 
-                <select name="boatcondition">
+                <select name="boatcondition" data-fill-options="BoatConditionsWithCount">
                     <option value="">Any</option>
-                    <option value="New">New</option>
-                    <option value="Used">Used</option>
                 </select>
             </div>
         
             <div class="ysp-s-field">
                 <label for="make">Builder</label>
 
-                <select name="boatmaker" data-fill-options="BoatMakes">
+                <select name="boatmaker" data-fill-options="BoatMakesWithCount">
                     <option value="">Any</option>
                 </select>
             </div>
@@ -242,9 +240,9 @@
                 <label>Year</label>
 
                 <div class="min-max-container">
-                    <input type="number" label="Year Above" name="yearlo" placeholder="Min" />
+                    <input type="number" label="Year Above" name="yearlo" placeholder="Min" min="1900" />
                     <span>-</span>
-                    <input type="number" label="Year Below" name="yearhi" placeholder="Max" />
+                    <input type="number" label="Year Below" name="yearhi" placeholder="Max" max="<?= (date("Y")+3) ?>" />
                 </div>
             </div>
 
@@ -268,7 +266,7 @@
                 </div>    
                 
                 <div class="min-max-container">
-                    <input type="number" label="Length Above" name="lengthlo" placeholder="Min" />
+                    <input type="number" label="Length Above" name="lengthlo" placeholder="Min" min="5" />
                     <span>-</span>
                     <input type="number" label="Length Below" name="lengthhi" placeholder="Max" />
                 </div>

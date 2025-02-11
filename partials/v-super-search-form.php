@@ -13,8 +13,20 @@
 
             <div class="selection-overflow">
                 <label><input type="checkbox" name="condition" value="" style='width: auto;'> Both</label>
-                <label><input type="checkbox" name="condition" value="Used" style='width: auto;'> Used</label>
-                <label><input type="checkbox" name="condition" value="New" style='width: auto;'> New</label>
+                 <?php 
+
+                    $conditions = get_terms([
+                        'taxonomy' => 'boatcondition',
+                        'post_type' => 'ysp_yacht',
+                        'hide_empty' => true,
+                    ]);
+
+                    foreach ($conditions as $c) {
+                        
+                        echo "<label><input type='checkbox' name='boatcondition' value='$c->name' style='width: auto;'> $c->name ($c->count)</label>";
+
+                    }
+                ?>
             </div>
         </div>
 
@@ -27,11 +39,13 @@
 
                     $categories = get_terms([
                         'taxonomy' => 'boatclass',
+                        'post_type' => 'ysp_yacht',
+                        'hide_empty' => true,
                     ]);
 
                     foreach ($categories as $cat) {
                         
-                        echo "<label><input type='checkbox' name='boatclass' value='$cat->name' style='width: auto;'> $cat->name</label>";
+                        echo "<label><input type='checkbox' name='boatclass' value='$cat->name' style='width: auto;'> $cat->name ($cat->count)</label>";
 
                     }
                 ?>
@@ -47,11 +61,14 @@
                    
                     $YSP_DBHelper = new YachtSyncPro_DBHelper();
 
-                    $builders = $YSP_DBHelper->get_unique_yacht_meta_values('MakeString');
-
+                    $builders = get_terms([
+                        'taxonomy' => 'boatmaker',
+                        'post_type' => 'ysp_yacht',
+                        'hide_empty' => true,
+                    ]);
                     foreach ($builders as $build) {
 
-                        echo "<label><input type='checkbox' name='boatmaker' value='$build' style='width: auto;'> $build</label>";
+                        echo "<label><input type='checkbox' name='boatmaker' value='$build->slug' style='width: auto;'> $build->name ($build->count)</label>";
 
                     }
                 ?>

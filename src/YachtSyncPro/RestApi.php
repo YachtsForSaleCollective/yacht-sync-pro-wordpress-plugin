@@ -1116,8 +1116,7 @@
 
 				$YachtPost = get_post($YachtID);
 
-				$to = '';
-				//$to = $this->options->get('send_lead_to_this_email');
+				$to = $this->options->get('send_lead_to_this_email');
 				$subject = $fname.' is interested in '.$YachtPost->post_title;
 			}
 

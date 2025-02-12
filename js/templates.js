@@ -27,7 +27,7 @@ var ysp_templates={};
 
 		if (typeof vessel.BoatLocation.BoatCountryID != 'undefined' && vessel.BoatLocation.BoatCountryID != null) {
 
-			if (vessel.BoatLocation.BoatCityName != '') {
+			if (typeof vessel.BoatLocation.BoatCityName == 'string' && vessel.BoatLocation.BoatCityName != '') {
 
 		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCityName.replace(/( )/g, '-') }`;
 				
@@ -135,7 +135,7 @@ var ysp_templates={};
 
 		if (typeof vessel.BoatLocation.BoatCountryID != 'undefined' && vessel.BoatLocation.BoatCountryID != null) {
 
-			if (vessel.BoatLocation.BoatCityName != '') {
+			if (typeof vessel.BoatLocation.BoatCityName == 'string' && vessel.BoatLocation.BoatCityName != '') {
 
 		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCityName.replace(/( )/g, '-') }`;
 				

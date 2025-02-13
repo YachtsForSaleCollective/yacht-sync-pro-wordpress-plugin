@@ -347,16 +347,14 @@ get_header();
                                 the_content();
                             }
                         ?>
-                    </div>
-
-                   
+                    </div>                   
 
                     <!-- <div class="ysp-single-y-accord">
                         <h3>Features & Amenities</h3>
 
                     </div> -->
                     
-                    <div class="ysp-single-y-video-grid">
+                    <div class="ysp-single-y-video-grid" id="video-gallery">
                         <?php 
                             if(isset($vessel->Videos)) {
                                 $videoUrls = $vessel->Videos->url;

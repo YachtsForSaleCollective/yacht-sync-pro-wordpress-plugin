@@ -335,7 +335,10 @@
 			            else {
 			                $find_post_from_synced=[];
 			            }
-		           	}	        	         
+		           	}	     
+
+					$pdf_still_e = false;
+		           	$yacht_updated = false;   	         
 					
 					if (isset($find_post_from_synced[0]->ID)) {
 	                	$synced_post_id = $find_post_from_synced[0]->ID;

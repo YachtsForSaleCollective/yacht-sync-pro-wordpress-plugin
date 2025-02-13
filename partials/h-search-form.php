@@ -194,7 +194,7 @@
         <form id="ysp-mobile-yacht-search-form" class="ysp-v-row ysp-yacht-search-form ysp-form ysp-search-mobile">
             <input type="hidden" name="page_index" />
 
-            <div class="ysp-s-field">
+            <!-- <div class="ysp-s-field">
                 <?php 
                     $YSP_Options = new YachtSyncPro_Options();
                     $YSP_Comapny_name = $YSP_Options->get('company_name');
@@ -204,7 +204,7 @@
                     <input type="checkbox" name="ys_company_only" value="1" style="width: unset;"> 
                     <?php echo $YSP_Comapny_name; ?>'s Listings
                 </label>
-            </div>
+            </div> -->
 
             <div class="ysp-s-field">
                 <label for="ys_keyword">Keyword</label>
@@ -227,11 +227,29 @@
                     <option value="">Any</option>
                 </select>
             </div>
+
+
+             <div class="ysp-s-field">
+                <label for="boattype">Type</label>
+
+                <select name="boattype" data-fill-options="BoatTypesWithCount">
+                    <option value="">Any</option>
+                </select>
+            </div>
         
             <div class="ysp-s-field">
                 <label for="make">Builder</label>
 
                 <select name="boatmaker" data-fill-options="BoatMakesWithCount">
+                    <option value="">Any</option>
+                </select>
+            </div>
+
+
+            <div class="ysp-s-field">
+                <label for="boatclass">Category</label>
+
+                <select name="boatclass" data-fill-options="BoatCategoriesWithCount">
                     <option value="">Any</option>
                 </select>
             </div>
@@ -291,7 +309,6 @@
                     </div>
                 </div>    
 
-
                 <div class="min-max-container">
                     <input type="number" label="Price Above" name="pricelo" placeholder="Min"/>
                     <span>-</span>
@@ -314,23 +331,15 @@
                     <option value="8">8+ Cabins</option>
                     <option value="9">9+ Cabins</option>
                 </select>
-                
-                <!-- <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M4 6L8 10L12 6" stroke="#94A3B8" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg> -->
             </div>
 
-            <div class="ysp-s-field">
+            <!-- <div class="ysp-s-field">
                 <label for="hull">Hull</label>
 
                 <select name="hull" data-fill-options="HullMaterials">
                     <option value="">Any</option>
                 </select>
-
-                <!-- <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M4 6L8 10L12 6" stroke="#94A3B8" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg> -->
-            </div>
+            </div> -->
 
             <div style="height: 75px;"></div>
 

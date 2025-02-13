@@ -19,12 +19,12 @@
 
         .yacht-image{
             width: 100%;
-            height: 240px;
+            height: auto;
             object-fit: cover;
             border-radius: 12px 12px 0px 0px;
 
-            @media screen and (max-width: vars.$breakpoint-med) {
-                height: auto !important;
+            @media screen and (min-width: vars.$breakpoint-med) {
+                height: 240px;
             }
         }
 

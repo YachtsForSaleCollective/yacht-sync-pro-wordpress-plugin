@@ -178,6 +178,7 @@
 	        $yachtQuery = new WP_Query($args);
 
 	        $YSP_Euro_Opt = $this->options->get('is_euro_site');
+	        $yacht_search_url = get_permalink($this->options->get('yacht_search_page_id'));
 
 		    ob_start();
 		  		

@@ -29,12 +29,12 @@ var ysp_templates={};
 
 			if (typeof vessel.BoatLocation.BoatCityName == 'string' && vessel.BoatLocation.BoatCityName != '') {
 
-		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCityName.replace(/( )/g, '-') }`;
+		        vesselKeywordLocationLink=`${ ysp_yacht_sync.yacht_search_url }/ys_keyword-${ vessel.BoatLocation.BoatCityName.replace(/( )/g, '-') }`;
 				
 				vesselLocation = (vessel.BoatLocation.BoatCountryID == "US" || vessel.BoatLocation.BoatCountryID == "United States" ? `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatStateCode}` : `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatCountryID}`);
 			}
 			else {
-		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCountryID.replace(/( )/g, '-') }`;
+		        vesselKeywordLocationLink=`${ ysp_yacht_sync.yacht_search_url }/ys_keyword-${ vessel.BoatLocation.BoatCountryID.replace(/( )/g, '-') }`;
 
 				vesselLocation = `${vessel.BoatLocation.BoatCountryID}`;
 			}
@@ -137,12 +137,12 @@ var ysp_templates={};
 
 			if (typeof vessel.BoatLocation.BoatCityName == 'string' && vessel.BoatLocation.BoatCityName != '') {
 
-		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCityName.replace(/( )/g, '-') }`;
+		        vesselKeywordLocationLink=`${ ysp_yacht_sync.yacht_search_url }/ys_keyword-${ vessel.BoatLocation.BoatCityName.replace(/( )/g, '-') }`;
 				
 				vesselLocation = (vessel.BoatLocation.BoatCountryID == "US" || vessel.BoatLocation.BoatCountryID == "United States" ? `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatStateCode}` : `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatCountryID}`);
 			}
 			else {
-		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCountryID.replace(/( )/g, '-') }`;
+		        vesselKeywordLocationLink=`${ ysp_yacht_sync.yacht_search_url }/ys_keyword-${ vessel.BoatLocation.BoatCountryID.replace(/( )/g, '-') }`;
 
 				vesselLocation = `${vessel.BoatLocation.BoatCountryID}`;
 			}

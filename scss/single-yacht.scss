@@ -46,7 +46,7 @@
         .TwoStack{
             flex-grow: 1;
 
-            display: grid;
+            display: none;
             gap: 15px;
             justify-content: space-between;
             grid-template-columns: 1fr;
@@ -70,8 +70,8 @@
 
             }
 
-            @media (max-width: vars.$breakpoint-large) {
-                display: none;
+            @media (min-width: vars.$breakpoint-large) {
+                display: grid;
             }
 
         }
@@ -154,12 +154,12 @@
 
             padding: 30px;
 
-            @media (max-width: vars.$breakpoint-large) {
-                display: none;
+            display: none;
+
+            @media (min-width: vars.$breakpoint-large) {
+                display: block;
             }
         }
-
-
     }
 
     .ysp-single-y-headings{

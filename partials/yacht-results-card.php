@@ -20,11 +20,11 @@
     if ($yacht->BoatLocation->BoatCityName !== "") {
         $vesselLocation = ($yacht->BoatLocation->BoatCountryID == "US" || $yacht->BoatLocation->BoatCountryID == "United States") ? $yacht->BoatLocation->BoatCityName.', '.$yacht->BoatLocation->BoatStateCode : $yacht->BoatLocation->BoatCityName.', '. $yacht->BoatLocation->BoatCountryID;
 
-        $vesselLocationLink = '/yacht-search/ys_keyword-'. str_replace([' '], ['-'], $yacht->BoatLocation->BoatCityName);
+        $vesselLocationLink = $yacht_search_url.'/ys_keyword-'. str_replace([' '], ['-'], $yacht->BoatLocation->BoatCityName);
     }
     else {
         $vesselLocation = $yacht->BoatLocation->BoatCountryID;
-        $vesselLocationLink = '/yacht-search/ys_keyword-'. str_replace([' '], ['-'], $yacht->BoatLocation->BoatCountryID);
+        $vesselLocationLink = $yacht_search_url.'/ys_keyword-'. str_replace([' '], ['-'], $yacht->BoatLocation->BoatCountryID);
     }
 ?>
 <div class="ysp-yacht-item ysp-view-grid" data-post-id="<?= $yacht->_postID ?>" data-yacht-id="<?= $yacht->DocumentID ?>">

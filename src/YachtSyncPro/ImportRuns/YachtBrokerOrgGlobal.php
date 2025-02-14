@@ -189,6 +189,29 @@
 
 		            $theBoat['Images'] = $images;
 
+					if (isset($row['Media']['YoutubeIDs'])) {
+						$youtubeVideoData = [];
+						foreach ($row['Media']['YoutubeIDs'] as $media) {
+							$youtubeVideoData[] = (object) [
+								'YoutubeID' => $media['YoutubeVideoID'],
+								'Title' => $media['YoutubeVideoTitle'],
+							];
+						}
+
+						$theBoat['YSP_YouTubeData'] = $youtubeVideoData;
+					}
+
+					if (isset($row['Media']['VirtualTours'])) {
+						$virtualTourData = [];
+						foreach ($row['Media']['VirtualTours'] as $tour) {
+							$virtualTourData[] = (object) [
+								'URL' => $tour['VirtualTourURL'],
+							];
+						}
+
+						$theBoat['YSP_VirtualTours'] = $virtualTourData;
+					}
+
 					if (isset($row['NominalLength'])) {
 						$theBoat['YSP_Length'] = (int) $row['NominalLength'];
 					}

@@ -1,45 +1,55 @@
+var singleYachtGalley=null;
+
 document.addEventListener("DOMContentLoaded", () => {
-    var flktyMain = new Flickity('.carousel-main', {
-        wrapAround: true,
-        cellAlign: 'center',
-        contain: true,
-        pageDots: false,
-        lazyLoad: true,
-        // imagesLoaded: true
-    });
-
-    var flktyNav = new Flickity('.carousel-nav', {
-        asNavFor: '.carousel-main',
-        contain: true,
-        pageDots: false,
-        prevNextButtons: false,
-        lazyLoad: true,
-        // imagesLoaded: true
-    });
-
-
     if (document.getElementById('lightgallery')) {
         console.log("Fired")
-        lightGallery(document.getElementById('lightgallery'), {
+        singleYachtGalley=lightGallery(document.getElementById('lightgallery'), {
           plugins: [
             lgZoom,
-            //lgThumbnail,
+            lgThumbnail,
             lgVideo,
             lgRotate,
             //lgShare
           ],
-          speed: 500,
+          speed: 200,
           //licenseKey: 'your_license_key',
           thumbnail:true,
           animateThumb: false,
-          showThumbByDefault: false,
+          showThumbByDefault: true,
           download: false,
-          selector: '.carousel-cell'
+          selector: 'img',
+          exThumbImage: 'data-thumb-src'
       });
     }
+
     if (document.getElementById('video-gallery')){
       lightGallery(document.getElementById('video-gallery'), {
         plugins: [lgVideo],
       })
     }
-  });
+
+    document.querySelector('#ysp-single-y-image-topper .img1').addEventListener('click', function() {
+      singleYachtGalley.openGallery(0);
+    });
+
+    document.querySelector('#ysp-single-y-image-topper .img2').addEventListener('click', function() {
+      singleYachtGalley.openGallery(1);
+    });
+
+    document.querySelector('#ysp-single-y-image-topper .img3').addEventListener('click', function() {
+      singleYachtGalley.openGallery(2);
+    });
+});
+
+
+function copyLink() {
+
+  var copyText = document.getElementById("shareLinkInput");
+
+  copyText.select();
+  copyText.setSelectionRange(0, 99999);
+
+  document.execCommand("copy");
+
+  alert("Copied the link: " + copyText.value);
+}

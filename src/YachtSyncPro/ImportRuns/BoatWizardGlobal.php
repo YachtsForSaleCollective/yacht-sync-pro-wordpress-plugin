@@ -2,7 +2,7 @@
     #[AllowDynamicProperties]
 		
 	class YachtSyncPro_ImportRuns_BoatWizardGlobal {
-   		protected $limit = 53;
+   		protected $limit = 153;
 	
 		// Testing URL
 		//public $globalInventoryUrl = 'https://services.boats.com/pls/boats/search?fields=ModelYear,MakeString,Model,BoatName,DocumentID,NominalLength,BoatClassCode&key=';
@@ -255,6 +255,24 @@
 					
 					$apiCall = wp_remote_get($url, ['timeout' => 180]);
 
+					$apiCallDetailsStatus = wp_remote_retrieve_response_code($apiCall);
+
+					if ($apiCallDetailsStatus == 200) {
+						// return;
+					}
+					elseif ($apiCallDetailsStatus == 401) {
+						var_dump(['error' => 'Error with auth']);
+						continue;
+						//return ['error' => 'Error with auth'];
+					}
+					else {
+						var_dump(['error' => 'Error http error '.$apiCallDetailsStatus]);
+						sleep(120);
+						continue;
+						//return ['error' => 'Error http error '.$apiCallDetailsStatus];
+					}
+					
+
 					$response = $apiCall['body'];
 
 						$response=json_decode($response, true);
@@ -408,6 +426,9 @@
 					$boatC->Touched_InSync=1;
 					$boatC->ImportSource = "BoatWizard";
 
+					$boatC->MakeString = strtolower($boatC->MakeString);
+					$boatC->MakeString = ucwords($boatC->MakeString);
+
 		            $y_post_id=wp_insert_post(
 		            	apply_filters('ysp_yacht_post', 
 		            		[
@@ -429,6 +450,12 @@
 					);
 
 					wp_set_post_terms($y_post_id, $boat['BoatClassCode'], 'boatclass', false);
+
+					wp_set_post_terms($y_post_id, $boat['MakeString'], 'boatmaker', false);
+
+					wp_set_post_terms($y_post_id, $boat['SaleClassCode'], 'boatcondition', false);
+
+					wp_set_post_terms($y_post_id, $boat['BoatCategoryCode'], 'boattype', false);
 
 					if ($this->opt_prerender_brochures == 'yes' && $pdf_still_e == false && ! in_array($boatC->SalesStatus, ['Sold', 'Suspend']) ) {
 

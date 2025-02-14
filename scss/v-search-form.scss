@@ -1,14 +1,45 @@
-#v-search-container {
-    max-width: 260px;
-    margin-right: auto;
-    margin-left: auto;
+@use "vars";
 
-    .ys-v-row {
-        display: block;
+#ysp-v-super-search, .ysp-v-row{
+	
 
-        .ys-v-row-item {
-            margin-bottom: 15px;
-            position: relative;
+	.ysp-s-field{
+		margin-bottom: 10px;
+	}
+
+	.labal-with-toggles{
+        display: flex;
+        justify-content: space-between;
+        position: relative;
+
+        .toggles{
+            display: flex;
+            gap: 5px;
+
+            position: absolute;
+            right: 0px;
+            
+            input[type=radio]{
+                display: none;
+
+                & + label{
+                    font-size: 12px;
+                    color: vars.$button-bg-color;
+
+                    cursor: pointer;
+
+                    border: 1px solid vars.$button-bg-color;
+                    border-radius: 8px;
+                    padding: 0px 6px;
+                }
+
+                &:checked + label{
+                    background: vars.$button-bg-color;
+                    color: vars.$button-text-color;
+                }
+            }
         }
+
     }
+
 }

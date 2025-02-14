@@ -18,6 +18,10 @@
 		
 		public function make_description($context) {
 
+			if (empty($this->gpt_token)) {
+				return false;
+			}
+
 			$gpt_messages = [
 				[
 					'role' => 'system', 
@@ -64,6 +68,8 @@
 				return ($gpt_body['choices'][0]['message']['content']);
 			}
 			else {
+				var_dump('meta description');
+				var_dump($gpt_body);
 				return "0";
 			}
 		}

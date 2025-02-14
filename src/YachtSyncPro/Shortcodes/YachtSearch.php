@@ -130,7 +130,7 @@
 
             ob_start();
 		  		
-				$file_to_include=YSP_TEMPLATES_DIR.'/quick-search.php'; 
+				$file_to_include=YSP_TEMPLATES_DIR.'/v-quick-search.php'; 
 
 		    	include apply_filters('ysp_ys_quick_search_results_template', $file_to_include);
 
@@ -151,7 +151,7 @@
 
             ob_start();
 		  		
-				$file_to_include=YSP_TEMPLATES_DIR.'/quick-h-search.php'; 
+				$file_to_include=YSP_TEMPLATES_DIR.'/h-quick-search.php'; 
 
 		    	include apply_filters('ysp_ys_h_quick_search_results_template', $file_to_include);
 
@@ -178,6 +178,7 @@
 	        $yachtQuery = new WP_Query($args);
 
 	        $YSP_Euro_Opt = $this->options->get('is_euro_site');
+	        $yacht_search_url = get_permalink($this->options->get('yacht_search_page_id'));
 
 		    ob_start();
 		  		

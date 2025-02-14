@@ -5,7 +5,7 @@
         $YachtSyncProPlugin = new YachtSyncPro_Plugin();
         // $options = new rossWorld_Options();
 
-        $YachtSyncProPlugin->version = '2.5.0';
+        $YachtSyncProPlugin->version = YSP_VERSION;
 
         // Install the plugin
         // NOTE: this file gets run each time you *activate* the plugin.

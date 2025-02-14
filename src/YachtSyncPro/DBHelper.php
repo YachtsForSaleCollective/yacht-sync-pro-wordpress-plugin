@@ -97,6 +97,42 @@
 		}
 
 
+		public function get_unique_yacht_tax_values($tax) {
+
+			$terms = get_terms( array(
+			    'taxonomy'   => $tax,
+			    'post_type' => 'ysp_yacht',
+			    'fields' => 'names',
+			    'hide_empty' => true,
+			));
+
+			return $terms;
+
+		}
+
+		public function get_unique_yacht_tax_values_with_count($tax) {
+
+			$terms = get_terms( array(
+			    'taxonomy'   => $tax,
+			    'post_type' => 'ysp_yacht',
+			    'hide_empty' => true,
+			));
+
+			$options=[];
+
+			foreach ($terms as $t) {
+
+				$options[]=[
+					"t" => $t->name.' ('. $t->count .')',
+					"v" => $t->name,
+ 				];
+
+			}
+
+			return $options;
+
+		}
+
 
 
 	}

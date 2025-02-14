@@ -32,7 +32,7 @@
 			    'capability_type' => 'post',
 			    'map_meta_cap' => true,
 
-				'public' => false,
+				'public' => true,
 				'publicly_queryable' => false,
 				'can_export' => true,
 

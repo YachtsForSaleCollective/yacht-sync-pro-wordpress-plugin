@@ -59,13 +59,16 @@
 			global $wp_query;
 
 			$order_of_params=[
-				'condition',
+				'condition', 
+				'boatcondition', 
+				'boattype',
 				'ys_company_only',
 				'ys_keyword',
 				// sail or motor
 				//'year',		
 				//'length',
 				'make',
+				'boatmaker',
 				'boatclass'
 			];
 
@@ -204,7 +207,8 @@
 				'length',
 				'year',
 				'price',
-				'staterooms'
+				'staterooms',
+				'stateroomslo'
 			];
 
 			$orders_of_withins = [];
@@ -217,6 +221,10 @@
 					case 'staterooms':
 						if (isset($params['staterooms'])) {
 							$pVal = 'With '. $params['staterooms'] .' Cabins';
+						}
+
+						if (isset($params['stateroomlo'])) {
+							$pVal = 'With '. $params['stateroomlo'] .'+ Cabins';
 						}
 
 						break;

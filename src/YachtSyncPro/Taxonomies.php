@@ -10,7 +10,7 @@
     }
 
     public function add_taxonomies() {
-        register_taxonomy('boatclass', 'ysp_yacht', array(
+        register_taxonomy('boatclass', ['ysp_yacht', 'syncing_ysp_yacht'], array(
 
             'public' => false,
             'publicly_queryable' => true,
@@ -29,6 +29,72 @@
               'add_new_item' => __( 'Add New Code Class' ),
               'new_item_name' => __( 'New Code Class' ),
               'menu_name' => __( 'Boat Code Classes' ),
+            )
+        ));
+
+        register_taxonomy('boatmaker', ['ysp_yacht', 'syncing_ysp_yacht'], array(
+
+            'public' => false,
+            'publicly_queryable' => true,
+            'show_ui' => true,
+            'hierarchical' => false,
+
+            'labels' => array(
+              'name' => __( 'Boat Maker' ),
+              'singular_name' => __( 'Boat Maker' ),
+              'search_items' =>  __( 'Search Maker' ),
+              'all_items' => __( 'All Boat Maker' ),
+              'parent_item' => __( 'Parent Maker' ),
+              'parent_item_colon' => __( 'Parent Maker:' ),
+              'edit_item' => __( 'Edit Maker' ),
+              'update_item' => __( 'Update Maker' ),
+              'add_new_item' => __( 'Add New Maker' ),
+              'new_item_name' => __( 'New Maker' ),
+              'menu_name' => __( 'Boat Maker' ),
+            )
+        ));
+
+        register_taxonomy('boattype', ['ysp_yacht', 'syncing_ysp_yacht'], array(
+
+            'public' => false,
+            'publicly_queryable' => true,
+            'show_ui' => true,
+            'hierarchical' => false,
+
+            'labels' => array(
+              'name' => __( 'Boat Type' ),
+              'singular_name' => __( 'Boat Type' ),
+              'search_items' =>  __( 'Search Type' ),
+              'all_items' => __( 'All Boat Type' ),
+              'parent_item' => __( 'Parent Type' ),
+              'parent_item_colon' => __( 'Parent Type:' ),
+              'edit_item' => __( 'Edit Type Class' ),
+              'update_item' => __( 'Update Type' ),
+              'add_new_item' => __( 'Add New Type' ),
+              'new_item_name' => __( 'New Type' ),
+              'menu_name' => __( 'Boat Type' ),
+            )
+        ));
+
+        register_taxonomy('boatcondition', ['ysp_yacht', 'syncing_ysp_yacht'], array(
+
+            'public' => false,
+            'publicly_queryable' => true,
+            'show_ui' => true,
+            'hierarchical' => false,
+
+            'labels' => array(
+              'name' => __( 'Boat Condition' ),
+              'singular_name' => __( 'Boat Condition' ),
+              'search_items' =>  __( 'Search Condition' ),
+              'all_items' => __( 'All Boat Condition' ),
+              'parent_item' => __( 'Parent Condition' ),
+              'parent_item_colon' => __( 'Parent Condition:' ),
+              'edit_item' => __( 'Edit Condition' ),
+              'update_item' => __( 'Update Condition' ),
+              'add_new_item' => __( 'Add New Condition' ),
+              'new_item_name' => __( 'New Condition' ),
+              'menu_name' => __( 'Boat Condition' ),
             )
         ));
 

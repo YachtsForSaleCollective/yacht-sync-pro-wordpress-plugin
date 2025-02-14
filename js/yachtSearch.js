@@ -6,10 +6,11 @@ function ysp_yacht_search_and_reader(data) {
 
     console.log(data);
 
-    jQuery('#search-result-row').html('');
+    jQuery('#ysp-the-yacht-results').html('');
+    jQuery('#ysp-yacht-results-pagination').html('');
 
-    document.querySelector('#search-result-section').classList.remove('loaded');
-    document.querySelector('#search-result-section').classList.add('loading');
+    document.querySelector('#ysp-yacht-results-section').classList.remove('loaded');
+    document.querySelector('#ysp-yacht-results-section').classList.add('loading');
 
     ysp_set_form_to_data( data );
 
@@ -18,14 +19,14 @@ function ysp_yacht_search_and_reader(data) {
     // GET AND WRITE
     return ysp_api.call_api("POST", "yachts", data).then(function(data_result) {
 
-        document.querySelector('#search-result-section').classList.remove('loading');
-        document.querySelector('#search-result-section').classList.add('loaded');
+        document.querySelector('#ysp-yacht-results-section').classList.remove('loading');
+        document.querySelector('#ysp-yacht-results-section').classList.add('loaded');
 
         document.title = data_result.SEO.title;
         jQuery('#ysp-search-heading').text(data_result.SEO.heading);
         jQuery('#ysp-search-paragraph').text(data_result.SEO.p);
 
-        jQuery('#total-results').text(new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(data_result.total));
+        jQuery('#ysp-total-yacht-results').text(new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 }).format(data_result.total));
 
         let currentURL=null;
 
@@ -36,41 +37,52 @@ function ysp_yacht_search_and_reader(data) {
             currentURL = location.href;
         }
         
-        jQuery('#yachts-pagination').html('');
-
         if (data_result.total > 0) {
+
+            jQuery('#ysp-the-yacht-results').removeClass(['view-grid', 'view-list']);
+
+             if (typeof data.view != 'undefined' && data.view.toLowerCase() == 'list') {
+                jQuery('#ysp-the-yacht-results').addClass('view-list');
+            }
+            else {
+                jQuery('#ysp-the-yacht-results').addClass('view-grid');
+            }
 
             data_result.results.forEach(function(item) {
                 if (typeof data.view != 'undefined' && data.view.toLowerCase() == 'list') {
-                    jQuery('#search-result-row').append( ysp_templates.yacht.list(item, data) );
+                    jQuery('#ysp-the-yacht-results').addClass('view-list').removeClass('view-grid');
+                    jQuery('#ysp-the-yacht-results').append( ysp_templates.yacht.list(item, data) );
                 }
                 else {
-                    jQuery('#search-result-row').append( ysp_templates.yacht.grid(item, data) );
+                    jQuery('#ysp-the-yacht-results').addClass('view-grid');
+                    jQuery('#ysp-the-yacht-results').append( ysp_templates.yacht.grid(item, data) );
                 }
 
-                let ele_card = jQuery('#search-result-row [data-post-id='+ item._postID +']');
+                let ele_card = jQuery('#ysp-the-yacht-results [data-post-id='+ item._postID +']');
 
-                jQuery('[data-modal]', ele_card).click(function(e) {
+                jQuery('[data-modal=#ysp-yacht-results-lead-modal]', ele_card).click(function(e) {
                     e.preventDefault();
                 
-                    let vesselInfo = item.ModelYear + ' ' + item.MakeString + ' ' + item.BoatName;
+                    let BoatName = item.ModelYear + ' ' + item.MakeString + ' ' + item.BoatName;
 
-                    jQuery('#yatchHidden').val(vesselInfo);
+                    jQuery('#ysp-yacht-results-lead-modal .boatname').html(BoatName);
+                    jQuery('#ysp-yacht-results-lead-modal input[name=WhichBoat]').val(BoatName);
+                    jQuery('#ysp-yacht-results-lead-modal input[name=WhichBoatID]').val(item._postID);
 
-                  var data_modal = jQuery(this).data('modal');
-              
-                  jQuery( data_modal ).ysp_modal({
-                    closeText: 'X',
-                    modalClass: 'ysp-modal-open',
-                    closeClass: 'ysp-model-close'
-                  });
+                    var data_modal = jQuery(this).data('modal');
+
+                    jQuery( data_modal ).ysp_modal({
+                        closeText: 'X',
+                        modalClass: 'ysp-modal-open',
+                        closeClass: 'ysp-model-close'
+                    });
                 });
 
                 ysp_markLovedVessel( ele_card );     
                 ysp_makeCompareVessel( ele_card );           
             });
 
-            jQuery('#yachts-pagination').pagination({
+            jQuery('#ysp-yacht-results-pagination').pagination({
                 items: data_result.total,
                 itemsOnPage: 12,
                 currentPage: data.page_index,
@@ -92,8 +104,7 @@ function ysp_yacht_search_and_reader(data) {
             });
         } 
         else {
-            jQuery('#search-result-row').append(ysp_templates.noResults());
-
+            jQuery('#ysp-the-yacht-results').append(ysp_templates.noResults());
         }
 
         jQuery([document.documentElement, document.body]).animate({
@@ -190,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 */
-    let yachtSearchAndResults=document.querySelector('.ysp-yacht-search-form:not(#ysp-mobile-yacht-search-form)');
+    let yachtSearchAndResults=document.querySelector('#ysp-yacht-search-form');
 
     if (yachtSearchAndResults) {
         document.querySelectorAll('.open-mobile-search').forEach((omse) => {
@@ -251,7 +262,7 @@ document.addEventListener("DOMContentLoaded", function() {
             })            
         }
 
-        document.querySelectorAll('input[name=view][form=ysp-yacht-search-form], select[name=sortby][form=ysp-yacht-search-form]').forEach((eleViewOption) => {
+        document.querySelectorAll('input[name=view][form=ysp-yacht-search-form], select[name=view][form=ysp-yacht-search-form],  select[name=sortby][form=ysp-yacht-search-form]').forEach((eleViewOption) => {
             eleViewOption.addEventListener('change', function(e) {
                 e.target.form.requestSubmit();
             });
@@ -390,9 +401,15 @@ document.addEventListener("DOMContentLoaded", function() {
                     SelectorEle.forEach((ele) => {
                         let option = document.createElement("OPTION");
 
+                        if (typeof b == 'object') {
+                            option.text = b.t;
+                            option.value = b.v;
+                        }
+                        else {
                             option.text = b;
                             option.value = b;
-
+                        }
+                        
                         ele.add(option);
                     });
                 });

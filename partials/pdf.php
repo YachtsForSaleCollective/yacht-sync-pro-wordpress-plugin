@@ -1,5 +1,7 @@
 <?php
 
+$YSP_Options = new YachtSyncPro_Options();
+
 $meta = get_post_meta($yacht_post_id);
 
 foreach ($meta as $indexM => $valM) {
@@ -13,21 +15,13 @@ $vessel = array_map("maybe_unserialize", $meta);
 $vessel = (object) $vessel;
 
 
-if( $vessel->BoatName != null ) {
+if ( $vessel->BoatName != null ) {
     $vesselH1 = $vessel->ModelYear . " " . $vessel->MakeString . " " . $vessel->Model . " " . $vessel->BoatName;
 } else {
     $vesselH1 = $vessel->ModelYear . " " . $vessel->MakeString . " " . $vessel->Model;
 }
 
-function ReplaceStr($str1)
-{
-
-    $res3 = str_replace(array(' USD'), '', $str1);
-
-    return $res3;
-}
-
-$price = ($vessel->Price && $vessel->Price != "0.00 USD" && $vessel->Price != "1.00 USD") ? number_format(ReplaceStr(trim(str_replace(['EUR', 'USD'], '', $vessel->Price)))) : "Contact Us For Price";
+$price = ($vessel->Price && $vessel->Price != "0.00 USD" && $vessel->Price != "1.00 USD") ? number_format((trim(str_replace(['EUR', 'USD'], '', $vessel->Price)))) : "Contact Us For Price";
 
 $itemReceivedDate = $vessel->ItemReceivedDate;
 $itemDate = strtotime($itemReceivedDate);
@@ -40,7 +34,7 @@ $boatCity = $vessel->BoatLocation->BoatCityName;
 $boatState = $vessel->BoatLocation->BoatStateCode;
 $boatCountry = $vessel->BoatLocation->BoatCountryID;
 
-if($boatState != ""){
+if ($boatState != ""){
     $boatLocation = $boatCity . ', ' . $boatState;
 } else {
     $boatLocation = $boatCity . ', ' . $boatCountry;
@@ -57,9 +51,13 @@ $cruisingSpeed = $vessel->CruisingSpeedMeasure;
 $dryWeight = $vessel->DryWeightMeasure;
 $int_var = (int)filter_var($dryWeight, FILTER_SANITIZE_NUMBER_INT);
 $draft = $vessel->MaxDraft;
-$length = $vessel->NominalLength;
+$length = $vessel->YSP_LOAFeet;
+
 $lengthOverall = $vessel->LengthOverall;
 $length2 = $vessel->NormNominalLength;
+
+$lengthMeters =  $vessel->YSP_LOAMeter;
+
 $make = $vessel->MakeString;
 $model = $vessel->Model;
 $maxSpeed = $vessel->MaximumSpeedMeasure;
@@ -67,16 +65,19 @@ $driveTypeCode = $vessel->DriveTypeCode;
 $year = $vessel->ModelYear;
 $phone = $vessel->Office->Phone; 
 $email = $vessel->Office->Email;
-if($phone == ""){
-    $phone = "(954) 533-3145";
+
+if ($phone == ""){
+    $phone = $YSP_Options->get('company_number');;
 }
+
 if ($email == "") {
-    $email = "info@theiyg.com";
+    $email = $YSP_Options->get('send_lead_to_this_email');;
 }
 
 $numberOfEngines = $vessel->NumberOfEngines;
+
 if (is_array($vessel->Engines)) {
-    $enginesData = array();
+    $enginesData = array(); 
 
     foreach ($vessel->Engines as $engine) {
         $engineData = array(
@@ -93,50 +94,109 @@ if (is_array($vessel->Engines)) {
 }
 
 $post = get_post($yacht_post_id);
-$permalink = $post->guid;
+$permalink = get_permalink($yacht_post_id);
+
+$colorTxt = $YSP_Options->get('rai_ys_button_txt_color_one');
+$colorBg = $YSP_Options->get('rai_ys_button_bg_color_one');
+
+$limitOfGallery = 16;
+
+if ( isset( $_GET['GalleryLimit'] ) && ! empty( $_GET['GalleryLimit'] )) {
+
+    $limitOfGallery = $_GET['GalleryLimit'];
+
+}
+
+$imageGallery = array_slice($vessel->Images, 0, $limitOfGallery);
+
+$chuckedGallery = array_chunk($imageGallery, 8);
+
+$broker = $vessel->SalesRep->Name;
+    
+$BrokerNames = explode(' ', $broker);
+
+$brokerQueryArgs = array(
+    'post_type' => 'ysp_team',
+    'posts_per_page' => 1,
+
+    'meta_query' => [
+        'name' => [
+            'relation' => 'OR'
+        ],
+    ],
+);
+
+foreach ($BrokerNames as $bName) {
+    $brokerQueryArgs['meta_query']['name'][]=[
+        'key' => 'broker_fname',
+        'compare' => 'LIKE',
+        'value' => $bName,
+    ];
+}
+
+foreach ($BrokerNames as $bName) {
+    $brokerQueryArgs['meta_query']['name'][]=[
+        'key' => 'broker_lname',
+        'compare' => 'LIKE',
+        'value' => $bName,
+    ];
+}
+
+$brokerQuery = new WP_Query($brokerQueryArgs);
+
+if ($brokerQuery->have_posts()) {
+
+}
+else {
+    $mainBrokerQueryArgs = array(
+        'post_type' => 'ysp_team',
+        'meta_query' => array(
+            array(
+                'key' => 'ysp_main_broker',
+                'value' => '1',
+            ),
+        ),
+        'posts_per_page' => 1,
+    );
+
+    $brokerQuery = new WP_Query($mainBrokerQueryArgs);
 
 
-$YSP_Options = new YachtSyncPro_Options();
+}
 
-$colorOne = $YSP_Options->get('color_one');
-$colorTwo = $YSP_Options->get('color_two');
 ?>
 <!DOCTYPE html>
 <html>
 <head>
+    <title><?= $post->post_title ?> - PDF</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style type="text/css">
 
-    <style>
-
-        :root {
-            --main-color: <?php echo $colorOne; ?>;
-            --secondary-color: <?php echo $colorTwo; ?>;
-            --main-text-color: var(--main-color);
-            --secondary-text-color: var(--secondary-color);
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900');
 
         #pdf-page-template {
-            width: 100%;
-            max-width: 1440px;
-            margin: auto;
             font-family: 'Montserrat', sans-serif;
+            margin: auto;
+            padding: 20px;
+            max-width: 1440px;
         }
 
-        .cover-page-container-logo {
-            width: 100%;
-            height: 90vh;
+        .go-back{
             display: flex;
-            justify-content: center;
-            align-items: center;
+            text-decoration: none;
+            color: black;
+            padding-bottom: 20px;
+            width: 155px;
+            font-size: 12px;
         }
-
-        .cover-page-container-logo img {
-            width: 150px;
+        
+        .back-yacht{
+            padding-left: 5px;
+            font-weight: 12px;
         }
 
         .cover-page-title-container {
-            height: 10vh;
             display: flex;
             align-items: center;
         }
@@ -150,51 +210,50 @@ $colorTwo = $YSP_Options->get('color_two');
         }
 
         .main-title-container {
-            margin-bottom: 40px;
+            margin-bottom: 15px;
         }
-        .main-page-container {
-            padding: 20px;
-        }
+
         .main-name-price-container {
             display: flex;
             justify-content: space-between;
         }
+
         .main-name-price-container .main-boat-name {
-            color: var(--secondary-text-color);
             text-transform: uppercase;
             font-weight: 400;
-            margin: 0;
         }
+
         .main-name-price-container .main-boat-price {
             text-transform: uppercase;
             font-weight: 400;
-            margin: 0;
         }
 
         .main-page-container .main-hero-image-container img {
             width: 100%;
-            height: 500px;
+            max-height: 400px;
             object-fit: cover;
+            border-radius: 12px;
         }
 
         .main-hero-image-container {
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
-        /* MAIN INFO SECTION */
-
         .main-info-container {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+
             justify-content: space-between;
-            margin-bottom: 100px;
-            font-size: 14px
+            margin-bottom: 30px;
+            font-size: 14px;
         }
 
         .main-location-container, .main-builder-container, .main-cabins-container, .main-length-container {
             display: flex;
             align-items: center;
-            flex: 0 0 calc(25% - 3px);
+            
             position: relative;
+
             padding-left: 2px;
         }
 
@@ -202,193 +261,132 @@ $colorTwo = $YSP_Options->get('color_two');
             margin-left: 30px;
         }
 
-        .main-location-container::before, .main-builder-container::before, .main-cabins-container::before, .main-length-container::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background-color: var(--secondary-text-color);
-        }
-
-        .main-location-container::before {
-            display: none;
-        }
-
-        .main-length-container {
-            margin-right: 0;
-        }
         .main-location, .main-builder, .main-cabins, .main-length {
             margin-left: 20px;
         }
+
         .location-name, .builder-name, .cabins-name, .length-name {
             font-size: 12px;
-            margin: 0px;
             margin-bottom: 10px;
-            color: var(--main-text-color);
         }
+        
         .location-value, .builder-value, .cabins-value, .length-value {
             font-size: 10px;
-            margin: 0px;
-            color: var(--main-text-color);
-        }
-
-        .main-specifications-container {
-            margin-bottom: 150px;
         }
 
         .main-specifications-container .main-specifications-title {
-            color: var(--secondary-text-color);
-            font-weight: 400;
-            font-size: 14px;
+            text-transform: uppercase;
         }
+
         .main-specifications-container .specifications-container {
             display: flex;
             justify-content: space-between;
         }
+
         .specifications-container .specification-column {
             flex-basis: calc(50% - 20px);
         }
+
         .specification-column .individual-specification-group {
             display: flex;
             justify-content: space-between;
             border-bottom: 1px solid #D9D9D9;
         }
+
         .individual-specification-group .specification-title {
             text-transform: uppercase;
-            color: var(--main-text-color);
-            font-weight: 600;
-            font-size: 12px
         }
+
         .individual-specification-group .specification-value {
-            color: var(--main-text-color);
             font-weight: 400;
             font-size: 10px;
         }
-        /* FOOTER CONTAINER */
 
-        .footer-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 200px;
-            padding: 20px;
-        }
-        .footer-broker-info{
-            display: flex;
-            justify-content: space-between;
-            width: 800px;
-            margin: auto;
+        .specifications-tables{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
         }
 
-        .footer-broker-info p {
-            margin: auto;
-            margin-bottom: 10px;
-            font-size: 12px;
-            color: var(--secondary-text-color);
-        }
-
-        .footer-container .footer-img {
-            height: 50px;
-            width: auto;
-            margin-top: auto ;
-            margin-bottom: auto ;
-        }
-
-        .footer-container .footer-broker-info .footer-broker-website {
-            color: #C00020;
-        }
-
-        .main-description-container {
-            line-height: 30px;
-            margin-bottom: 100px;
+        .specifications-table{
+            border-collapse: collapse; 
+            width: 100%;
+            text-align: left;
             font-size: 12px;
         }
 
-        .footer-broker-info p a {
-            text-decoration: none;
-            color: var(--secondary-text-color);
+        .specifications-table th{
+            text-align: left;
+        }
+    
+        .specifications-table td{
+            text-align: right;
         }
 
-        .other-specs-group .other-specs-title {
-            color: var(--secondary-text-color);
-            font-weight: 400;
-            font-size: 14px;
+        .specifications-table th, .specifications-table td{
+            padding-top: 10px;
+            padding-bottom: 10px;
         }
 
-        .other-specs-group-container .individual-specs-group {
-            display: flex;
-            justify-content: space-between;
+        .specifications-table tr{
+             border-bottom: 1px solid #D9D9D9;
+        }
+
+        .other-specs-table{
+            width: 100%;
+            border-collapse: collapse; 
+            text-align: left;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .other-specs-table tr{
             border-bottom: 1px solid #D9D9D9;
         }
 
-        .individual-specs-group .other-specs-name {
-            color: var(--main-text-color);
-            font-weight: 600;
-            font-size: 12px;
+        .other-specs-table td{
+            text-align: right;
         }
 
-        .individual-specs-group .other-specs-value {
-            color: var(--main-text-color);
-            font-weight: 400;
-            font-size: 10px;
-        }
-
-        .other-specs-group .other-specs-group-container {
-            margin-bottom: 35px;
-        }
-
-        .additional-description {
-            line-height: 30px;
-            font-size: 12px;
+        .other-specs-table th, .other-specs-table td{
+            padding-top: 10px;
+            padding-bottom: 10px;
         }
 
         .image-gallery-container {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 15px;
         }
 
         .individual-image-container {
-            flex-basis: calc(50% - 10px);
-            margin: 5px;
             box-sizing: border-box;
         }
 
         .gallery-image {
             max-width: 100%;
-            height: auto;
-            display: block;
-            margin: auto;
-        }
-        .gallery-image {
-            display: block;
-            max-height: 317px !important;
-            height: 317px !important;
-            width: 480px;
-        }
-
-        .pdf-page {
+            height: 200px;
             width: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .go-back{
-            display: flex;
-            text-decoration: none;
-            color: black;
-            padding-bottom: 20px;
-            width: 155px;
-            font-size: 12px;
-        }
-        .back-yacht{
-            padding-left: 5px;
-            font-weight: 12px;
+            display: block;
+            border-radius: 12px;
+            object-fit: cover;
         }
 
+        .footer-broker-info {
+            
+            padding-top: 20px;
+            padding-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -399,7 +397,7 @@ $colorTwo = $YSP_Options->get('color_two');
                 <a class="go-back" href="<?php echo $permalink ?>">
                  <img src="<?php echo YSP_ASSETS; ?>images/back.svg" alt="" />
                  <div class="back-yacht">DETAIL'S PAGE</div>
-                 </a>
+                </a>
             </div>
             <div class="main-name-price-container">
                 <h3 class="main-boat-name"><?= $vesselH1 ?></h3>
@@ -438,169 +436,155 @@ $colorTwo = $YSP_Options->get('color_two');
                 <img width="90" height="50" src="<?php echo YSP_ASSETS; ?>images/Length.svg" alt="" />
                 <div class="main-length">
                     <p class="length-name">LENGTH</p>
-                    <p class="length-value"><?= $length ?> / <?= $lengthMeters ?> m</p>
+                    <p class="length-value"><?= $length ?>ft</p>
                 </div>
             </div>
         </div>
-        <div class="main-specifications-container">
-            <h3 class="main-specifications-title">SPECIFICATIONS</h3>
-            <div class="specifications-container">
-                <div class="specification-column">
-                    <div class="individual-specification-group">
-                        <p class="specification-title">YACHT TYPE</p>
-                        <p class="specification-value"><?= $category ? $category : 'N/A' ?></p>
-                    </div>
-                    <div class="individual-specification-group">
-                        <p class="specification-title">BRAND</p>
-                        <p class="specification-value"><?= $make ? $make : 'N/A' ?></p>
-                    </div>
-                    <div class="individual-specification-group">
-                        <p class="specification-title">YEAR</p>
-                        <p class="specification-value"><?= $year ? $year : 'N/A' ?></p>
-                    </div>
-                    <div class="individual-specification-group">
-                        <p class="specification-title">HULL</p>
-                        <p class="specification-value"><?= $construction ? $construction : 'N/A' ?></p>
-                    </div>
-                    <div class="individual-specification-group">
-                        <p class="specification-title">DAYS LISTED</p>
-                        <p class="specification-value"><?= $itemDate ? $itemDate : 'N/A' ?></p>
-                    </div>
-                    <div class="individual-specification-group">
-                        <p class="specification-title">PRICE</p>
-                        <p class="specification-value">$<?= $price ? $price : 'N/A' ?></p>
-                    </div>
-                </div>
-                <div class="specification-column">
-                    <div class="individual-specification-group">
-                        <p class="specification-title">LENGTH OVERALL</p>
-                        <p class="specification-value"></p>
-                    </div>
-                    <div class="individual-specification-group">
-                        <p class="specification-title">BEAM</p>
-                        <p class="specification-value"><?= (isset($beam) && isset($beamMeters)) ? $beam . " / " . $beamMeters . " m" : "N/A" ?></p>
-                    </div>
-                    <div class="individual-specification-group">
-                        <p class="specification-title">MAX DRAFT</p>
-                        <p class="specification-value"><?= (isset($draft) && isset($draftMeters)) ? $draft . " / " . $draftMeters . " m" : "N/A" ?></p>
-                    </div>
-                    <div class="individual-specification-group">
-                        <p class="specification-title">MAX SPEED</p>
-                        <p class="specification-value"><?= $maxSpeed ? $maxSpeed : 'N/A' ?></p>
-                    </div>
-                    <div class="individual-specification-group">
-                        <p class="specification-title">CRUISING SPEED</p>
-                        <p class="specification-value"><?= $cruisingSpeed ? $cruisingSpeed : 'N/A' ?></p>
-                    </div>
-                    <div class="individual-specification-group">
-                        <p class="specification-title">ENGINES</p>
-                        <p class="specification-value"><?= $engineQty ? $engineQty . ' X ' . ucfirst($engineFuel1) : 'N/A' ?></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="other-info-container">
-            <div class="other-specs-group">
-                <h3 class="other-specs-title">BASIC INFO</h3>
-                <div class="other-specs-group-container">
-                    <div class="individual-specs-group">
-                        <p class="other-specs-name">MAKE</p>
-                        <p class="other-specs-value"><?= $make ? $make : 'N/A' ?></p>
-                    </div>
-                    <div class="individual-specs-group">
-                        <p class="other-specs-name">MODEL</p>
-                        <p class="other-specs-value"><?= $model ? $model : 'N/A' ?></p>
-                    </div>
-                    <div class="individual-specs-group">
-                        <p class="other-specs-name">CONDITION</p>
-                        <p class="other-specs-value"><?= $condition ? $condition : 'N/A' ?></p>
-                    </div>
-                    <div class="individual-specs-group">
-                        <p class="other-specs-name">CONSTRUCTION</p>
-                        <p class="other-specs-value"><?= $construction ? $construction : 'N/A' ?></p>
-                    </div>
-                    <div class="individual-specs-group">
-                        <p class="other-specs-name">BOAT HULL ID</p>
-                        <p class="other-specs-value"><?= $boatHullID ? $boatHullID : 'N/A' ?></p>
-                    </div>
-                </div>
-            </div>
-            <div class="other-specs-group">
-                <h3 class="other-specs-title">DIMENSIONS</h3>
-                <div class="other-specs-group-container">
-                    <div class="individual-specs-group">
-                        <p class="other-specs-name">LENGTH</p>
-                        <p class="other-specs-value"><?= (isset($length) && isset($lengthMeters)) ? $length . " / " . $lengthMeters . " m" : "N/A" ?></p>
-                    </div>
-                    <div class="individual-specs-group">
-                        <p class="other-specs-name">OVERALL</p>
-                        <p class="other-specs-value"></p>
-                    </div>
-                    <div class="individual-specs-group">
-                        <p class="other-specs-name">BEAM</p>
-                        <p class="other-specs-value"><?= (isset($beam) && isset($beamMeters)) ? $beam . " / " . $beamMeters . " m" : "N/A" ?></p>
-                    </div>
-                    <div class="individual-specs-group">
-                        <p class="other-specs-name">DRY WEIGHT</p>
-                        <p class="other-specs-value"><?= $dryWeight ? $dryWeight : 'N/A' ?></p>
-                    </div>
-                    <div class="individual-specs-group">
-                        <p class="other-specs-name">CABINS COUNT</p>
-                        <p class="other-specs-value"><?= $cabinCount ? $cabinCount : 'N/A' ?></p>
-                    </div>
-                </div>
-            </div>
-            <?php
-                if (is_array($enginesData) && !empty($enginesData)) {
-                    $counter = 1;
 
-                    foreach ($enginesData as $engineData) {
-                        ?>
-                        <div class="other-specs-group">
-                            <h3 class="other-specs-title"><?= 'ENGINE ' . $counter ?></h3>
-                            <div class="other-specs-group-container">
-                                <?php
-                                foreach ($engineData as $key => $waolue) {
-                                    ?>
-                                    <div class="individual-specs-group">
-                                        <p class="other-specs-name"><?= strtoupper($key) ?></p>
-                                        <p class="other-specs-value"><?= $value ? $value : "N/A" ?></p>
-                                    </div>
-                                    <?php
-                                }
-                                ?>
-                            </div>
-                        </div>
-                        <?php
-                        $counter++;
-                    }
-                }
-                ?>
+        <div class="main-specifications-container" style="page-break-after: always;">
+            <h3 class="main-specifications-title">SPECIFICATIONS</h3>
+
+            <div class="specifications-tables">
+                <table class="specifications-table">
+                    <tr>
+                        <th>YACHT TYPE</th>
+                        <td><?= $category ? $category : 'N/A' ?></td>
+                    </tr>
+                    <tr>
+                        <th>BRAND</th>
+                        <td><?= $make ? $make : 'N/A' ?></td>
+                    </tr>
+                    <tr>
+                        <th>YEAR</th>
+                        <td><?= $year ? $year : 'N/A' ?></td>
+                    </tr>
+                    <tr>
+                        <th>HULL</th>
+                        <td><?= $construction ? $construction : 'N/A' ?></td>
+                    </tr>
+                    <tr>
+                        <th>DAYS LISTED</th>
+                        <td><?= $itemDate ? $itemDate : 'N/A' ?></td>
+                    </tr>
+                    <tr>
+                        <th>PRICE</th>
+                        <td>$<?= $price ? $price : 'N/A' ?></td>
+                    </tr>
+
+                </table>
+                <table class="specifications-table">
+                    <tr>
+                        <th>LENGTH OVERALL</th>
+                        <td><?= (isset($length) && isset($lengthMeters)) ? $length . "ft / " . $lengthMeters . " m" : "N/A" ?></td>
+                    </tr>
+                    <tr>
+                        <th>BEAM</th>
+                        <td><?= (isset($beam) && isset($beamMeters)) ? $beam . " / " . $beamMeters . " m" : "N/A" ?></td>
+                    </tr>
+                    <tr>
+                        <th>MAX DRAFT</th>
+                        <td><?= (isset($draft) && isset($draftMeters)) ? $draft . " / " . $draftMeters . " m" : 'N/A' ?></td>
+                    </tr>
+                    <tr>
+                        <th>MAX SPEED</th>
+                        <td><?= $maxSpeed ? $maxSpeed : 'N/A' ?></td>
+                    </tr>
+                    <tr>
+                        <th>CRUISING SPEED</th>
+                        <td><?= $cruisingSpeed ? $cruisingSpeed : 'N/A' ?></td>
+                    </tr>
+                    <tr>
+                        <th>ENGINES</th>
+                        <td>N/A</td>
+                    </tr>
+                </table>
+            </div>
         </div>
-    </div>
+        
+        <div class="other-specs-group">
+            <h3 class="other-specs-title">BASIC INFO</h3>
+            
+            <table class="other-specs-table">
+                <tr>
+                    <th>MAKE</th>
+                    <td><?= $make ? $make : 'N/A' ?></td>
+                </tr>
+                <tr>
+                    <th>MODEL</th>
+                    <td><?= $model ? $model : 'N/A' ?></td>
+                </tr>
+                <tr>
+                    <th>CONDITION</th>
+                    <td><?= $condition ? $condition : 'N/A' ?></td>
+                </tr>
+                <tr>
+                    <th>CONSTRUCTION</th>
+                    <td><?= $construction ? $construction : 'N/A' ?></td>
+                </tr>
+                <tr>
+                    <th>BOAT HULL ID</th>
+                    <td><?= $boatHullID ? $boatHullID : 'N/A' ?></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="other-specs-group" style="">
+            <h3 class="other-specs-title">DIMENSIONS</h3>
+
+            <table class="other-specs-table">
+                <tr>
+                    <th>LENGTH</th>
+                    <td><?= (isset($length) && isset($lengthMeters)) ? $length . "ft / " . $lengthMeters . " m" : "N/A" ?></td>
+                </tr>
+                <tr>
+                    <th>BEAM</th>
+                    <td><?= (isset($beam) && isset($beamMeters)) ? $beam . " / " . $beamMeters . " m" : "N/A" ?></td>
+                </tr>
+                <tr>
+                    <th>DRY WEIGHT</th>
+                    <td><?= $dryWeight ? $dryWeight : 'N/A' ?></td>
+                </tr>
+                <tr>
+                    <th>CABINS COUNT</th>
+                    <td><?= $cabinCount ? $cabinCount : 'N/A' ?></td>
+                </tr>
+            </table>
+        </div>
 
     <?php
-        
-        $limitOfGallery = 12;
+        if (is_array($enginesData) && !empty($enginesData)) {
+            $counter = 1;
 
-        if ( isset( $_GET['GalleryLimit'] ) && ! empty( $_GET['GalleryLimit'] )) {
+            foreach ($enginesData as $engineData) {
+                ?>
+                <div class="other-specs-group">
+                    <h3 class="other-specs-title"><?= 'ENGINE ' . $counter ?></h3>
 
-            $limitOfGallery = $_GET['GalleryLimit'];
-
+                    <table class="other-specs-table">
+                        <?php foreach ($engineData as $key => $waolue) { ?>
+                            <tr class="individual-specs-group">
+                                <th><?= strtoupper($key) ?></th>
+                                <td><?= $waolue ? $waolue : "N/A" ?></td>
+                            </tr>
+                        <?php } ?>
+                    </table>
+                </div>
+                <?php
+                $counter++;
+            }
         }
+        ?>
+        <div  style="page-break-after: always;"></div>
+    </div>
 
-        $imageGallery = array_slice($vessel->Images, 0, $limitOfGallery);
-
-        $chuckedGallery = array_chunk($imageGallery, 6);
-
-    ?>
+    <h3 class="other-specs-title">GALLERY</h3>
 
     <?php foreach ($chuckedGallery as $cg) { ?> 
-        <div class="pdf-page">
-            <div class="image-gallery-container" style="padding-top: 60px ">
+        <div class="pdf-page" style="page-break-after: always;">
+            <div class="image-gallery-container">
                 <?php foreach($cg as $image) { ?>
                     <div class="individual-image-container">
-                        <img class="gallery-image" src="<?= str_replace("XLARGE", "LARGE", $image->Uri) ?>" alt="boat-image" style="object-fit: cover;" />
+                        <img class="gallery-image" src="<?= str_replace("XLARGE", "LARGE", $image->Uri) ?>" alt="boat-image" />
                     </div>
                 <?php } ?>
             </div>
@@ -608,59 +592,7 @@ $colorTwo = $YSP_Options->get('color_two');
     <?php } ?>
     
     <?php
-    $broker = $vessel->SalesRep->Name;
-    
-    $BrokerNames = explode(' ', $broker);
-    
-    $brokerQueryArgs = array(
-        'post_type' => 'ysp_team',
-        'posts_per_page' => 1,
-    
-        'meta_query' => [
-            'name' => [
-                'relation' => 'OR'
-            ],
-        ],
-    );
-    
-    foreach ($BrokerNames as $bName) {
-        $brokerQueryArgs['meta_query']['name'][]=[
-            'key' => 'broker_fname',
-            'compare' => 'LIKE',
-            'value' => $bName,
-        ];
-    }
-    
-    foreach ($BrokerNames as $bName) {
-        $brokerQueryArgs['meta_query']['name'][]=[
-            'key' => 'broker_lname',
-            'compare' => 'LIKE',
-            'value' => $bName,
-        ];
-    }
-    
-    $brokerQuery = new WP_Query($brokerQueryArgs);
-    
-    if ($brokerQuery->have_posts()) {
-    
-    }
-    else {
-        $mainBrokerQueryArgs = array(
-            'post_type' => 'ysp_team',
-            'meta_query' => array(
-                array(
-                    'key' => 'ysp_main_broker',
-                    'value' => '1',
-                ),
-            ),
-            'posts_per_page' => 1,
-        );
-    
-        $brokerQuery = new WP_Query($mainBrokerQueryArgs);
-    
-    
-    }
-
+   
     if ($brokerQuery->have_posts()) {
         while ($brokerQuery->have_posts()) {
             $brokerQuery->the_post(); 
@@ -669,13 +601,13 @@ $colorTwo = $YSP_Options->get('color_two');
             $broker_email = get_post_meta($brokerQuery->post->ID, 'ysp_team_email', true);
             $broker_phone = get_post_meta($brokerQuery->post->ID, 'ysp_team_phone', true);
          ?>
-            <div class="footer-container" style="page-break-after: always;">
+            <!-- <div class="footer-container" style="page-break-after: always;">
                 <div class="footer-broker-info">
-                <p class="footer-broker-name"><?php echo ($broker_first_name . " " . $broker_last_name); ?></p>
-                <p class="footer-broker-phone"><a href="tel:<?php echo $broker_phone; ?>"><?php echo $broker_phone; ?></p>
-                <p class="footer-broker-email"><a href="mailto:<?php echo $broker_email; ?>"><?php echo $broker_email; ?></p>
-            </div>
-        </div>
+                    <a href="<?= get_permalink($brokerQuery->post->ID) ?>"><?php echo ($broker_first_name . " " . $broker_last_name); ?></a>
+                    - <a href="tel:<?php echo $broker_phone; ?>"><?php echo $broker_phone; ?></a> - 
+                    <a href="mailto:<?php echo $broker_email; ?>"><?php echo $broker_email; ?></a>
+                </div>
+            </div> -->
         <?php
             }
             wp_reset_postdata();

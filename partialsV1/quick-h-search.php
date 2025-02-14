@@ -1,5 +1,5 @@
 <div id="quick-h-search-container">
-    <form id="ysp-yacht-quick-search-form" class="ys-h-row ysp-quick-search-form" action="<?php echo $action_url; ?>" method="GET" style="    justify-content: center;">
+    <form id="ysp-yacht-quick-search-form" class="ysp-yacht-search-form ysp-h-yacht-search-form ysp-form ysp-quick-search-form ysp-h-yacht-search-form " action="<?php echo $action_url; ?>" method="GET">
             <input type="hidden" name="page_index">
 
             <div class="ys-h-row-item">

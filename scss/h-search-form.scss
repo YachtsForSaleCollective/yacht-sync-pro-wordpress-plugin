@@ -1,118 +1,82 @@
-#h-search-container{
-    //max-width: $max-width;
-    margin-right: auto;
-    margin-left: auto;
-    @media  screen and (max-width: $breakpoint-x-large) {
-        margin-top: 30px;
-    }
+@use 'vars';
 
+.ysp-h-yacht-search-form{
     .ys-h-row {
-        display: flex !important;
-        justify-content: flex-start;
+        display: grid;
+        justify-content: space-between;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 30px;
+        grid-template-columns: 1fr;
 
-        .ys-h-row-item {
+        @media (min-width: vars.$breakpoint-large) {
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr !important;
+        }
+
+        @media (min-width: vars.$breakpoint-med) {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        @media (min-width: vars.$breakpoint-small) {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .ysp-s-field {
             position: relative;
-            flex: 0 0 calc(20% - 10px);
             box-sizing: border-box;
-            width: 100%;
+        }
 
-            @media screen and (max-width: $breakpoint-x-large) {
-                flex: 0 0 calc(25% - 10px);
-            }
+        .labal-with-toggles{
+            display: flex;
+            justify-content: space-between;
+            position: relative;
 
-            @media screen and (max-width: $breakpoint-large) {
-                flex: 0 0 calc(33% - 10px);
-            }
-
-            @media screen and (max-width: $breakpoint-med) {
-                flex: 0 0 calc(50% - 10px);
-            }
-
-            @media screen and (max-width: $breakpoint-small) {
-                flex: 0 0 100%;
-            }
-
-            label {
-                display: block;
-                font-size: 12px;
-                font-weight: 400;
-                line-height: 11px;
-                margin-bottom: 10px;
-            }
-
-            select {
-                padding: 8px 12px;
-                width: 100%;
-                height: 40px;
-                border-radius: 0px;
-                border: 1px solid #D9D9D9;
-                -moz-appearance: none;
-                -webkit-appearance: none;
-            }
-
-            select::-ms-expand {
-                display: none;
-            }
-
-            input, select {
-                padding: 8px 12px;
-                width: 100%;
-                height: 40px;
-                border-radius: 0px;
-                border: 1px solid $button-bg-color;
-            }
-
-            svg.search-icon {
-                position: absolute;
-                right: 12px;
-                top: 33px;
-            }
-
-            svg.dropdown-icon {
-                position: absolute;
-                right: 6px;
-                top: 33px;
-            }
-
-            input[type="submit"] {
-                background-color: $button-bg-color;
-                color: $button-text-color;
-                width: 100%;
-                align-self: end !important;
-                padding: 8px 12px;
-                height: 40px;
-
-                &:hover{
-                    background-color: $button-bg-color;
-                    color: $button-text-color;
-                }
-            }
-            .min-max-container {
+            .toggles{
                 display: flex;
-                justify-content: space-between;
-                height: 40px;
-                
-                input {
-                    width: 46%;
-                    border: 1px solid $button-bg-color;
-                }
+                gap: 5px;
 
-                span {
-                    color: $border-color;
-                    margin-top: 5px;
+                position: absolute;
+                right: 0px;
+                
+                input[type=radio]{
+                    display: none;
+
+                    & + label{
+                        font-size: 12px;
+                        color: vars.$button-bg-color;
+
+                        cursor: pointer;
+
+                        border: 1px solid vars.$button-bg-color;
+                        border-radius: 8px;
+                        padding: 0px 6px;
+                    }
+
+                    &:checked + label{
+                        background: vars.$button-bg-color;
+                        color: vars.$button-text-color;
+                    }
                 }
+            }
+
+        }
+
+        input[type="submit"] {
+            background-color: vars.$button-bg-color;
+            color: vars.$button-text-color;
+
+            grid-columns-start: 3;
+            
+            width: 100%;
+            
+            &:hover{
+                background-color: vars.$button-bg-color;
+                color: vars.$button-text-color;
             }
         }
 
         .submit-container {
             label {
                 color: transparent;
-            }
-
-            @media screen and (max-width: $breakpoint-med) {
-                flex: 0 0 100%;
             }
         }
     }

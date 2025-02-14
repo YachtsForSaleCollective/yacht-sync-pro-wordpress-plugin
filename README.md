@@ -2,7 +2,7 @@
 
 ## Description
 
-Yacht Sync Pro, our WordPress plugin, is a new way to integrate three major MLS feeds (YachtWorld, YachtBroker, and/or Yatco) natively into your WordPress site. Benefit from SEO tactics, easy-to-use shortcodes, and the ability to customize templates.
+Yacht Sync Pro is a new WordPress plugin that imports all three major yachting and boating MLS API feeds into your website. So whether you have YachtWorld/Boat Wizard or IYBA/YachtBroker, and/or Yatco, you can now benefit from savvy SEO tactics, easy-to-use blocks/shortcodes, custom post types, fast feature-rich search, and can still customize to your brands' needs. 
 
 ## Demo Site
 
@@ -56,7 +56,7 @@ We merge the data via hull IDs
 - Full Template Customization
 - Basic Lead Forms
 - Akismet SPAM Protection For Lead Forms
-- Broker Post-Type With Meta Fields (Name, Email, Phone And Bio)
+- Broker Post-Type With Meta Fields (Name, Title, Email, Phone And Bio)
 - Manual Entry Of Vessels 
 - Similar Listings Section And Query
 - Mobile-friendly search
@@ -68,14 +68,15 @@ We merge the data via hull IDs
 
 - [theitalianyachtgroup.com](https://theitalianyachtgroup.com)
 - [preowned.palmbeachmotoryachts.com](https://preowned.palmbeachmotoryachts.com)
+- [preowned.grandbanks.com](https://preowned.grandbanks.com)
 - [southjerseyyachtsales.com](https://southjerseyyachtsales.com)
 - [hbgyachts.com](https://hbgyachts.com)
+- [deanyachts.com](https://deanyachts.com)
 
 ## Credits
 
 - **Developers**: [Joshua Hoffman](https://joshuahoffman.me), [Brandon Creed](https://github.com/brcre001), and Hauk Atkinson.
-- **Special thanks** to Olivier Solon for project wrangling.
-- **Special thanks** to Neil Ross for Supporting and Funding.
+- **Special thanks** to Neil, [Olivier](https://www.linkedin.com/in/olivier-solon/), And [Polina](https://www.linkedin.com/in/polinagraphic/) for contributing to the initial build.
 
 ## Hosting Recommendation
 

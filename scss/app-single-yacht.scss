@@ -1,6 +1,5 @@
-@import 'vars';
+@use 'vars';
 
-@import 'light-gallery';
-@import 'flickity-slider';
+@use 'light-gallery';
 
-@import 'single-yacht';
+@use 'single-yacht';

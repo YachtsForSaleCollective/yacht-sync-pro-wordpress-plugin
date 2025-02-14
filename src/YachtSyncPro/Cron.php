@@ -15,8 +15,9 @@
 
 	    	add_filter( 'cron_schedules', [$this, 'add_cron_intervals'] );
 
-	    	add_action( 'ysp_cron_yacht_sync', [$this, 'run_cron_yacht_sync']);
+	    	//add_action( 'ysp_cron_yacht_sync', [$this, 'run_cron_yacht_sync']);
 	    	//add_action( 'ysp_cron_yacht_sync_for_brokerage_only', [$this, 'run_cron_yacht_sync_for_brokerage_only']);
+			
 			add_action( 'ysp_cron_euro_c_save', [$this, 'run_cron_euro_c_save']);
 			add_action( 'ysp_cron_check_count', [$this, 'run_cron_check_count']);
 			add_action( 'ysp_cron_yacht_search_sitemaps', [$this, 'run_cron_yacht_search_sitemaps']);
@@ -41,7 +42,7 @@
 			}
 
 	    	if ( ! wp_next_scheduled( 'ysp_cron_yacht_sync' ) ) {
-			    wp_schedule_event( strtotime('04:00:00'), 'daily', 'ysp_cron_yacht_sync' );
+			   // wp_schedule_event( strtotime('04:00:00'), 'daily', 'ysp_cron_yacht_sync' );
 			}
 
 			if ( ! wp_next_scheduled( 'ysp_cron_yacht_sync_brokerage_only' ) ) {

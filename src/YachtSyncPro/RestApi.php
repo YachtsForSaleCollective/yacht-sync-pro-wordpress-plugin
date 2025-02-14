@@ -156,18 +156,9 @@
 		        )
 		    ) );
 
-    		// Leads 
-			register_rest_route( $this->rest_path, '/yacht-leads', array(
-		        'callback' => [$this, 'yacht_leads'],
-		        'methods'  => [WP_REST_Server::READABLE, WP_REST_Server::CREATABLE],
-		        'permission_callback' => '__return_true',
-		        'args' => array(
-		            
-		        )
-		    ) );
-
-			register_rest_route( $this->rest_path, '/broker-leads', array(
-		        'callback' => [$this, 'broker_leads'],
+    		// Leads v2 
+			register_rest_route( $this->rest_path, '/lead-v2', array(
+		        'callback' => [$this, 'lead_submittion_v2'],
 		        'methods'  => [WP_REST_Server::READABLE, WP_REST_Server::CREATABLE],
 		        'permission_callback' => '__return_true',
 		        'args' => array(
@@ -273,21 +264,47 @@
 	   		$labels = $request->get_param('labels');
    		
 	   		$labelsToMetaField = [
-	   			"Builders" => "MakeString",
-	   			"HullMaterials" => "BoatHullMaterialCode"
+	   			"Builders" => (object) ["meta" => "MakeString"],
+	   			"HullMaterials" => (object) ["meta" => "BoatHullMaterialCode"],
+
+	   			'BoatConditions' => (object) ['tax' => 'boatcondition'],
+	   			'BoatTypes' => (object) ['tax' => 'boattype'],
+	   			"BoatCategories" => (object) ['tax' => 'boatclass'],
+	   			"BoatMakes" => (object) ['tax' => 'boatmaker'],
+
+	   			'BoatConditionsWithCount' => (object) ['taxwithcount' => 'boatcondition'],
+	   			'BoatTypesWithCount' => (object) ['taxwithcount' => 'boattype'],
+	   			"BoatCategoriesWithCount" => (object) ['taxwithcount' => 'boatclass'],
+	   			"BoatMakesWithCount" => (object) ['taxwithcount' => 'boatmaker'],
+
+	   			
 	   		];
 
 	   		$return = get_transient('ysp_yacht_dropdown_options_'.join('_', $labels));
 
-			if (! $return) {
+			//if (! $return) {
 				$return = [];
 
 				foreach ($labels as $label) {
-					$return[ $label ] = $this->db_helper->get_unique_yacht_meta_values( $labelsToMetaField[ $label ] );
+
+					$id = $labelsToMetaField[ $label ]; 
+
+					if (isset($id->meta)) {
+						$metafield = $id->meta;
+						$return[ $label ] = $this->db_helper->get_unique_yacht_meta_values( $metafield );
+					}
+					elseif (isset($id->tax)) {
+						$tax = $id->tax;
+						$return[ $label ] = $this->db_helper->get_unique_yacht_tax_values( $tax );
+					}
+					elseif (isset($id->taxwithcount)) {
+						$tax = $id->taxwithcount;
+						$return[ $label ] = $this->db_helper->get_unique_yacht_tax_values_with_count( $tax );
+					}
 				}
 	
-				set_transient('ysp_yacht_dropdown_options_'.join('_', $labels), $return, 4 * HOUR_IN_SECONDS);
-			}
+				//set_transient('ysp_yacht_dropdown_options_'.join('_', $labels), $return, 4 * HOUR_IN_SECONDS);
+			//}
 
 	   		return $return; 
 
@@ -306,8 +323,6 @@
 	   				$models=$this->db_helper->get_unique_yacht_meta_values('Model');
 	   				$boat_names=$this->db_helper->get_unique_yacht_meta_values('BoatName');
 	   				$locations=$this->db_helper->get_unique_yacht_meta_values('BoatName');
-
-
 	   				
 	   				//$lengths=$this->get_unique_yacht_meta_values('LengthOverall', 'ysp_yacht');
 
@@ -514,7 +529,6 @@
 	   				return ['error' => 'post does not exists.'];
 	   			}
 
-	   			
 	   			header('Content-Type: text/html; charset=UTF-8');
 
 	   			$file_to_include=YSP_TEMPLATES_DIR.'/pdf-loader.php';
@@ -533,6 +547,7 @@
 			if ($request->get_param('yacht_post_id') != '') {
 	
 				$yacht_post_id = $request->get_param('yacht_post_id');
+				$template_name = $request->get_param('template');
 
 				$post_exists = get_post($request->get_param('yacht_post_id'));
 
@@ -547,8 +562,12 @@
 
 				$file_to_include=YSP_TEMPLATES_DIR.'/pdf.php';
 
-		    	include apply_filters('ysp_ys_yacht_pdf_template', $file_to_include);
-		    	
+		    	$file_to_include=apply_filters('ysp_ys_yacht_pdf_template', $file_to_include);
+
+		    	$file_to_include=apply_filters('ysp_ys_yacht_pdf_template_name', $file_to_include, $template_name);
+
+		    	include $file_to_include;
+
 			}
 			else {
 				return ['success' => 'No YACHT ID'];
@@ -697,6 +716,8 @@
 
 				$urlbox_public_key = $this->options->get('pdf_urlbox_api_token_public_key');
 
+				$pdf_bandwidth = $this->options->get('pdf_bandwidth');
+
 				// ----------------------
 
 				
@@ -711,16 +732,24 @@
 						]
 					]);
 
-					/*
-					wp_redirect($s3_url);
-					exit();*/
+					if ($pdf_bandwidth == 'redirect') {
+						wp_redirect($s3_url);
+						exit();
+					}
 				}
 				elseif (isset($_GET['GalleryLimit'])) {
 					/*wp_redirect("https://api.urlbox.io/v1/$urlbox_public_key/pdf?url=". get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id'));
 
 					exit();*/
 
-					$render_url = urlencode(get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id') ."&GalleryLimit=". $_GET['GalleryLimit']);
+					$render_url_parameters=[
+						'yacht_post_id' =>  $request->get_param('yacht_post_id'),
+						'template' =>  $request->get_param('template'),
+						'GalleryLimit' =>  $request->get_param('GalleryLimit'),
+
+					];
+
+					$render_url = urlencode(get_rest_url() ."ysp/yacht-pdf?".http_build_query($render_url_parameters));
 
 					$pdfbox = "https://api.urlbox.io/v1/$urlbox_public_key/pdf?url=".$render_url;
 
@@ -739,11 +768,111 @@
 					);*/
 				}
 				else {
-					/*wp_redirect("https://api.urlbox.io/v1/$urlbox_public_key/pdf?url=". get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id'));
+					if ($pdf_bandwidth == 'redirect') {
+						$yacht_post_id = $request->get_param('yacht_post_id');
 
-					exit();*/
+						$meta = get_post_meta($yacht_post_id);
 
-					$render_url = urlencode( get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id') );
+
+						foreach ($meta as $indexM => $valM) {
+						    if (is_array($valM) && ! isset($valM[1])) {
+						        $meta[$indexM] = $valM[0];
+						    }
+						}
+
+						$vessel = array_map("maybe_unserialize", $meta);
+
+						$vessel = (object) $vessel;
+    
+						$broker = $vessel->SalesRep->Name;
+						
+						$BrokerNames = explode(' ', $broker);
+
+						$brokerQueryArgs = array(
+						    'post_type' => 'ysp_team',
+						    'posts_per_page' => 1,
+
+						    'meta_query' => [
+						        'name' => [
+						            'relation' => 'OR'
+						        ],
+						    ],
+						);
+
+						foreach ($BrokerNames as $bName) {
+						    $brokerQueryArgs['meta_query']['name'][]=[
+						        'key' => 'broker_fname',
+						        'compare' => 'LIKE',
+						        'value' => $bName,
+						    ];
+						}
+
+						foreach ($BrokerNames as $bName) {
+						    $brokerQueryArgs['meta_query']['name'][]=[
+						        'key' => 'broker_lname',
+						        'compare' => 'LIKE',
+						        'value' => $bName,
+						    ];
+						}
+
+						$brokerQuery = new WP_Query($brokerQueryArgs);
+
+						if ($brokerQuery->have_posts()) {
+
+						}
+						else {
+						    $mainBrokerQueryArgs = array(
+						        'post_type' => 'ysp_team',
+						        'meta_query' => array(
+						            array(
+						                'key' => 'ysp_main_broker',
+						                'value' => '1',
+						            ),
+						        ),
+						        'posts_per_page' => 1,
+						    );
+
+						    $brokerQuery = new WP_Query($mainBrokerQueryArgs);
+						}
+
+						$render_url_parameters=[
+							'url' => get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $request->get_param('yacht_post_id'),
+							'pdf_show_header' => true,
+							'pdf_show_footer' => true,
+							//'pdf_header' => '<div class="text title center"></div>',
+							'pdf_header' => '<div class="text center"></div>',
+							//'pdf_footer' => '<div class="footer-broker-info text center"><a href="http://yspdemo.local/team/joshua-hoffman/">Joshua Hoffman</a> - <a href="tel:(863) 332-9038">(863) 332-9038</a> - <a href="mailto:mail@joshuahoffman.me">mail@joshuahoffman.me</a></div>',
+						];
+
+						if ($brokerQuery->have_posts()) {
+					        while ($brokerQuery->have_posts()) {
+					            $brokerQuery->the_post(); 
+					            $broker_first_name = get_post_meta($brokerQuery->post->ID, 'ysp_team_fname', true);
+					            $broker_last_name = get_post_meta($brokerQuery->post->ID, 'ysp_team_lname', true);
+					            $broker_email = get_post_meta($brokerQuery->post->ID, 'ysp_team_email', true);
+					            $broker_phone = get_post_meta($brokerQuery->post->ID, 'ysp_team_phone', true);
+					        
+					        	$render_url_parameters['pdf_footer'] = '<div class="footer-broker-info text center">
+					        	<a href="'. get_permalink($brokerQuery->post->ID) .'">'. ($broker_first_name . " " . $broker_last_name) .'</a>
+			                    - <a href="tel:'. $broker_phone .'">'. $broker_phone .'</a> - 
+			                    <a href="mailto:'. $broker_email .'">'. $broker_email .'</a>
+					        	</div>';
+					        }
+					    
+					        wp_reset_postdata();
+					    }					        
+
+						wp_redirect("https://api.urlbox.io/v1/$urlbox_public_key/pdf?".http_build_query($render_url_parameters));
+
+						exit();
+					}
+
+					$render_url_parameters=[
+						'yacht_post_id' =>  $request->get_param('yacht_post_id'),
+						'template' =>  $request->get_param('template')
+					];
+
+					$render_url = urlencode(get_rest_url() ."ysp/yacht-pdf?".http_build_query($render_url_parameters));
 
 					$apiCall = wp_remote_get(
 						"https://api.urlbox.io/v1/$urlbox_public_key/pdf?url=". $render_url, 
@@ -945,5 +1074,92 @@
 			}
 		}
 
+		public function lead_submittion_v2(WP_REST_Request $request) {
+	
+
+			// FIELDS			
+			$fname = $request->get_param('fname');
+			$lname = $request->get_param('lname');
+
+			$message = $request->get_param('message');
+			$email = $request->get_param('email');
+			$phone = $request->get_param('phone');
+
+			$fax = $request->get_param('fax');
+			$ReferrerUrl = $_SERVER['HTTP_REFERER'];
+
+			// TO AND SUBJECT
+			$BrokerIs=$request->get_param('WhichBroker');
+
+			if (isset($BrokerIs) && !empty($BrokerIs)) {
+				$HasBroker = true;
+
+				$BrokerPost = get_post($BrokerIs);
+
+				$to = get_post_meta($BrokerIs, "ysp_team_email", true);
+				$subject = '';
+			}
+
+			$YachtIs=$request->get_param('WhichBoat');
+
+			if (isset($YachtIs) && !empty($YachtIs)) {
+				$HasYacht = true;
+
+				$to = $this->options->get('send_lead_to_this_email');
+				$subject = $fname.' is interested in '.$YachtIs;
+			}
+
+			$YachtID=$request->get_param('WhichBoatID');
+
+			if (isset($YachtID) && !empty($YachtID)) {
+				$HasYacht = true;
+
+				$YachtPost = get_post($YachtID);
+
+				$to = $this->options->get('send_lead_to_this_email');
+				$subject = $fname.' is interested in '.$YachtPost->post_title;
+			}
+
+			$spamChecker = $this->spamChecker([
+				'fname' => $fname,
+				'lname' => $lname,
+				'message' => $message,
+				'email' => $email,
+				'phone' => $phone,
+				'brokerID' => $broker_email,
+				'fax' => $fax,
+				'ReferrerUrl' => $_SERVER['HTTP_REFERER']
+			]);
+
+			if  ( isset( $spamChecker['not_spam_aki']) && $spamChecker['not_spam_aki'] == true ) {
+			
+				$fullMessage = '<!DOCTYPE html><html><body>';
+				$fullMessage .= '<h1>' . $subject . '</h1>';
+				$fullMessage .= '<p><strong>Name:</strong> ' . "$fname $lname" . '</p>';
+				$fullMessage .= '<p><strong>Page:</strong> ' . $ReferrerUrl . '</p>';
+				$fullMessage .= '<p><strong>Email:</strong> ' . $email . '</p>';
+				$fullMessage .= '<p><strong>Phone:</strong> ' . $phone . '</p>';
+				$fullMessage .= '<p><strong>Message:</strong></p>';
+				$fullMessage .= '<p>' . nl2br($message) . '</p>'; 
+			
+				$fullMessage .= '</body></html>';
+			
+				$headers = array(
+					'Content-Type: text/html; charset=UTF-8',
+				);
+			
+				$sent = wp_mail($to, $subject, $fullMessage, $headers);
+
+				if ($sent) {
+					return array('message' => 'Email sent successfully');
+				} else {
+					return array('error' => 'Email failed to send');
+				}
+			}
+			else {
+				return array('error' => 'Email failed to send');
+			}
+
+		}
 		
 	}

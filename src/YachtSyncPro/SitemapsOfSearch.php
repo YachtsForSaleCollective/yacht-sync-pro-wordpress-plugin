@@ -69,88 +69,23 @@
 			
 			$conditions=$this->db_helper->get_unique_yacht_meta_values('SaleClassCode');
 			
-			$hull_material=$this->db_helper->get_unique_yacht_meta_values('BoatHullMaterialCode');
-			
-			$yearlo=$this->db_helper->get_unique_yacht_meta_values('ModelYear');
-
-			$staterooms = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-			
-			$ourPriceList = [ 
-				'10000', '20000', '30000', '40000', '50000', '60000', '70000', '80000', '90000', '1000000', 
-				'150000', '200000', '250000', '300000', '350000', '400000', '450000', '500000', '550000', 
-				'600000', '650000', '700000', '750000', '800000', '850000', '900000', '950000', '1000000', 
-				'1500000', '2000000', '2500000', '3000000', '3500000', '4000000', '4500000', '5000000', 
-				'5500000', '6000000', '6500000', '7000000', '7500000', '8000000', '8500000', '9000000', 
-				'9500000', '10000000' 
-			];
-
 			$path_list=[];
 
 			$VesselStats = $this->stats->run([]); 
 
 			foreach($conditions as $c) {
 				$path_list[]="condition-$c/";
-
-				foreach($ourPriceList as $p) {
-					$path_list[]="condition-$c/pricelo-$p/";
-
-					if ($VesselStats['max_priceUSD'] < $p) {
-						$path_list[]="condition-$c/pricehi-$p/";
-					}
-				}
-			}
-
-			foreach($staterooms as $s) {
-				$path_list[]="staterooms-$s/";
-			}
-
-			foreach($hull_material as $h) {
-				$path_list[]="hull-$h/";
-			}
-
-			foreach($yearlo as $yl) {
-				$path_list[]="ys_keyword-$yl/";
-
-				foreach($builders_list as $b){
-					$path_list[]="ys_keyword-$yl/make-$b/";
-
-					foreach($conditions as $c) {
-						$path_list[]="condition-$c/ys_keyword-$yl/make-$b/";
-					}
-				}
 			}
 
 			foreach($builders_list as $b) {
-				$path_list[]="make-$b/";
+				$path_list[]="boatmaker-$b/";
 
 				foreach($conditions as $c) {
-					$path_list[]="condition-$c/make-$b/";
-
-					$builderConditionStats = $this->stats->run([
-						'make' => $b,
-						'condition' => $c
-					]); 
-
-					foreach ($ourPriceList as $p) {
-						$path_list[]="condition-$c/make-$b/pricelo-$p/";
-						
-						if ($builderConditionStats['max_priceUSD'] < $p) {
-							/*var_dump('stats: '.$builderConditionStats['max_priceUSD']);
-							var_dump('price: '.$p);*/
-							$path_list[]="condition-$c/make-$b/pricehi-$p/";
-
-						}
-					}
+					$path_list[]="condition-$c/boatmaker-$b/";
 				}
 			}
 
-			foreach($ourPriceList as $p){
-				$path_list[]="pricelo-$p/";
-			
-				if ($VesselStats['max_priceUSD'] < $p) {
-					$path_list[]="pricehi-$p/";
-				}
-			}
+			$path_list = apply_filters('ysp_yacht_search_sitemap_paths', $path_list);
 
 			foreach($path_list as $a => $path){
 				$path_list[$a] = str_replace(" ", "-", $path_list[$a]);

@@ -1,3 +1,5 @@
+@use "vars";
+
 .ysp-compare-yachts-container {
     width: 100%;
 //    max-width: 1400px;
@@ -84,15 +86,15 @@
 
         .ysp-remove-button {
             padding: 10px 15px;
-            color: $button-text-color;
-            background-color: $button-bg-color;
+            color: vars.$button-text-color;
+            background-color: vars.$button-bg-color;
             border-radius: 3px;
             text-decoration: none;
             margin: 0px auto;
 
             &:hover{
-                color: $button-text-color;
-                background-color: $button-bg-color;
+                color: vars.$button-text-color;
+                background-color: vars.$button-bg-color;
             }
         }
     }

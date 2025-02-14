@@ -41,7 +41,7 @@ function initYachtSyncPro() {
     YachtSyncPro_Init(__FILE__);
 }
 
-
+/*
 //////////////////////////////////
 // Run Updater
 /////////////////////////////////
@@ -63,4 +63,4 @@ $myUpdateChecker = PucFactory::buildUpdateChecker(
 $myUpdateChecker->setAuthentication('git_hub_token_secret_something');
 
 //Optional: Set the branch that contains the stable release.
-$myUpdateChecker->setBranch('wp-admin-release');
+$myUpdateChecker->setBranch('wp-admin-release');*/

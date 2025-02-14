@@ -30,7 +30,7 @@
 <div class="ysp-yacht-item ysp-view-grid" data-post-id="<?= $yacht->_postID ?>" data-yacht-id="<?= $yacht->DocumentID ?>">
     <div class="ri-image">
         <a href="<?= $yacht->_link ?>">
-            <img class="yacht-image" src="<?= $yacht->Images ? $yacht->Images[0]->Uri : '' ?>" alt="yacht-image" loading="lazy" />
+            <img class="yacht-image" src="<?= isset($yacht->Images[0] ) ? $yacht->Images[0]->Uri :  YSP_ASSETS . 'images/default-yacht-image.jpeg' ?>" alt="yacht-image" loading="lazy" />
             
             <span class="ri-price"><?= $price ?></span>
         </a>    

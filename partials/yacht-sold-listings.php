@@ -17,7 +17,7 @@
                 $meta2['_link'] = get_permalink($yachtQuery->post->ID);
 
                 $yacht = $meta2;
-                include('yacht-results-card.php');
+                include('result-sold-card.php');
             }
 
             wp_reset_postdata();
@@ -29,6 +29,7 @@
             $big = 999999999; // need an unlikely integer
 
             echo paginate_links( array(
+                'type' => 'list', 
                 'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
                 'format' => '?paged=%#%',
                 'current' => max( 1, get_query_var('paged') ),

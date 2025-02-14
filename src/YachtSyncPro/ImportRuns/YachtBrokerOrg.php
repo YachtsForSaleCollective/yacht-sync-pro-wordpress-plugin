@@ -14,6 +14,7 @@
 
 			$this->yachtBrokerAPIKey = $this->options->get('yacht_broker_org_api_token');
 			$this->yachtClientId = $this->options->get('yacht_broker_org_id');
+			$this->yachtBrokerLimit = $this->options->get('yacht_broker_org_limit');
 
 			$this->euro_c_c = floatval($this->options->get('euro_c_c'));
 			$this->usd_c_c = floatval($this->options->get('usd_c_c'));
@@ -120,6 +121,7 @@
 		                'GeneralBoatDescription' => 'Summary' ,
 		                'NumberOfEngines' => 'EngineQty',
 		                'Price' => 'PriceUSD' ,
+						'OriginalPrice' => 'PriceUSD',
 		                'NormPrice' => 'PriceUSD',
 		                'ModelYear' => 'Year',
 		                'Model' => 'Model',
@@ -144,10 +146,21 @@
 		                
 		                'NominalLength' => 'LOAFeet',
 		                'YSP_LOAFeet' => 'LOAFeet',
-		                'YSP_LOAMeter' => 'LOAMeter',
+		                'YSP_LOAMeter' => 'LOAMeters',
+						'YSP_Length_Feet_Measurement' => 'LOAFeet',
+						'YSP_Length_Inch_Measurement' => 'LOAInch',
 						
 						'YSP_BeamFeet' => 'BeamFeet',
-		                'YSP_BeamMeter' => 'BeamMeter',
+		                'YSP_BeamMeter' => 'BeamMeters',
+						'YSP_Beam_Feet_Measurement' => 'BeamFeet',
+						'YSP_Beam_Inch_Measurement' => 'BeamInch',
+
+						'YSP_Maximum_Draft' => 'MaximumDraftFeet',
+						'YSP_Maximum_Draft_Feet_Measurement' => 'MaximumDraftFeet',
+						'YSP_Maximum_Draft_Inch_Measurement' => 'MaximumDraftInch',
+
+						'YSP_USDVal' => 'PriceUSD',
+						'YSP_EuroVal' => 'PriceEuro',
 
 		                'AdditionalDetailDescription' => 'Description',
 		                'CabinCountNumeric' => 'CabinCount'
@@ -179,6 +192,8 @@
 
 					if (isset($row['NominalLength'])) {
 						$theBoat['YSP_Length'] = (int) $row['NominalLength'];
+						$theBoat['YSP_Length_Feet_Measurement'] = (int) $row['LOAFeet'];
+						$theBoat['YSP_Length_Inch_Measurement'] = (int) $row['LOAInch'];
 					}
 
 		            if (isset($row['CruisingSpeedMeasure'])) {
@@ -191,18 +206,7 @@
 			            $theBoat['MaximumSpeedMeasure']=$row['MaximumSpeedMeasure'];
 		            }
 
-					if (isset($boat['OriginalPrice']) && isset($boat['Price'])){
-						if (str_contains($boat['OriginalPrice'], 'EUR')) {
-							$boatC->YSP_EuroVal = intval(str_replace(array(' EUR'), '', $boat['OriginalPrice']) );
-							$boatC->YSP_USDVal = $boatC->YSP_EuroVal * $this->usd_c_c;
-
-						} else {
-							$boatC->YSP_USDVal = intval(str_replace(array(' USD'), '', $boat['OriginalPrice']));
-							$boatC->YSP_EuroVal = $boatC->YSP_USDVal * $this->euro_c_c;
-						}
-
-					}
-					// if (isset($boat['OriginalPrice']) && isset($boat['Price'])){
+					// if ( isset($row['Price'])){
 					// 	if (str_contains($boat['OriginalPrice'], 'EUR')) {
 					// 		$boatC->YSP_EuroVal = intval(str_replace(array(' EUR'), '', $boat['OriginalPrice']) );
 					// 		$boatC->YSP_USDVal = $boatC->YSP_EuroVal * $this->usd_c_c;
@@ -211,6 +215,7 @@
 					// 		$boatC->YSP_USDVal = intval(str_replace(array(' USD'), '', $boat['OriginalPrice']));
 					// 		$boatC->YSP_EuroVal = $boatC->YSP_USDVal * $this->euro_c_c;
 					// 	}
+
 					// }
 
 		            if (isset($row['BeamFeet'])) {

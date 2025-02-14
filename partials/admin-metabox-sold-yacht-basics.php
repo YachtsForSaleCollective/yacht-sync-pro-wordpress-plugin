@@ -64,7 +64,7 @@
 	$yacht_ysp_company_weight = get_post_meta( $post->ID, 'CompanyWeight', true );
 	$yacht_ysp_sales_status_weight = get_post_meta( $post->ID, 'SalesStatusWeight', true );
 ?>
-<div id="yacht-metabox-basics">
+<div id="yacht-sold-metabox-basics">
 	<fieldset class="field-group">
         <legend>General Information</legend>
         <div class="grid-container">
@@ -355,7 +355,7 @@
 </div>
 
 <style type="text/css">
-	#yacht-metabox-basics {
+	#yacht-sold-metabox-basics {
         font-family: Arial, sans-serif;
     }
     .field-group {

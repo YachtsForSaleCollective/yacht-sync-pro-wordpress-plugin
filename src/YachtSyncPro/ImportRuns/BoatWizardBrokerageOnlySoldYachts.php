@@ -1,7 +1,7 @@
 <?php
     #[AllowDynamicProperties]
 	
-	class YachtSyncPro_ImportRuns_BoatWizardBrokerageOnly {
+	class YachtSyncPro_ImportRuns_BoatWizardBrokerageOnlySoldYachts {
    		protected $limit = 53;
 		
 		public $brokerageInventoryUrl = 'https://api.boats.com/inventory/search?key=';
@@ -10,25 +10,11 @@
 
 			$this->options = new YachtSyncPro_Options();
 
-			$this->LocationConvert = new YachtSyncPro_LocationConvert();
-
-			$this->BrochureCleanUp = new YachtSyncPro_BrochureCleanUp();
-
-			$this->ChatGPTYachtDescriptionVersionTwo = new YachtSyncPro_ChatGPTYachtDescriptionVersionTwo();
-
 			$this->key=$this->options->get($metakey);
 			$this->status_override = $this->options->get('boats_com_api_brokerage_status_override');
 			
 			$this->brokerageInventoryUrl .= $this->key;
-			$this->brokerageInventoryUrl .= (! empty($this->status_override))?'&SalesStatus='.$this->status_override:'&SalesStatus=Active,On-Order';
-			
-			$this->opt_prerender_brochures=$this->options->get('prerender_brochures');
-
-			$this->euro_c_c = floatval($this->options->get('euro_c_c'));
-			$this->usd_c_c = floatval($this->options->get('usd_c_c'));
-
-			$this->urlbox_secret_key = $this->options->get('pdf_urlbox_api_secret_key');
-
+			$this->brokerageInventoryUrl .= '&SalesStatus=Sold';
 
 			$this->CarryOverKeys = [
 				'_yoast_wpseo_title',
@@ -39,7 +25,7 @@
 		public function run() {
 			global $wpdb;
 
-			var_dump('Started Boats.com Brokerage Only Import');
+			var_dump('Started Boats.com Brokerage Only Sold Yachts Import');
 
 			$offset = 0;
 			$yachtsSynced = 0;
@@ -62,6 +48,8 @@
 			}
 
 	        $total = $apiCallBody['numResults'];
+
+            var_dump($total);
 
 			//$apiCallInventory = $apiCall['body']['results'];
 
@@ -88,6 +76,8 @@
 				}
 
 				$apiCallInventory = $apiCallForWhileBody['results'];
+                
+                // var_dump($apiCallInventory);
 
 				if (count( $apiCallInventory ) == 0) {
 					break;
@@ -101,7 +91,7 @@
 					//$boatC->CompanyName = 'Italian Yacht Group';
 					
 		            $find_post=get_posts([
-	                    'post_type' => 'syncing_ysp_yacht',
+	                    'post_type' => 'ysp_sold_yacht',
 	                    'meta_query' => [
 
 	                        array(
@@ -120,7 +110,7 @@
 	                if (! isset($find_post[0]->ID)) {
 			            if (! empty($record['BoatHullID'])) {
 			                $find_post=get_posts([
-			                    'post_type' => 'syncing_ysp_yacht',
+			                    'post_type' => 'ysp_sold_yacht',
 			                    'meta_query' => [
 
 			                        array(
@@ -137,7 +127,7 @@
 		           	}
 		           	
 					$find_post_from_synced=get_posts([
-	                    'post_type' => 'ysp_yacht',
+	                    'post_type' => 'ysp_sold_yacht',
 	                    'meta_query' => [
 
 	                        array(
@@ -156,7 +146,7 @@
 		           	if (! isset($find_post_from_synced[0]->ID)) {
 			            if (! empty($record['BoatHullID'])) {
 			                $find_post_from_synced=get_posts([
-			                    'post_type' => 'ysp_yacht',
+			                    'post_type' => 'ysp_sold_yacht',
 			                    'meta_query' => [
 
 			                        array(
@@ -172,56 +162,56 @@
 			            }
 		           	}	        	         
 					
-	                $pdf_still_e = false;
+	                // $pdf_still_e = false;
 	                $yacht_updated = false;
 
-	                if (isset($find_post_from_synced[0]->ID)) {
-	                	$synced_post_id = $find_post_from_synced[0]->ID;
+	                // if (isset($find_post_from_synced[0]->ID)) {
+	                // 	$synced_post_id = $find_post_from_synced[0]->ID;
 
-		                $synced_pdf = get_post_meta($synced_post_id, 'YSP_PDF_URL', true);
+		            //     $synced_pdf = get_post_meta($synced_post_id, 'YSP_PDF_URL', true);
 
-		                $saved_last_mod_date = get_post_meta($synced_post_id, 'LastModificationDate', true);
-		                $current_last_mod_date = $boatC->LastModificationDate;
+		            //     $saved_last_mod_date = get_post_meta($synced_post_id, 'LastModificationDate', true);
+		            //     $current_last_mod_date = $boatC->LastModificationDate;
 		                
-		                if (!is_null($synced_pdf) && !empty($synced_pdf)) {
-							$apiPDF = wp_remote_request($synced_pdf, [
-								'method' => 'HEAD',
+		            //     if (!is_null($synced_pdf) && !empty($synced_pdf)) {
+					// 		$apiPDF = wp_remote_request($synced_pdf, [
+					// 			'method' => 'HEAD',
 
-								'timeout' => 180, 
-								'stream' => false, 
+					// 			'timeout' => 180, 
+					// 			'stream' => false, 
 								
-								'headers' => [
-									'Content-Type'  => 'application/pdf',
+					// 			'headers' => [
+					// 				'Content-Type'  => 'application/pdf',
 
-								]
-							]);
+					// 			]
+					// 		]);
 
-							$api_status_code = wp_remote_retrieve_response_code($apiPDF);
+					// 		$api_status_code = wp_remote_retrieve_response_code($apiPDF);
 
-							if ($api_status_code == '200') {
-								$pdf_still_e = true;
-							}
-						}
+					// 		if ($api_status_code == '200') {
+					// 			$pdf_still_e = true;
+					// 		}
+					// 	}
 
-						if (strtotime($current_last_mod_date) > strtotime($saved_last_mod_date)) {
-							$pdf_still_e = false;
-							$yacht_updated = true;
-						}
+					// 	if (strtotime($current_last_mod_date) > strtotime($saved_last_mod_date)) {
+					// 		$pdf_still_e = false;
+					// 		$yacht_updated = true;
+					// 	}
 
-						if ( $pdf_still_e ) {
-							$boatC->YSP_PDF_URL = $synced_pdf;
-						}
+					// 	if ( $pdf_still_e ) {
+					// 		$boatC->YSP_PDF_URL = $synced_pdf;
+					// 	}
 
-						if (! empty($synced_pdf) && ! $pdf_still_e && $yacht_updated) {
-							$this->BrochureCleanUp->removeUseUrl($synced_pdf);
-						}
+					// 	if (! empty($synced_pdf) && ! $pdf_still_e && $yacht_updated) {
+					// 		$this->BrochureCleanUp->removeUseUrl($synced_pdf);
+					// 	}
 
-						// carry overs
-						foreach ($this->CarryOverKeys as $metakey) {
-							$val = get_post_meta($synced_post_id, $metakey, true);
-							$boatC->{$metakey} = $val;
-						}
-	                }
+					// 	// carry overs
+					// 	foreach ($this->CarryOverKeys as $metakey) {
+					// 		$val = get_post_meta($synced_post_id, $metakey, true);
+					// 		$boatC->{$metakey} = $val;
+					// 	}
+	                // }
 
 		            $post_id=0;
 
@@ -362,36 +352,36 @@
 
 					//var_dump($boatC->_yoast_wpseo_metadesc);
 					
-					if (
-						( 
-							isset($boatC->_yoast_wpseo_metadesc) 
-							&& 
-							( 
-								empty($boatC->_yoast_wpseo_metadesc) 
-								|| 
-								is_null($boatC->_yoast_wpseo_metadesc)
-							) 
-						) 
-						|| 
-						! isset($boatC->_yoast_wpseo_metadesc)
-					) {
+					// if (
+					// 	( 
+					// 		isset($boatC->_yoast_wpseo_metadesc) 
+					// 		&& 
+					// 		( 
+					// 			empty($boatC->_yoast_wpseo_metadesc) 
+					// 			|| 
+					// 			is_null($boatC->_yoast_wpseo_metadesc)
+					// 		) 
+					// 	) 
+					// 	|| 
+					// 	! isset($boatC->_yoast_wpseo_metadesc)
+					// ) {
 
-						$boatC->_yoast_wpseo_metadesc = $this->ChatGPTYachtDescriptionVersionTwo->make_description(
-							'Vessel Name - '.$boat['ModelYear'].' '.$boat['MakeString'].' '.$boat['Model'].' '.$boat['BoatName']. '. '.
-							'Vessel Description - '.join(' ', $boatC->GeneralBoatDescription)
-						);
+					// 	$boatC->_yoast_wpseo_metadesc = $this->ChatGPTYachtDescriptionVersionTwo->make_description(
+					// 		'Vessel Name - '.$boat['ModelYear'].' '.$boat['MakeString'].' '.$boat['Model'].' '.$boat['BoatName']. '. '.
+					// 		'Vessel Description - '.join(' ', $boatC->GeneralBoatDescription)
+					// 	);
 
-					}
+					// }
 
 					$boatC->CompanyBoat = 1;
 					$boatC->Touched_InSync=1;
 					$boatC->ImportSource = "BoatWizard";
 					
 		            $y_post_id=wp_insert_post(
-		            	apply_filters('ysp_yacht_post',
+		            	apply_filters('ysp_sold_yacht_post',
 			                [
 			                    'ID' => $post_id,
-								'post_type' => 'syncing_ysp_yacht',
+								'post_type' => 'ysp_sold_yacht',
 								
 								'post_title' => addslashes(  $boat['ModelYear'].' '.$boat['MakeString'].' '.$boat['Model'].' '.$boat['BoatName'] ),
 								
@@ -409,32 +399,26 @@
 					);
 
 					wp_set_post_terms($y_post_id, $boat['BoatClassCode'], 'boatclass', false);
-
-					wp_set_post_terms($y_post_id, $boat['MakeString'], 'boatmaker', false);
-
-					wp_set_post_terms($y_post_id, $boat['SaleClassCode'], 'boatcondition', false);
-
-					wp_set_post_terms($y_post_id, $boat['BoatCategoryCode'], 'boattype', false);
 					
-					if ( $this->opt_prerender_brochures == 'yes' && $pdf_still_e == false && ! in_array($boatC->SalesStatus, ['Sold', 'Suspend']) ) {
+					// if ( $this->opt_prerender_brochures == 'yes' && $pdf_still_e == false && ! in_array($boatC->SalesStatus, ['Sold', 'Suspend']) ) {
 
-						$generatorPDF = wp_remote_post(
-							"https://api.urlbox.io/v1/render/async", 
-							[
-								'headers' => [
-									'Authorization' => 'Bearer '.$this->urlbox_secret_key,
-									'Content-Type' => 'application/json'
-								],
-								'body' => json_encode([
-									'url' => get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $y_post_id,
-									'webhook_url' => get_rest_url() ."ysp/set-yacht-pdf?yacht_post_id=". $y_post_id,
-									'use_s3' => true,
-									'format' => 'pdf'
-								])
-							]
-						);
+					// 	$generatorPDF = wp_remote_post(
+					// 		"https://api.urlbox.io/v1/render/async", 
+					// 		[
+					// 			'headers' => [
+					// 				'Authorization' => 'Bearer '.$this->urlbox_secret_key,
+					// 				'Content-Type' => 'application/json'
+					// 			],
+					// 			'body' => json_encode([
+					// 				'url' => get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $y_post_id,
+					// 				'webhook_url' => get_rest_url() ."ysp/set-yacht-pdf?yacht_post_id=". $y_post_id,
+					// 				'use_s3' => true,
+					// 				'format' => 'pdf'
+					// 			])
+					// 		]
+					// 	);
 
-					}
+					// }
 
 					/*if ( defined( 'WP_CLI' ) && WP_CLI ) {
                         if (is_wp_error($y_post_id)) {
@@ -452,7 +436,7 @@
 
 			}
 
-			return ['success' => 'Successfully Sync Boat.com Brokerage Only Feed'];
+			return ['success' => 'Successfully Sync Boat.com Brokerage Only Sold Yachts Feed'];
 
 			//var_dump($yachtsSynced);
 

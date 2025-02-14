@@ -23,6 +23,9 @@
 			$this->ImportYachtBrokerOrgGlobal = new YachtSyncPro_ImportRuns_YachtBrokerOrgGlobal();
 			
 			$this->ImportYatco = new YachtSyncPro_ImportRuns_YatcoBoss();
+
+			$this->ImportBoatWizardBrokerageOnlySoldYachts = new YachtSyncPro_ImportRuns_BoatWizardBrokerageOnlySoldYachts();
+			$this->ImportBoatWizardBrokerageOnlySoldYachts2 = new YachtSyncPro_ImportRuns_BoatWizardBrokerageOnlySoldYachts();
 			
 		}
 
@@ -364,5 +367,28 @@
 
        	}
 
+		public function run_sold_yachts() {
+			$boats_com_api_brokerage_key = $this->options->get('boats_com_api_brokerage_key');
+ 			$boats_com_api_brokerage_key_2 = $this->options->get('boats_com_api_brokerage_key_2');
+			
+			// $yacht_broker_org_api_token = $this->options->get('yacht_broker_org_api_token');
 
+			// $this->pre_clean_up();
+
+			// $resultsOfSync=[];
+			
+			// @ToDo For Loop the Runs  
+			// KEEP THIS IN THIS ORDER
+			// if (! empty($yacht_broker_org_api_token)) {
+			// 	$resultsOfSync[]=$this->ImportYachtBrokerOrg->run();
+			// }
+
+			if (! empty($boats_com_api_brokerage_key)) {
+				$resultsOfSync[]=$this->ImportBoatWizardBrokerageOnlySoldYachts->run();
+			}
+
+			if (! empty($boats_com_api_brokerage_key_2)) {
+				$resultsOfSync[]=$this->ImportBoatWizardBrokerageOnlySoldYachts2->run();
+			}
 	}
+}

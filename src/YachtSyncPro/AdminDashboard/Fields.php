@@ -519,6 +519,16 @@
 
 		}
 
+		public function yacht_broker_org_limit_field() {
+			$nameOfField=self::SLUG.'_yacht_broker_org_limit';
+			$valOfField=get_option($nameOfField);
+
+			?>
+
+			<input type="text" name="<?= $nameOfField ?>" value="<?= $valOfField ?>" autocomplete="off"><?php 
+
+		}
+
 		public function yatco_api_token_field() {
 			$nameOfField=self::SLUG.'_yatco_api_token';
 			$valOfField=get_option($nameOfField);

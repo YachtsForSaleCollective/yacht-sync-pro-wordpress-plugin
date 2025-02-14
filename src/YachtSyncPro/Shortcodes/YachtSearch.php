@@ -202,8 +202,12 @@
             $args = [
 	            'post_type' => 'ysp_sold_yacht',
 	            'posts_per_page' => 12,
-	            'paged' => get_query_var('paged')
+	            'paged' => get_query_var('paged'),
 	        ];
+
+	        if (isset($_GET['keyword'])) {
+	            $args['s'] = $_GET['keyword'];
+	        }
 	        
 	        $args = array_merge($args, $atts);
 

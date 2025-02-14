@@ -242,7 +242,7 @@ get_header();
 
 
                         <span class="ysp-single-y-price">
-                            Call for Similar
+                            Call For Price
                         </span>
                     </div>
 

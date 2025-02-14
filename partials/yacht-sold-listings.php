@@ -1,4 +1,12 @@
 <div class="ysp-sold-listings-container">
+    <form id="ysp-sold-form" class="ysp-yacht-search-form" method="get">
+        <div style="display: flex; margin-bottom: 30px;">
+            <input type="search" name="keyword" placeholder="SEARCH BY KEYWORD" list="ysp_keywords_list" style="margin-right: 15px; height: auto;" value="<?= (isset($_GET['keyword']))?$_GET['keyword']:'' ?>">
+
+            <button type="submit" class="ysp-general-button" style="width: 100px;">SEARCH</button>
+        </div>
+    </form>
+
     <div class="yacht-sold-listing-row">
         <?php
             while ($yachtQuery->have_posts()) {

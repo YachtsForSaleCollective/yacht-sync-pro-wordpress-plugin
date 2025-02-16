@@ -19,7 +19,7 @@
             <div class="ysp-s-field">
                 <label for="make">Builder</label>
 
-                <select name="boatmaker" data-fill-options="BoatMakes">
+                <select name="boatmaker" data-fill-options="BoatMakesWithCount">
                     <option value="">Any</option>
                 </select>
             </div>

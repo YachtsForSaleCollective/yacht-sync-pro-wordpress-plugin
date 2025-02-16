@@ -13,8 +13,20 @@
 
             <div class="selection-overflow">
                 <label><input type="checkbox" name="condition" value="" style='width: auto;'> Both</label>
-                <label><input type="checkbox" name="condition" value="Used" style='width: auto;'> Used</label>
-                <label><input type="checkbox" name="condition" value="New" style='width: auto;'> New</label>
+                 <?php 
+
+                    $conditions = get_terms([
+                        'taxonomy' => 'boatcondition',
+                        'post_type' => 'ysp_yacht',
+                        'hide_empty' => true,
+                    ]);
+
+                    foreach ($conditions as $c) {
+                        
+                        echo "<label><input type='checkbox' name='boatcondition' value='$c->name' style='width: auto;'> $c->name ($c->count)</label>";
+
+                    }
+                ?>
             </div>
         </div>
 
@@ -27,11 +39,13 @@
 
                     $categories = get_terms([
                         'taxonomy' => 'boatclass',
+                        'post_type' => 'ysp_yacht',
+                        'hide_empty' => true,
                     ]);
 
                     foreach ($categories as $cat) {
                         
-                        echo "<label><input type='checkbox' name='boatclass' value='$cat->name' style='width: auto;'> $cat->name</label>";
+                        echo "<label><input type='checkbox' name='boatclass' value='$cat->name' style='width: auto;'> $cat->name ($cat->count)</label>";
 
                     }
                 ?>
@@ -47,11 +61,14 @@
                    
                     $YSP_DBHelper = new YachtSyncPro_DBHelper();
 
-                    $builders = $YSP_DBHelper->get_unique_yacht_meta_values('MakeString');
-
+                    $builders = get_terms([
+                        'taxonomy' => 'boatmaker',
+                        'post_type' => 'ysp_yacht',
+                        'hide_empty' => true,
+                    ]);
                     foreach ($builders as $build) {
 
-                        echo "<label><input type='checkbox' name='boatmaker' value='$build' style='width: auto;'> $build</label>";
+                        echo "<label><input type='checkbox' name='boatmaker' value='$build->slug' style='width: auto;'> $build->name ($build->count)</label>";
 
                     }
                 ?>
@@ -254,17 +271,33 @@
             <div class="ysp-s-field">
                 <label for="condition">Condition</label>
 
-                <select name="condition">
+                <select name="boatcondition" data-fill-options="BoatConditionsWithCount">
                     <option value="">Any</option>
-                    <option value="New">New</option>
-                    <option value="Used">Used</option>
+                </select>
+            </div>
+
+
+             <div class="ysp-s-field">
+                <label for="boattype">Type</label>
+
+                <select name="boattype" data-fill-options="BoatTypesWithCount">
+                    <option value="">Any</option>
                 </select>
             </div>
         
             <div class="ysp-s-field">
                 <label for="make">Builder</label>
 
-                <select name="make" data-fill-options="Builders">
+                <select name="boatmaker" data-fill-options="BoatMakesWithCount">
+                    <option value="">Any</option>
+                </select>
+            </div>
+
+
+            <div class="ysp-s-field">
+                <label for="boatclass">Category</label>
+
+                <select name="boatclass" data-fill-options="BoatCategoriesWithCount">
                     <option value="">Any</option>
                 </select>
             </div>
@@ -273,9 +306,9 @@
                 <label>Year</label>
 
                 <div class="min-max-container">
-                    <input type="number" label="Year Above" name="yearlo" placeholder="Min"/>
+                    <input type="number" label="Year Above" name="yearlo" placeholder="Min" min="1900" />
                     <span>-</span>
-                    <input type="number" label="Year Below" name="yearhi" placeholder="Max"/>
+                    <input type="number" label="Year Below" name="yearhi" placeholder="Max" max="<?= (date("Y")+3) ?>" />
                 </div>
             </div>
 
@@ -296,12 +329,12 @@
                             M
                         </label>
                     </div>
-                </div>     
+                </div>    
                 
                 <div class="min-max-container">
-                    <input type="number" label="Length Above" name="lengthlo" placeholder="Min"/>
+                    <input type="number" label="Length Above" name="lengthlo" placeholder="Min" min="5" />
                     <span>-</span>
-                    <input type="number" label="Length Below" name="lengthhi" placeholder="Max"/>
+                    <input type="number" label="Length Below" name="lengthhi" placeholder="Max" />
                 </div>
             </div>
 
@@ -332,38 +365,30 @@
             </div>
 
             <div class="ysp-s-field">
-                <label for="staterooms">Staterooms</label>
+                <label for="staterooms">Cabins</label>
 
-                <select name="staterooms">
+                <select name="stateroomlo">
                     <option value="">Any</option>
-                    <option value="1">1 Stateroom</option>
-                    <option value="2">2 Staterooms</option>
-                    <option value="3">3 Staterooms</option>
-                    <option value="4">4 Staterooms</option>
-                    <option value="5">5 Staterooms</option>
-                    <option value="6">6 Staterooms</option>
-                    <option value="7">7 Staterooms</option>
-                    <option value="8">8 Staterooms</option>
-                    <option value="9">9 Staterooms</option>
-                    <option value="10">10 Staterooms</option>
+                    <option value="1">1+ Cabins</option>
+                    <option value="2">2+ Cabins</option>
+                    <option value="3">3+ Cabins</option>
+                    <option value="4">4+ Cabins</option>
+                    <option value="5">5+ Cabins</option>
+                    <option value="6">6+ Cabins</option>
+                    <option value="7">7+ Cabins</option>
+                    <option value="8">8+ Cabins</option>
+                    <option value="9">9+ Cabins</option>
                 </select>
-                
-                <!-- <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M4 6L8 10L12 6" stroke="#94A3B8" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg> -->
             </div>
 
-            <div class="ysp-s-field">
+
+<!--             <div class="ysp-s-field">
                 <label for="hull">Hull</label>
 
                 <select name="hull" data-fill-options="HullMaterials">
                     <option value="">Any</option>
                 </select>
-
-                <!-- <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M4 6L8 10L12 6" stroke="#94A3B8" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg> -->
-            </div>
+            </div> -->
 
             <div style="height: 75px;"></div>
 

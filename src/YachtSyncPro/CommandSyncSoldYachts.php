@@ -1,6 +1,6 @@
 <?php
 	#[AllowDynamicProperties]
-	class YachtSyncPro_CommandSyncBrokerageOnly {
+	class YachtSyncPro_CommandSyncSoldYachts {
 		protected $environment;
 
 	    public function __construct( ) {
@@ -11,8 +11,8 @@
 
 		    $RunImports=new YachtSyncPro_RunImports();
 			
-		    $RunImports->run_brokerage_only();
+		    $RunImports->run_sold_yachts();
 
-	        WP_CLI::log( 'COMPLETED YACHTS SYNC' );
+	        WP_CLI::log( 'COMPLETED SOLD YACHTS SYNC' );
 	    }
 	}

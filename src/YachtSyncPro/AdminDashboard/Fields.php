@@ -528,6 +528,16 @@
 
 		}
 
+		public function yacht_broker_org_limit_field() {
+			$nameOfField=self::SLUG.'_yacht_broker_org_limit';
+			$valOfField=get_option($nameOfField);
+
+			?>
+
+			<input type="text" name="<?= $nameOfField ?>" value="<?= $valOfField ?>" autocomplete="off"><?php 
+
+		}
+
 		public function yacht_broker_brokerage_id_field() {
 			$nameOfField=self::SLUG.'_yacht_broker_brokerage_id';
 			$valOfField=get_option($nameOfField);

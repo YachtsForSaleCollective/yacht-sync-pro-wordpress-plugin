@@ -88,24 +88,24 @@
     }
 }
 
-#ysp-the-yacht-results, .ysp-the-yacht-results, .yacht-featured-listing-row  {
+#ysp-the-yacht-results, .ysp-the-yacht-results, .yacht-featured-listing-row, .yacht-sold-listing-row  {
 
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     flex-wrap: wrap;
     gap: 30px;
 
-    @media screen and (max-width: vars.$breakpoint-x-large){
+    @media screen and (min-width: vars.$breakpoint-med){
         grid-template-columns: 1fr 1fr;
     }
 
-    @media screen and (max-width: vars.$breakpoint-med){
-        grid-template-columns: 1fr;
+    @media screen and (min-width: vars.$breakpoint-x-large){
+        grid-template-columns: 1fr 1fr 1fr;
     }
 
 }
 
-#ysp-the-yacht-results, .ysp-the-yacht-results, .yacht-featured-listing-row  {
+#ysp-the-yacht-results, .ysp-the-yacht-results, .yacht-featured-listing-row, .yacht-sold-listing-row  {
 
     &.view-list{
         display: grid;

@@ -12,6 +12,7 @@
 				WP_CLI::add_command( 'sync-brokerage-only', 'YachtSyncPro_CommandSyncBrokerageOnly' );
 				WP_CLI::add_command( 'sitemap-generator', 'YachtSyncPro_CommandSitemaps' );
 				WP_CLI::add_command( 'redo-yacht-meta-descriptions', 'YachtSyncPro_CommandRedoYachtMetaDescriptions' );
+				WP_CLI::add_command( 'sync-sold-yachts', 'YachtSyncPro_CommandSyncSoldYachts' );
 			}
 		}
 

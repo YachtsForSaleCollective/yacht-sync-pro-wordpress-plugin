@@ -31,8 +31,7 @@
     <div class="ri-image">
         <a href="<?= $yacht->_link ?>">
             <img class="yacht-image" src="<?= isset($yacht->Images[0] ) ? $yacht->Images[0]->Uri :  YSP_ASSETS . 'images/default-yacht-image.jpeg' ?>" alt="yacht-image" loading="lazy" />
-            
-            <span class="ri-price"><?= $price ?></span>
+    
         </a>    
     </div>
 

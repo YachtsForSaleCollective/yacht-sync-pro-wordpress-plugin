@@ -271,6 +271,13 @@
 	   			'BoatTypes' => (object) ['tax' => 'boattype'],
 	   			"BoatCategories" => (object) ['tax' => 'boatclass'],
 	   			"BoatMakes" => (object) ['tax' => 'boatmaker'],
+
+	   			'BoatConditionsWithCount' => (object) ['taxwithcount' => 'boatcondition'],
+	   			'BoatTypesWithCount' => (object) ['taxwithcount' => 'boattype'],
+	   			"BoatCategoriesWithCount" => (object) ['taxwithcount' => 'boatclass'],
+	   			"BoatMakesWithCount" => (object) ['taxwithcount' => 'boatmaker'],
+
+	   			
 	   		];
 
 	   		$return = get_transient('ysp_yacht_dropdown_options_'.join('_', $labels));
@@ -289,6 +296,10 @@
 					elseif (isset($id->tax)) {
 						$tax = $id->tax;
 						$return[ $label ] = $this->db_helper->get_unique_yacht_tax_values( $tax );
+					}
+					elseif (isset($id->taxwithcount)) {
+						$tax = $id->taxwithcount;
+						$return[ $label ] = $this->db_helper->get_unique_yacht_tax_values_with_count( $tax );
 					}
 				}
 	
@@ -1105,8 +1116,7 @@
 
 				$YachtPost = get_post($YachtID);
 
-				$to = '';
-				//$to = $this->options->get('send_lead_to_this_email');
+				$to = $this->options->get('send_lead_to_this_email');
 				$subject = $fname.' is interested in '.$YachtPost->post_title;
 			}
 

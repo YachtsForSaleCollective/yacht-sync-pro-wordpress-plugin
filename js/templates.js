@@ -27,14 +27,14 @@ var ysp_templates={};
 
 		if (typeof vessel.BoatLocation.BoatCountryID != 'undefined' && vessel.BoatLocation.BoatCountryID != null) {
 
-			if (vessel.BoatLocation.BoatCityName != '') {
+			if (typeof vessel.BoatLocation.BoatCityName == 'string' && vessel.BoatLocation.BoatCityName != '') {
 
-		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCityName.replace(/( )/g, '-') }`;
+		        vesselKeywordLocationLink=`${ ysp_yacht_sync.yacht_search_url }/ys_keyword-${ vessel.BoatLocation.BoatCityName.replace(/( )/g, '-') }`;
 				
 				vesselLocation = (vessel.BoatLocation.BoatCountryID == "US" || vessel.BoatLocation.BoatCountryID == "United States" ? `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatStateCode}` : `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatCountryID}`);
 			}
 			else {
-		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCountryID.replace(/( )/g, '-') }`;
+		        vesselKeywordLocationLink=`${ ysp_yacht_sync.yacht_search_url }/ys_keyword-${ vessel.BoatLocation.BoatCountryID.replace(/( )/g, '-') }`;
 
 				vesselLocation = `${vessel.BoatLocation.BoatCountryID}`;
 			}
@@ -135,14 +135,14 @@ var ysp_templates={};
 
 		if (typeof vessel.BoatLocation.BoatCountryID != 'undefined' && vessel.BoatLocation.BoatCountryID != null) {
 
-			if (vessel.BoatLocation.BoatCityName != '') {
+			if (typeof vessel.BoatLocation.BoatCityName == 'string' && vessel.BoatLocation.BoatCityName != '') {
 
-		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCityName.replace(/( )/g, '-') }`;
+		        vesselKeywordLocationLink=`${ ysp_yacht_sync.yacht_search_url }/ys_keyword-${ vessel.BoatLocation.BoatCityName.replace(/( )/g, '-') }`;
 				
 				vesselLocation = (vessel.BoatLocation.BoatCountryID == "US" || vessel.BoatLocation.BoatCountryID == "United States" ? `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatStateCode}` : `${vessel.BoatLocation.BoatCityName.toLowerCase()}, ${vessel.BoatLocation.BoatCountryID}`);
 			}
 			else {
-		        vesselKeywordLocationLink=`/yacht-search/ys_keyword-${ vessel.BoatLocation.BoatCountryID.replace(/( )/g, '-') }`;
+		        vesselKeywordLocationLink=`${ ysp_yacht_sync.yacht_search_url }/ys_keyword-${ vessel.BoatLocation.BoatCountryID.replace(/( )/g, '-') }`;
 
 				vesselLocation = `${vessel.BoatLocation.BoatCountryID}`;
 			}
@@ -194,24 +194,82 @@ var ysp_templates={};
 							<span class="ri-name">${vessel.ModelYear ? vessel.ModelYear : ''} ${vessel.MakeString ? vessel.MakeString : ''} ${vessel.Model ? vessel.Model : ''}</span><br />
 
 							<span class="ri-sub-name">${ vessel.BoatName ? vessel.BoatName : 'N/A' }</span><br />
-
-							<span class="ri-location">		
-								<a href="${ vesselKeywordLocationLink }">					
-									<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M15.75 7.5C15.75 12.75 9 17.25 9 17.25C9 17.25 2.25 12.75 2.25 7.5C2.25 5.70979 2.96116 3.9929 4.22703 2.72703C5.4929 1.46116 7.20979 0.75 9 0.75C10.7902 0.75 12.5071 1.46116 13.773 2.72703C15.0388 3.9929 15.75 5.70979 15.75 7.5Z" stroke="#067AED" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-									<path d="M9 9.75C10.2426 9.75 11.25 8.74264 11.25 7.5C11.25 6.25736 10.2426 5.25 9 5.25C7.75736 5.25 6.75 6.25736 6.75 7.5C6.75 8.74264 7.75736 9.75 9 9.75Z" stroke="#067AED" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-									</svg>
-									${ vesselLocation }
-								</a>
-							</span>
 						</a>
+
+						<div class="ysp-single-y-basic-info-table">
+	                        <div class="ysp-single-y-info-table-cell">
+	                            <span class="cell-heading">
+	                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+	                                <path d="M7 17V15H13C12.7667 14.7167 12.579 14.4083 12.437 14.075C12.295 13.7417 12.1827 13.3833 12.1 13H9V11H12.1C12.1833 10.6167 12.296 10.2583 12.438 9.925C12.58 9.59167 12.7673 9.28333 13 9H3V7H17C18.3833 7 19.5627 7.48767 20.538 8.463C21.5133 9.43833 22.0007 10.6173 22 12C22 13.3833 21.5123 14.5627 20.537 15.538C19.5617 16.5133 18.3827 17.0007 17 17H7ZM2 13V11H8V13H2ZM3 17V15H6V17H3Z" fill="#2D3748"></path>
+	                                </svg> 
+	                                Length
+	                            </span>
+	                            <span>${vessel.YSP_LOAFeet}ft / ${vessel.YSP_LOAMeter}m</span>
+	                        </div>
+	                        
+	                        <div class="ysp-single-y-info-table-cell">
+	                            <span class="cell-heading">
+	                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+	                                <path d="M7 17V15H13C12.7667 14.7167 12.579 14.4083 12.437 14.075C12.295 13.7417 12.1827 13.3833 12.1 13H9V11H12.1C12.1833 10.6167 12.296 10.2583 12.438 9.925C12.58 9.59167 12.7673 9.28333 13 9H3V7H17C18.3833 7 19.5627 7.48767 20.538 8.463C21.5133 9.43833 22.0007 10.6173 22 12C22 13.3833 21.5123 14.5627 20.537 15.538C19.5617 16.5133 18.3827 17.0007 17 17H7ZM2 13V11H8V13H2ZM3 17V15H6V17H3Z" fill="#2D3748"></path>
+	                                </svg> 
+	                                Draft 
+	                            </span>
+	                            <span>${vessel.MaxDraft}</span>
+	                        </div>
+
+	                        <div class="ysp-single-y-info-table-cell">
+	                            <span class="cell-heading">
+	                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+	                                  <path d="M3 21V19H5V3H15V4H19V19H21V21H17V6H15V21H3ZM11 13C11.2833 13 11.521 12.904 11.713 12.712C11.905 12.52 12.0007 12.2827 12 12C12 11.7167 11.904 11.479 11.712 11.287C11.52 11.095 11.2827 10.9993 11 11C10.7167 11 10.479 11.096 10.287 11.288C10.095 11.48 9.99933 11.7173 10 12C10 12.2833 10.096 12.521 10.288 12.713C10.48 12.905 10.7173 13.0007 11 13Z" fill="#2D3748"></path>
+	                                </svg>
+	                                Cabins
+	                            </span>
+	                            <span>${vessel.CabinsCountNumeric}</span>
+	                        </div>
+
+	                        <div class="ysp-single-y-info-table-cell">
+	                            <span class="cell-heading">
+	                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+	                                      <path d="M6.5 11L12 2L17.5 11H6.5ZM17.5 22C16.25 22 15.1873 21.5623 14.312 20.687C13.4367 19.8117 12.9993 18.7493 13 17.5C13 16.25 13.4377 15.1873 14.313 14.312C15.1883 13.4367 16.2507 12.9993 17.5 13C18.75 13 19.8127 13.4377 20.688 14.313C21.5633 15.1883 22.0007 16.2507 22 17.5C22 18.75 21.5623 19.8127 20.687 20.688C19.8117 21.5633 18.7493 22.0007 17.5 22ZM3 21.5V13.5H11V21.5H3Z" fill="#2D3748"></path>
+	                                    </svg>
+	                                Yacht type
+	                            </span> 
+	                            <span>${vessel.BoatCategoryCode}</span>
+	                        </div>
+
+	                        <div class="ysp-single-y-info-table-cell">
+	                            <span class="cell-heading">
+	                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+	                                  <path d="M19 19H5V8H19M16 1V3H8V1H6V3H5C3.89 3 3 3.89 3 5V19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H19C19.5304 21 20.0391 20.7893 20.4142 20.4142C20.7893 20.0391 21 19.5304 21 19V5C21 4.46957 20.7893 3.96086 20.4142 3.58579C20.0391 3.21071 19.5304 3 19 3H18V1M17 12H12V17H17V12Z" fill="#2D3748"></path>
+	                                </svg> 
+	                                Year
+	                            </span>
+	                            <span>${vessel.ModelYear}</span>                            
+	                        </div>
+
+	                        <div class="ysp-single-y-info-table-cell">
+	                            <span class="cell-heading">
+	                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+	                                  <path d="M10.45 15.5C10.8667 15.9167 11.3917 16.1127 12.025 16.088C12.6583 16.0633 13.1167 15.834 13.4 15.4L19 7L10.6 12.6C10.1667 12.9 9.92933 13.354 9.888 13.962C9.84667 14.57 10.034 15.0827 10.45 15.5ZM5.1 20C4.73333 20 4.396 19.9207 4.088 19.762C3.78 19.6033 3.534 19.366 3.35 19.05C2.91667 18.2667 2.58333 17.454 2.35 16.612C2.11667 15.77 2 14.8993 2 14C2 12.6167 2.26267 11.3167 2.788 10.1C3.31333 8.88333 4.02567 7.825 4.925 6.925C5.825 6.025 6.88333 5.31267 8.1 4.788C9.31667 4.26333 10.6167 4.00067 12 4C13.3667 4 14.65 4.25833 15.85 4.775C17.05 5.29167 18.1 5.996 19 6.888C19.9 7.77933 20.6167 8.821 21.15 10.013C21.6833 11.205 21.9583 12.484 21.975 13.85C21.9917 14.7667 21.8873 15.6627 21.662 16.538C21.4367 17.4133 21.091 18.2507 20.625 19.05C20.4417 19.3667 20.1957 19.6043 19.887 19.763C19.5783 19.9217 19.241 20.0007 18.875 20H5.1Z" fill="#2D3748"></path>
+	                                </svg>
+	                                Max Speed
+	                            </span>
+	                            <span>${vessel.MaximumSpeedMeasure}</span>
+	                        </div>
+	                    </div>
 					</div>
 
 					<div class="ri-bottom">
-						<span>
-							
+						<span>		
+							<a href="${ vesselKeywordLocationLink }" class="ri-location">					
+								<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M15.75 7.5C15.75 12.75 9 17.25 9 17.25C9 17.25 2.25 12.75 2.25 7.5C2.25 5.70979 2.96116 3.9929 4.22703 2.72703C5.4929 1.46116 7.20979 0.75 9 0.75C10.7902 0.75 12.5071 1.46116 13.773 2.72703C15.0388 3.9929 15.75 5.70979 15.75 7.5Z" stroke="#067AED" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+									<path d="M9 9.75C10.2426 9.75 11.25 8.74264 11.25 7.5C11.25 6.25736 10.2426 5.25 9 5.25C7.75736 5.25 6.75 6.25736 6.75 7.5C6.75 8.74264 7.75736 9.75 9 9.75Z" stroke="#067AED" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+									</svg>
+									${ vesselLocation }
+							</a>
 						</span>
-
+					
 						<a href="#ysp-yacht-results-lead-modal" class="ri-contact" data-modal="#ysp-yacht-results-lead-modal">
 							Contact
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">

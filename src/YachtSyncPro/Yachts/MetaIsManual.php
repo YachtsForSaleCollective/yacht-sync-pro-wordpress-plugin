@@ -26,7 +26,7 @@
 
 			$_is_yacht_manual_entry=get_post_meta($post->ID, 'is_yacht_manual_entry', true);
 
-			echo 'yeeaah man? <br>';
+			echo 'Manual Entry <br>';
 			echo "<input type='checkbox' name='is_yacht_manual_entry' value='yes' ". checked('yes', $_is_yacht_manual_entry, false) ." />";	
 		}
 

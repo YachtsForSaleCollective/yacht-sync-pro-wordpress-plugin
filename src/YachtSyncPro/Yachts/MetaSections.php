@@ -65,6 +65,9 @@
 				    'CompanyBoat',
 				    'CompanyName',
 				    'DocumentID',
+					'CruisingSpeedMeasure',
+					'MaximumSpeedMeasure',
+					'RangeMeasure',
 				    //'GeneralBoatDescription',
 				    //'AdditionalDetailDescription',
 				    'HeadsCountNumeric',
@@ -81,7 +84,13 @@
 				    'TotalEnginePowerQuantity',
 				    'CompanyWeight',
 				    'MakeWeight',
-					'SalesStatusWeight'
+					'SalesStatusWeight',
+					'YSP_Length_Feet_Measurement',
+					'YSP_Length_Inch_Measurement',
+					'YSP_Beam_Feet_Measurement',
+					'YSP_Beam_Inch_Measurement',
+					'YSP_Max_Draft_Feet_Measurement',
+					'YSP_Max_Draft_Inch_Measurement',
 				];
 
 				foreach ($fields as $field) {
@@ -113,9 +122,6 @@
 				if (isset($_POST['BoatClassCode'])) {
 					update_post_meta($post_id, "BoatClassCode", [ $_POST['BoatClassCode'] ]);
 				}
-
 			}
 		}
-
-
 	}

@@ -43,7 +43,7 @@ get_header();
             $vessel = (object) $vessel; 
             $yacht = (object) $vessel; 
 
-            $vesselLocation = ($yacht->BoatLocation->BoatCountryID == "US" || $yacht->BoatLocation->BoatCountryID == "United States") ? $yacht->BoatLocation->BoatCityName.', '.$yacht->BoatLocation->BoatStateCode : $yacht->BoatLocation->BoatCityName.', '. $yacht->BoatLocation->BoatCountryID;
+            $vesselLocation = ($vessel->YSP_CountryID == "US" || $vessel->YSP_Country == "United States") ? $vessel->YSP_City.', '. $vessel->YSP_State : $vessel->YSP_City.', '. $vessel->YSP_CountryID;
 
             if (isset($vessel->SalesRep->Name)) {
                 $brokerNameFromApi = $vessel->SalesRep->Name;
@@ -234,28 +234,15 @@ get_header();
 
                         <span>
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                <circle cx="6" cy="6" r="6" fill="#4AAE8C"/>
+                                <circle cx="6" cy="6" r="6" fill="#C00020"/>
                             </svg>
                             
-                            <b>FOR SALE</b> | Active
+                            <b>SOLD</b>
                         </span>
 
+
                         <span class="ysp-single-y-price">
-                            <?php
-                                if ($vessel->YSP_USDVal != 0) {
-
-                                    if ($YSP_Euro_Opt == "yes") {
-                                        echo '€' . number_format($vessel->YSP_EuroVal) . ' ' . 'EUR';
-                                    } else {
-                                        echo '$' . number_format($vessel->YSP_USDVal);
-                                    }
-                                }
-                                else {
-                                    echo "Call For Price";
-                                }
-
-
-                            ?>
+                            Call For Price
                         </span>
                     </div>
 
@@ -574,7 +561,7 @@ get_header();
                     </div>
 
                     <div style="display: none;">
-                        <?php for ($imgI=9; $img <= count($vessel->Images) && $imgI <= 25; $imgI++) : 
+                        <?php for ($imgI=0; $img <= count($vessel->Images) && $imgI <= 25; $imgI++) : 
                             if (isset($vessel->Images[ $imgI ]->Uri)) :
                             ?>
                             <img data-thumb-src="<?php echo ($vessel->Images[ $imgI ]->Uri); ?>" src="<?php echo ($vessel->Images[ $imgI ]->Uri); ?>" alt=""  loading="lazy" />    

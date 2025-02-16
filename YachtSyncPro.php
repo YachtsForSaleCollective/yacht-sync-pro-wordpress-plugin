@@ -18,7 +18,7 @@ define( 'YSP_TEMPLATES_DIR', dirname(__FILE__).'/partials' );
 
 define( 'YSP_ASSETS', plugin_dir_url(__FILE__) . '');
 
-define( 'YSP_VERSION', '2.6.1');
+define( 'YSP_VERSION', '2.6.3');
 
 // class auto loader
 
@@ -41,7 +41,7 @@ function initYachtSyncPro() {
     YachtSyncPro_Init(__FILE__);
 }
 
-
+/*
 //////////////////////////////////
 // Run Updater
 /////////////////////////////////
@@ -63,4 +63,4 @@ $myUpdateChecker = PucFactory::buildUpdateChecker(
 $myUpdateChecker->setAuthentication('git_hub_token_secret_something');
 
 //Optional: Set the branch that contains the stable release.
-$myUpdateChecker->setBranch('wp-admin-release');
+$myUpdateChecker->setBranch('wp-admin-release');*/

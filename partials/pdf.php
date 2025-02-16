@@ -51,9 +51,13 @@ $cruisingSpeed = $vessel->CruisingSpeedMeasure;
 $dryWeight = $vessel->DryWeightMeasure;
 $int_var = (int)filter_var($dryWeight, FILTER_SANITIZE_NUMBER_INT);
 $draft = $vessel->MaxDraft;
-$length = $vessel->NominalLength;
+$length = $vessel->YSP_LOAFeet;
+
 $lengthOverall = $vessel->LengthOverall;
 $length2 = $vessel->NormNominalLength;
+
+$lengthMeters =  $vessel->YSP_LOAMeter;
+
 $make = $vessel->MakeString;
 $model = $vessel->Model;
 $maxSpeed = $vessel->MaximumSpeedMeasure;
@@ -432,7 +436,7 @@ else {
                 <img width="90" height="50" src="<?php echo YSP_ASSETS; ?>images/Length.svg" alt="" />
                 <div class="main-length">
                     <p class="length-name">LENGTH</p>
-                    <p class="length-value"><?= $length ?> </p>
+                    <p class="length-value"><?= $length ?>ft</p>
                 </div>
             </div>
         </div>
@@ -471,7 +475,7 @@ else {
                 <table class="specifications-table">
                     <tr>
                         <th>LENGTH OVERALL</th>
-                        <td></td>
+                        <td><?= (isset($length) && isset($lengthMeters)) ? $length . "ft / " . $lengthMeters . " m" : "N/A" ?></td>
                     </tr>
                     <tr>
                         <th>BEAM</th>
@@ -530,11 +534,7 @@ else {
             <table class="other-specs-table">
                 <tr>
                     <th>LENGTH</th>
-                    <td><?= (isset($length) && isset($lengthMeters)) ? $length . " / " . $lengthMeters . " m" : "N/A" ?></td>
-                </tr>
-                <tr>
-                    <th>OVERALL</th>
-                    <td></td>
+                    <td><?= (isset($length) && isset($lengthMeters)) ? $length . "ft / " . $lengthMeters . " m" : "N/A" ?></td>
                 </tr>
                 <tr>
                     <th>BEAM</th>

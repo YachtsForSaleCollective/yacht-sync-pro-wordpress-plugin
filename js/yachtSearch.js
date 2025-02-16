@@ -401,9 +401,15 @@ document.addEventListener("DOMContentLoaded", function() {
                     SelectorEle.forEach((ele) => {
                         let option = document.createElement("OPTION");
 
+                        if (typeof b == 'object') {
+                            option.text = b.t;
+                            option.value = b.v;
+                        }
+                        else {
                             option.text = b;
                             option.value = b;
-
+                        }
+                        
                         ele.add(option);
                     });
                 });

@@ -258,14 +258,14 @@
 				$resultsOfSync[]=$this->ImportGlobalBoatsCom2->run();
 			}
 
-			if (!empty($yacht_broker_org_api_token)) {
-				$resultsOfSync[]=$this->ImportYachtBrokerOrg->run();
-			}
-
 			if (!empty($yacht_broker_org_api_token_2)) {
 				$resultsOfSync[]=$this->ImportYachtBrokerOrgGlobal->run();
 			}
 
+			if (!empty($yacht_broker_org_api_token)) {
+				$resultsOfSync[]=$this->ImportYachtBrokerOrg->run();
+			}
+			
 			if (! empty($boats_com_api_brokerage_key)) {
 				$resultsOfSync[]=$this->ImportBrokerageOnlyBoatsCom->run();
 			}

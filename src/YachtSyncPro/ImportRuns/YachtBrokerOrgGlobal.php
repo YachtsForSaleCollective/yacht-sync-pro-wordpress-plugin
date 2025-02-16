@@ -14,6 +14,7 @@
 
 			$this->yachtBrokerAPIKey = $this->options->get('yacht_broker_org_api_token_2');
 			$this->yachtClientId = $this->options->get('yacht_broker_org_id_2');
+			$this->yachtBrokerageId = $this->options->get('yacht_broker_brokerage_id');
 
 			$this->euro_c_c = floatval($this->options->get('euro_c_c'));
 			$this->usd_c_c = floatval($this->options->get('usd_c_c'));
@@ -90,13 +91,13 @@
 		           	$theBoat=[
 		           		'BoatLocation' => (object) [
 		           			'BoatCityName' => $row['City'],
-		           			'BoatCountryID' => $this->LocationConvert->filpped_country[ $row['Country'] ],
-		           			'BoatStateCode' => $this->LocationConvert->filpped_state[ $row['State'] ]
+		           			'BoatCountryID' => $row['Country'],
+		           			'BoatStateCode' => $row['State']
 		           		],
 
 		           		'YSP_City' => $row['City'],
-		           		'YSP_CountryID' => $this->LocationConvert->filpped_country[ $row['Country'] ],
-		           		'YSP_State' => $this->LocationConvert->filpped_state[ $row['State'] ],
+		           		'YSP_CountryID' => $row['Country'],
+		           		'YSP_State' => $row['State'],
 
 		           		'YSP_Full_Country' => $row['Country'],
 		           		'YSP_Full_State' => $row['State'],
@@ -146,11 +147,19 @@
 		                'YSP_LOAFeet' => 'LOAFeet',
 		                'YSP_LOAMeter' => 'LOAMeter',
 						
-						'YSP_BeamFeet' => 'BeamFeet',
-		                'YSP_BeamMeter' => 'BeamMeter',
+						'YSP_Beam_Feet_Measurement' => 'BeamFeet',
+						'YSP_Beam_Inch_Measurement' => 'BeamInch',
+
+						'YSP_Max_Draft_Feet_Measurement' => 'MaximumDraftFeet',
+						'YSP_Max_Draft_Inch_Measurement' => 'MaximumDraftInches',
 
                         'YSP_USDVal' => 'PriceUSD',
                         'YSP_EuroVal' => 'PriceEuro',
+
+						'YSP_Country' => 'Country',
+						'YSP_Full_Country' => 'Country',
+						'YSP_State' => 'State',
+						'YSP_City' => 'City',
 
 		                'AdditionalDetailDescription' => 'Description',
 		                'CabinCountNumeric' => 'CabinCount'
@@ -179,6 +188,29 @@
 		            }
 
 		            $theBoat['Images'] = $images;
+
+					if (isset($row['Media']['YoutubeIDs'])) {
+						$youtubeVideoData = [];
+						foreach ($row['Media']['YoutubeIDs'] as $media) {
+							$youtubeVideoData[] = (object) [
+								'YoutubeID' => $media['YoutubeVideoID'],
+								'Title' => $media['YoutubeVideoTitle'],
+							];
+						}
+
+						$theBoat['YSP_YouTubeData'] = $youtubeVideoData;
+					}
+
+					if (isset($row['Media']['VirtualTours'])) {
+						$virtualTourData = [];
+						foreach ($row['Media']['VirtualTours'] as $tour) {
+							$virtualTourData[] = (object) [
+								'URL' => $tour['VirtualTourURL'],
+							];
+						}
+
+						$theBoat['YSP_VirtualTours'] = $virtualTourData;
+					}
 
 					if (isset($row['NominalLength'])) {
 						$theBoat['YSP_Length'] = (int) $row['NominalLength'];
@@ -209,6 +241,14 @@
 		                $theBoat['BeamMeasure']=$row['BeamFeet'];
 		            }
 
+					if (isset($row['MaximumDraftFeet'])) {
+						$theBoat['YSP_Max_Draft_Feet_Measurement'] = $row['MaximumDraftFeet'];
+					}
+
+					if (isset($row['MaximumDraftInches'])) {
+						$theBoat['YSP_Max_Draft_Inch_Measurement'] = $row['MaximumDraftInches'];
+					}
+
 		            if (isset($row['WaterTankCapacityMeasure'])) {
 		                $row['WaterTankCapacityMeasure'] .= '|gallon';
 
@@ -230,6 +270,14 @@
 		            if (isset($row['Category'])) {
 		                $theBoat['BoatClassCode'] = [$row['Category']];
 		            }
+					
+					if (isset($row['ListingOwnerBrokerageID'])) {
+						if ($row['ListingOwnerBrokerageID'] == (int) $this->yachtBrokerageId) {
+							$theBoat['CompanyBoat'] = 1;
+						}
+					} else {
+						$theBoat['CompanyBoat'] = 0;
+					}
 
 		            // if there is no additional description and TextBlocks has description then let's grab it from there.
 		            if (isset($row['AdditionalDetailDescription']) && ! empty($row['AdditionalDetailDescription']) 
@@ -309,6 +357,9 @@
 	                    ],
 	                ]);
 
+					$pdf_still_e = false;
+		           	$yacht_updated = false;
+
 		           	if (! isset($find_post_from_synced[0]->ID)) {
 			            if (! empty($record['BoatHullID'])) {
 			                $find_post_from_synced=get_posts([
@@ -334,39 +385,37 @@
 					if (isset($find_post_from_synced[0]->ID)) {
 	                	$synced_post_id = $find_post_from_synced[0]->ID;
 
-		                $synced_pdf = get_post_meta($synced_post_id, 'YSP_PDF_URL', true);
+		                // $synced_pdf = get_post_meta($synced_post_id, 'YSP_PDF_URL', true);
 
 		                $saved_last_mod_date = get_post_meta($synced_post_id, 'LastModificationDate', true);
 		                $current_last_mod_date = $theBoat['LastModificationDate'];
 
-		                if (!is_null($synced_pdf) && !empty($synced_pdf)) {
-							$apiPDF = wp_remote_request($synced_pdf, [
-								'method' => 'HEAD',
+		                // if (!is_null($synced_pdf) && !empty($synced_pdf)) {
+						// 	$apiPDF = wp_remote_request($synced_pdf, [
+						// 		'method' => 'HEAD',
+						// 		'timeout' => 180,
+						// 		'stream' => false, 
+						// 		'headers' => [
+						// 			'Content-Type'  => 'application/pdf',
 
-								'timeout' => 180,
-								'stream' => false, 
-								
-								'headers' => [
-									'Content-Type'  => 'application/pdf',
+						// 		]
+						// 	]);
 
-								]
-							]);
+						// 	$api_status_code = wp_remote_retrieve_response_code($apiPDF);
 
-							$api_status_code = wp_remote_retrieve_response_code($apiPDF);
-
-							if ($api_status_code == '200') {
-								$pdf_still_e = true;
-							}
-						}
+						// 	if ($api_status_code == '200') {
+						// 		$pdf_still_e = true;
+						// 	}
+						// }
 
 						if (strtotime($current_last_mod_date) > strtotime($saved_last_mod_date)) {
 							$pdf_still_e = false;
 							$yacht_updated = true;
 						}
 
-						if ( $pdf_still_e ) {
-							$theBoat['YSP_PDF_URL'] = $synced_pdf;
-						}
+						// if ( $pdf_still_e ) {
+						// 	$theBoat['YSP_PDF_URL'] = $synced_pdf;
+						// }
 
 						// carry overs
 						foreach ($this->CarryOverKeys as $metakey) {
@@ -394,12 +443,10 @@
 		            }*/
 		            elseif (isset($find_post[0]->ID)) {
 		                $post_id=$find_post[0]->ID;
-
 		                $wpdb->delete($wpdb->postmeta, ['post_id' => $find_post[0]->ID], ['%d']);
 		            }
 
-		            $theBoat['CompanyBoat'] = 0;
-		            $theBoat['Touched_InSync'] = 1;
+		            // $theBoat['Touched_InSync'] = 1;
 		            $theBoat['ImportSource'] = "IYBA";
 
 		            $y_post_id=wp_insert_post(
@@ -407,7 +454,7 @@
 			                [
 			                    'ID' => $post_id,
 								'post_type' => 'syncing_ysp_yacht',
-								'post_title' =>  addslashes( $theBoat['ModelYear'].' '.$theBoat['MakeString'].' '.$theBoat['Model'].' '.$theBoat['BoatName'] ),
+								'post_title' =>  addslashes( $theBoat['ModelYear'].' '.$theBoat['MakeString'].' '.$theBoat['Model'].($theBoat['BoatName'] ? ' '.$theBoat['BoatName'] : '') ),
 								'post_name' => sanitize_title(
 									$theBoat['ModelYear'].'-'.$theBoat['MakeString'].'-'.$theBoat['Model']
 								),
@@ -425,25 +472,25 @@
 					wp_set_post_terms($y_post_id, $theBoat['BoatCategoryCode'], 'boattype', false);
 					wp_set_post_terms($y_post_id, $theBoat['SaleClassCode'], 'boatcondition', false);
 
-					if ($this->opt_prerender_brochures == 'yes' && $pdf_still_e == false && ! in_array($theBoat['SalesStatus'], ['Sold', 'Suspend']) ) {
+					// if ($this->opt_prerender_brochures == 'yes' && $pdf_still_e == false && ! in_array($theBoat['SalesStatus'], ['Sold', 'Suspend']) ) {
 
-						$generatorPDF = wp_remote_post(
-							"https://api.urlbox.io/v1/render/async", 
-							[
-								'headers' => [
-									'Authorization' => 'Bearer ae1422deb6fc4f658c55f5dda7a08704',
-									'Content-Type' => 'application/json'
-								],
-								'body' => json_encode([
-									'url' => get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $y_post_id,
-									'webhook_url' => get_rest_url() ."ysp/set-yacht-pdf?yacht_post_id=". $y_post_id,
-									'use_s3' => true,
-									'format' => 'pdf'
-								])
-							]
-						);
+					// 	$generatorPDF = wp_remote_post(
+					// 		"https://api.urlbox.io/v1/render/async", 
+					// 		[
+					// 			'headers' => [
+					// 				'Authorization' => 'Bearer ae1422deb6fc4f658c55f5dda7a08704',
+					// 				'Content-Type' => 'application/json'
+					// 			],
+					// 			'body' => json_encode([
+					// 				'url' => get_rest_url() ."ysp/yacht-pdf?yacht_post_id=". $y_post_id,
+					// 				'webhook_url' => get_rest_url() ."ysp/set-yacht-pdf?yacht_post_id=". $y_post_id,
+					// 				'use_s3' => true,
+					// 				'format' => 'pdf'
+					// 			])
+					// 		]
+					// 	);
 
-					}
+					// }
 		        }
 
 	        }

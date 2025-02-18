@@ -287,7 +287,7 @@
 		                foreach ($row['Engines'] as $engine) {
 		                    $enginePower += $engine['PowerHP'];
 		                    
-		                    $engines[]   = (object)  [
+		                    $engines[] = [
 		                        'Make'        => $engine['EngineMake'],
 		                        'Model'       => $engine['EngineModel'],
 		                        'Fuel'        => $engine['FuelType'],
@@ -300,10 +300,14 @@
 		                $theBoat['TotalEnginePowerQuantity'] = number_format($enginePower, 2).' hp';
 		            }
 
-		         /*   if (isset($boat['Engines'])) {
+		         	if (isset($boat['Engines'])) {
 						$boatC->YSP_EngineCount = count($boat['Engines']);
+						
 						if (isset($boat['Engines'][0]['Model'])){
 							$boatC->YSP_EngineModel = $boat['Engines'][0]['Model'];
+						}
+						if (isset($boat['Engines'][0]['Make'])){
+							$boatC->YSP_EngineMake = $boat['Engines'][0]['Make'];
 						}
 						if (isset($boat['Engines'][0]['Fuel'])){
 							$boatC->YSP_EngineFuel = $boat['Engines'][0]['Fuel'];
@@ -317,7 +321,7 @@
 						if (isset($boat['Engines'][0]['Type'])){
 							$boatC->YSP_EngineType = $boat['Engines'][0]['Type'];
 						}
-					}*/
+					}
 
 		            if (! empty($theBoat['BoatHullID'])) {
 		                $find_post=get_posts([

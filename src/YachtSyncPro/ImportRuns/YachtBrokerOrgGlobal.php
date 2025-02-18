@@ -298,7 +298,7 @@
 		                foreach ($row['Engines'] as $engine) {
 		                    $enginePower += $engine['PowerHP'];
 		                    
-		                    $engines[]   = (object)  [
+		                    $engines[]   =  [
 		                        'Make'        => $engine['EngineMake'],
 		                        'Model'       => $engine['EngineModel'],
 		                        'Fuel'        => $engine['FuelType'],
@@ -311,24 +311,24 @@
 		                $theBoat['TotalEnginePowerQuantity'] = number_format($enginePower, 2).' hp';
 		            }
 
-		         /*   if (isset($boat['Engines'])) {
-						$boatC->YSP_EngineCount = count($boat['Engines']);
-						if (isset($boat['Engines'][0]['Model'])){
-							$boatC->YSP_EngineModel = $boat['Engines'][0]['Model'];
+		         	if (isset($theBoat['Engines'])) {
+						$theBoatC->YSP_EngineCount = count($theBoat['Engines']);
+						if (isset($theBoat['Engines'][0]['Model'])){
+							$theBoatC->YSP_EngineModel = $theBoat['Engines'][0]['Model'];
 						}
-						if (isset($boat['Engines'][0]['Fuel'])){
-							$boatC->YSP_EngineFuel = $boat['Engines'][0]['Fuel'];
+						if (isset($theBoat['Engines'][0]['Fuel'])){
+							$theBoatC->YSP_EngineFuel = $theBoat['Engines'][0]['Fuel'];
 						}
-						if (isset($boat['Engines'][0]['EnginePower'])){
-							$boatC->YSP_EnginePower = $boat['Engines'][0]['EnginePower'];
+						if (isset($theBoat['Engines'][0]['EnginePower'])){
+							$theBoatC->YSP_EnginePower = $theBoat['Engines'][0]['EnginePower'];
 						}
-						if (isset($boat['Engines'][0]['Hours'])){
-							$boatC->YSP_EngineHours = $boat['Engines'][0]['Hours'];
+						if (isset($theBoat['Engines'][0]['Hours'])){
+							$theBoatC->YSP_EngineHours = $theBoat['Engines'][0]['Hours'];
 						}
-						if (isset($boat['Engines'][0]['Type'])){
-							$boatC->YSP_EngineType = $boat['Engines'][0]['Type'];
+						if (isset($theBoat['Engines'][0]['Type'])){
+							$theBoatC->YSP_EngineType = $theBoat['Engines'][0]['Type'];
 						}
-					}*/
+					}
 
 		            if (! empty($theBoat['BoatHullID'])) {
 		                $find_post=get_posts([

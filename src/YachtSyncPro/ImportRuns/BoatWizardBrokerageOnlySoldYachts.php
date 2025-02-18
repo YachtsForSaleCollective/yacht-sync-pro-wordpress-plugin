@@ -304,6 +304,9 @@
 						if (isset($boat['Engines'][0]['Model'])){
 							$boatC->YSP_EngineModel = $boat['Engines'][0]['Model'];
 						}
+						if (isset($boat['Engines'][0]['Make'])){
+							$boatC->YSP_EngineMake = $boat['Engines'][0]['Make'];
+						}
 						if (isset($boat['Engines'][0]['Fuel'])){
 							$boatC->YSP_EngineFuel = $boat['Engines'][0]['Fuel'];
 						}

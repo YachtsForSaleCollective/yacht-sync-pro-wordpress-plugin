@@ -344,6 +344,25 @@
 					if (isset($data['HullDeck']['HullID'])) {
 	                    $theBoat['BoatHullID'] = $data['HullDeck']['HullID'];
 					}
+
+					if (isset($data['Engines']) && is_array($data['Engines'])) {
+		                $engines     = [];
+		                $enginePower = 0;
+		                foreach ($data['Engines'] as $engine) {
+		                    $enginePower += $engine['PowerHP'];
+		                    
+		                    $engines[] = [
+		                        'Make'        => $engine['Make'],
+		                        'Model'       => $engine['Model'],
+		                        'Fuel'        => $engine['FuelType'],
+		                        'EnginePower' => $engine['Horsepower'],
+		                        'Type'        => $engine['EngineType'],
+		                        'Hours'       => $engine['AppoxHours'],
+		                    ];
+		                }
+		                $theBoat['Engines']                  = $engines;
+		                $theBoat['TotalEnginePowerQuantity'] = number_format($enginePower, 2).' hp';
+		            }
 					
 					if (
 						( 

@@ -11,8 +11,8 @@
         <div class="ysp-s-field">
             <label>Condition</label>
 
-            <div class="selection-overflow">
-                <label><input type="checkbox" name="condition" value="" style='width: auto;'> Both</label>
+            <div class="selection-overflow" style="height: 120px;">
+                <label><input type="checkbox" name="condition" value="" > Both</label>
                  <?php 
 
                     $conditions = get_terms([
@@ -23,7 +23,29 @@
 
                     foreach ($conditions as $c) {
                         
-                        echo "<label><input type='checkbox' name='boatcondition' value='$c->name' style='width: auto;'> $c->name ($c->count)</label>";
+                        echo "<label><input type='checkbox' name='boatcondition' value='$c->name'  class='submit-on-change' /> $c->name</label>";
+
+                    }
+                ?>
+            </div>
+        </div>
+        
+        <div class="ysp-s-field">
+            <label>Type</label>
+
+            <div class="selection-overflow" style="height: 120px;">
+                <label><input type="checkbox" name="boattype" value="" > Both</label>
+                 <?php 
+
+                    $conditions = get_terms([
+                        'taxonomy' => 'boattype',
+                        'post_type' => 'ysp_yacht',
+                        'hide_empty' => true,
+                    ]);
+
+                    foreach ($conditions as $c) {
+                        
+                        echo "<label><input type='checkbox' name='boattype' value='$c->name'  class='submit-on-change' /> $c->name</label>";
 
                     }
                 ?>
@@ -35,7 +57,7 @@
             <div class="selection-overflow">
             
                 <?php 
-                    echo "<label class='pick-all'><input type='checkbox' name='boatclass' value='' style='width: auto;'> All</label>";
+                    echo "<label class='pick-all'><input type='checkbox' name='boatclass' value='' > All</label>";
 
                     $categories = get_terms([
                         'taxonomy' => 'boatclass',
@@ -45,7 +67,7 @@
 
                     foreach ($categories as $cat) {
                         
-                        echo "<label><input type='checkbox' name='boatclass' value='$cat->name' style='width: auto;'> $cat->name ($cat->count)</label>";
+                        echo "<label><input type='checkbox' name='boatclass' value='$cat->name'  class='submit-on-change' /> $cat->name</label>";
 
                     }
                 ?>
@@ -57,7 +79,7 @@
             
             <div class="selection-overflow">
                 <?php 
-                    echo "<label><input type='checkbox' name='boatmaker' value='' style='width: auto;'> All</label>";
+                    echo "<label><input type='checkbox' name='boatmaker' value='' /> All</label>";
                    
                     $YSP_DBHelper = new YachtSyncPro_DBHelper();
 
@@ -68,7 +90,7 @@
                     ]);
                     foreach ($builders as $build) {
 
-                        echo "<label><input type='checkbox' name='boatmaker' value='$build->slug' style='width: auto;'> $build->name ($build->count)</label>";
+                        echo "<label><input type='checkbox' name='boatmaker' value='$build->slug'  class='submit-on-change'/> $build->name</label>";
 
                     }
                 ?>
@@ -80,13 +102,13 @@
             
             <div style="height: 100px; overflow-y: scroll;">
                 <?php 
-                    echo "<label  class='pick-all'><input type='checkbox' name='staterooms' value='' style='width: auto;'> All</label>";
+                    echo "<label  class='pick-all'><input type='checkbox' name='staterooms' value='' > All</label>";
 
                     $hulls = $YSP_DBHelper->get_unique_yacht_meta_values('BoatHullMaterialCode');
 
                     foreach ($hulls as $hull) {
 
-                        echo "<label><input type='checkbox' name='hull' value='$hull' style='width: auto;'> $hull</label>";
+                        echo "<label><input type='checkbox' name='hull' value='$hull'  class='submit-on-change' /> $hull</label>";
 
                     }
                 ?>
@@ -98,11 +120,11 @@
             
             <div style="height: 100px; overflow-y: scroll;">
                 <?php 
-                    echo "<label  class='pick-all'><input type='checkbox' name='staterooms' value='' style='width: auto;'> All</label>";
+                    echo "<label  class='pick-all'><input type='checkbox' name='staterooms' value='' /> All</label>";
                     
                     for ($s=1; $s <= 9; $s++) {
 
-                        echo "<label><input type='checkbox' name='staterooms' value='$s' style='width: auto;'> Stateroom $s</label>";
+                        echo "<label><input type='checkbox' name='staterooms' value='$s' class='submit-on-change' /> Stateroom $s</label>";
 
                     }
                 ?>
@@ -112,9 +134,9 @@
         <div class="ysp-s-field">
             <label>Year</label>
             <div class="min-max-container">
-                <input type="number" name="yearlo" placeholder="Min"/>
+                <input type="number" name="yearlo" placeholder="Min" class='submit-on-change' />
                 <span>-</span>
-                <input type="number" name="yearhi" placeholder="Max"/>
+                <input type="number" name="yearhi" placeholder="Max" class='submit-on-change' />
             </div>
         </div>
         
@@ -123,13 +145,13 @@
                 <label>Length</label>
                     
                 <div class="toggles">
-                    <input type="radio" name="lengthunit" id="ysp-lenghtft-qs" checked="" value="Feet" />
+                    <input type="radio" name="lengthunit" id="ysp-lenghtft-qs" checked="" value="Feet" class='submit-on-change' />
                     
                     <label class="" for="ysp-lenghtft-qs">
                         FT
                     </label>
 
-                    <input type="radio" name="lengthunit" id="ysp-lenghtm-qs" value="Meter" />
+                    <input type="radio" name="lengthunit" id="ysp-lenghtm-qs" value="Meter" class='submit-on-change' />
                     
                     <label class="" for="ysp-lenghtm-qs">
                         M
@@ -138,9 +160,9 @@
             </div>    
 
             <div class="min-max-container">
-                <input type="number" name="lengthlo" placeholder="Min"/>
+                <input type="number" name="lengthlo" placeholder="Min" class='submit-on-change'/>
                 <span>-</span>
-                <input type="number" name="lengthhi" placeholder="Max"/>
+                <input type="number" name="lengthhi" placeholder="Max" class='submit-on-change'/>
             </div>
         </div>
         
@@ -149,13 +171,13 @@
                 <label>Price</label>
                     
                 <div class="toggles">
-                    <input type="radio" name="currency" id="ysp-currency-switcher-usd-qs" value="Usd" checked="" />
+                    <input type="radio" name="currency" id="ysp-currency-switcher-usd-qs" value="Usd" checked="" class='submit-on-change' />
 
                     <label class="" for="ysp-currency-switcher-usd-qs">
                         USD
                     </label>
 
-                    <input type="radio" class="btn-check" name="currency" id="ysp-currency-switcher-eur-qs" value="Eur" />
+                    <input type="radio" class="btn-check" name="currency" id="ysp-currency-switcher-eur-qs" value="Eur" class='submit-on-change'/>
                     
                     <label class="" for="ysp-currency-switcher-eur-qs">
                         EUR
@@ -164,9 +186,9 @@
             </div>    
 
             <div class="min-max-container">
-                <input type="number" name="pricelo" placeholder="Min"/>
+                <input type="number" name="pricelo" placeholder="Min" class='submit-on-change'/>
                 <span>-</span>
-                <input type="number" name="pricehi" placeholder="Max"/>
+                <input type="number" name="pricehi" placeholder="Max" class='submit-on-change'/>
             </div>
         </div>
         
